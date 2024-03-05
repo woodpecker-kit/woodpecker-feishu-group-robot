@@ -1,0 +1,1 @@
+[{"Mark":"oss_send_transfer","CiWorkflowName":"build","CiWorkflowNumber":"1","Data":{"OssHost":"https://docs.aws.amazon.com/s3/index.html","InfoSendResult":"success","OssUserProfile":{"UserName":"","UserToken":""},"OssPath":"dist/demo/pass.tar.gz","ResourceUrl":"https://docs.aws.amazon.com/s/dist/demo/pass.tar.gz","PagePasswd":"","PageUrl":""}}]

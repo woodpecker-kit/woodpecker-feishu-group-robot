@@ -1,0 +1,4 @@
+!testdata/
+!testdata/ossCardOssSuccess/.woodpecker_kit.steps.transfer
+!testdata/ossCardSendFailure/.woodpecker_kit.steps.transfer
+!testdata/ossCardSendSuccessWithPass/.woodpecker_kit.steps.transfer

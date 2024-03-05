@@ -1,0 +1,69 @@
+{
+  "timestamp": 0,
+  "sign": "",
+  "msg_type": "interactive",
+  "card": {
+    "config": {
+      "enable_forward": false
+    },
+    "header": {
+      "template": "green",
+      "title": {
+        "tag": "plain_text",
+        "content": "woodpecker-kit/guidance-woodpecker-agent"
+      }
+    },
+    "elements": [
+      {
+        "tag": "markdown",
+        "content": "****"
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "markdown",
+        "content": "📝 Commit by sinlov on **main**\nCommitCode: 9c764dd487bce596c5c0402478fabde5f0344983"
+      },
+      {
+        "tag": "markdown",
+        "content": "✅ Build [#10](https://woodpecker.domain.com/repos/2/pipeline/10) success"
+      },
+      {
+        "tag": "markdown",
+        "content": "**Commit:**\ntest: test message\n\n this is a test message"
+      },
+      {
+        "tag": "markdown",
+        "content": "[See Git Link](https://gitea.domain.com/sinlov/woodpecker-tools/commit/9c764dd487bce596c5c0402478fabde5f0344983) | [See Build Details](https://woodpecker.domain.com/repos/2/pipeline/10)"
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "markdown",
+        "content": "**Build Created At:** 2024-01-19-09-55-41\n**Build Time:** 25s\nMachine: worker\nPlatform: linux/amd64\nEvent: push"
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "note",
+        "elements": [
+          {
+            "tag": "plain_text",
+            "content": "From 2.3.0@woodpecker.domain.com. Powered By"
+          },
+          {
+            "tag": "img",
+            "img_key": "",
+            "alt": {
+              "tag": "plain_text",
+              "content": ""
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
