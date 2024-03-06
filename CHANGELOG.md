@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.2.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.1.0...v1.2.0) (2024-03-06)
+
+### ✨ Features
+
+* update feishu_status_success_ignore and feishu_status_change_success logic ([5f199c7f](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/5f199c7f1c7a74c218a47dfd70ffe596ffb476bd))
+
 ## [1.1.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.0.0...v1.1.0) (2024-03-06)
 
 ### ✨ Features
