@@ -1,7 +1,6 @@
 package feishu_plugin_test
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/sebdah/goldie/v2"
 	"github.com/stretchr/testify/assert"
@@ -15,10 +14,8 @@ import (
 func TestRenderFeishuCard(t *testing.T) {
 
 	// template config start
-	p := feishu_plugin.FeishuPlugin{
-		Name:    mockName,
-		Version: mockVersion,
-	}
+	t.Log("mock FeishuPlugin")
+	p := mockPlugin(t)
 
 	// use env:ENV_DEBUG
 	p.Config.Debug = valEnvPluginDebug
@@ -185,32 +182,4 @@ func TestRenderFeishuCard(t *testing.T) {
 		})
 	}
 
-}
-
-func deepCopyByPlugin(src, dst *feishu_plugin.FeishuPlugin) {
-	if tmp, err := json.Marshal(&src); err != nil {
-		return
-	} else {
-		err = json.Unmarshal(tmp, dst)
-		return
-	}
-}
-
-func checkCardOssRenderByPlugin(p *feishu_plugin.FeishuPlugin, pagePasswd string, sendOssSucc bool) {
-	p.Config.CardOss.PagePasswd = pagePasswd
-	if p.Config.CardOss.PagePasswd == "" {
-		p.Config.CardOss.RenderResourceUrl = feishu_plugin.RenderStatusShow
-	} else {
-		p.Config.CardOss.RenderResourceUrl = feishu_plugin.RenderStatusHide
-	}
-	if sendOssSucc {
-		p.Config.CardOss.InfoSendResult = feishu_plugin.RenderStatusShow
-	} else {
-		p.Config.CardOss.InfoSendResult = feishu_plugin.RenderStatusHide
-	}
-	p.Config.CardOss.Host = mockOssHost
-	p.Config.CardOss.InfoUser = mockOssUser
-	p.Config.CardOss.InfoPath = mockOssPath
-	p.Config.CardOss.ResourceUrl = mockOssResourceUrl
-	p.Config.CardOss.PageUrl = mockOssPageUrl
 }

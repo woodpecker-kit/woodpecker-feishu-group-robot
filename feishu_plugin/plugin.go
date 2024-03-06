@@ -135,17 +135,16 @@ func (p *FeishuPlugin) checkArgs() error {
 func (p *FeishuPlugin) doBiz() error {
 
 	if p.Config.StatusSuccessIgnore {
-		if p.Config.StatusChangeSuccess {
-			if p.WoodpeckerInfo.PreviousInfo.PreviousPipelineInfo.CiPreviousPipelineStatus == wd_info.BuildStatusSuccess {
-				wd_log.Verbosef("ignore notification previous pipeline just %s, url: %s\n",
-					wd_info.BuildStatusSuccess,
-					p.WoodpeckerInfo.PreviousInfo.PreviousPipelineInfo.CiPreviousPipelineUrl,
-				)
-				return nil
-			}
-
-		} else {
-			if p.WoodpeckerInfo.CurrentInfo.CurrentPipelineInfo.CiPipelineStatus == wd_info.BuildStatusSuccess {
+		if p.WoodpeckerInfo.CurrentInfo.CurrentPipelineInfo.CiPipelineStatus == wd_info.BuildStatusSuccess {
+			if p.Config.StatusChangeSuccess {
+				if p.WoodpeckerInfo.PreviousInfo.PreviousPipelineInfo.CiPreviousPipelineStatus == wd_info.BuildStatusSuccess {
+					wd_log.Verbosef("ignore notification previous pipeline just %s, url: %s\n",
+						wd_info.BuildStatusSuccess,
+						p.WoodpeckerInfo.PreviousInfo.PreviousPipelineInfo.CiPreviousPipelineUrl,
+					)
+					return nil
+				}
+			} else {
 				wd_log.Verbosef("ignore notification this build status [ %s ], pipeline url: %s\n",
 					wd_info.BuildStatusSuccess,
 					p.WoodpeckerInfo.CurrentInfo.CurrentPipelineInfo.CiPipelineUrl,

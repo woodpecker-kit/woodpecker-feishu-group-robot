@@ -14,20 +14,9 @@ import (
 
 func TestPluginMustArgs(t *testing.T) {
 	t.Log("mock FeishuPlugin")
-
-	p := feishu_plugin.FeishuPlugin{
-		Name:    mockName,
-		Version: mockVersion,
-	}
+	p := mockPlugin(t)
 
 	t.Log("mock woodpecker info")
-
-	// use env:ENV_DEBUG
-	p.Config.Debug = valEnvPluginDebug
-	p.Config.TimeoutSecond = envTimeoutSecond
-	p.Config.RootPath = testGoldenKit.GetTestDataFolderFullPath()
-	p.Config.StepsTransferPath = wd_steps_transfer.DefaultKitStepsFileName
-
 	// mock woodpecker info
 	woodpeckerInfo := wd_mock.NewWoodpeckerInfo(
 		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusCreated),
@@ -62,29 +51,9 @@ func TestPlugin(t *testing.T) {
 	}
 
 	t.Log("mock FeishuPlugin")
-	p := feishu_plugin.FeishuPlugin{
-		Name:    mockName,
-		Version: mockVersion,
-	}
+	p := mockPlugin(t)
 
-	t.Log("mock woodpecker info")
-
-	// use env:ENV_DEBUG
-	p.Config.Debug = valEnvPluginDebug
-	p.Config.TimeoutSecond = envTimeoutSecond
-	p.Config.RootPath = testGoldenKit.GetTestDataFolderFullPath()
-	p.Config.StepsTransferPath = wd_steps_transfer.DefaultKitStepsFileName
-
-	p.Config.Webhook = valEnvPluginWebHook
-	p.Config.Title = valEnvPluginTitle
-	p.Config.Secret = valEnvPluginSecret
-
-	// mock woodpecker info
-	woodpeckerInfo := wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
-	)
-	p.WoodpeckerInfo = woodpeckerInfo
-
+	t.Log("mock woodpecker plugin")
 	// statusSuccessIgnore
 	var statusSuccessIgnore feishu_plugin.FeishuPlugin
 	deepCopyByPlugin(&p, &statusSuccessIgnore)
