@@ -31,17 +31,14 @@ Please read [Contributor Guide](.github/CONTRIBUTING_DOC/CONTRIBUTING.md) for mo
 
 ## usage
 
-- use this template, replace list below and add usage
-    - `github.com/woodpecker-kit/woodpecker-feishu-group-robot` to your package name
-    - `woodpecker-kit` to your owner name
-    - `woodpecker-feishu-group-robot` to your project name
+## before use
 
-- use github action for this workflow push to docker hub, must add at github secrets 
-    - `DOCKERHUB_OWNER` user of docker hub
-    - `DOCKERHUB_REPO_NAME` repo name of docker hub
-    - `DOCKERHUB_TOKEN` token of docker hub user
-
-- if use `wd_steps_transfer` just add `.woodpecker_kit.steps.transfer` at git ignore
+- sed doc at [feishu Custom bot guide](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN?lang=en-US), to new group robot
+- Configure webhook like `https://open.feishu.cn/open-apis/bot/v2/hook/{web_hook}` end `{web_hook}`
+- `{web_hook}` must settings at `settings.feishu_webhook`or `PLUGIN_FEISHU_WEBHOOK`
+- if set `Custom keywords` you can change `settings.feishu_msg_title` or `PLUGIN_FEISHU_MSG_TITLE`
+- or set `Signature validation` by `settings.feishu_secret` or `PLUGIN_FEISHU_SECRET`
+- use `wd_steps_transfer` just add `.woodpecker_kit.steps.transfer` at git ignore
 
 ### workflow usage
 
@@ -51,43 +48,113 @@ Please read [Contributor Guide](.github/CONTRIBUTING_DOC/CONTRIBUTING.md) for mo
 labels:
   backend: docker
 steps:
-  env:
+  notification-feishu-group-robot:
     image: sinlov/woodpecker-feishu-group-robot:latest
     pull: false
     settings:
-      # debug: true
-      env_printer_print_keys: # print env keys
-        - GOPATH
-        - GOPRIVATE
-        - GOBIN
-      env_printer_padding_left_max: 36 # padding left max
-      steps_transfer_demo: false # open this show steps transfer demo
+      # debug: true # plugin debug switch
+      # feishu_ntp_target: "pool.ntp.org" # if not set will not sync ntp time
+      feishu_webhook:
+        # https://woodpecker-ci.org/docs/usage/secrets
+        from_secret: feishu_group_bot_token
+      feishu_secret:
+        from_secret: feishu_group_secret_bot
+      feishu_msg_title: "CI Notification" # default [CI Notification]
+      # let notification card change more info see https://open.feishu.cn/document/ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN
+      feishu_enable_forward: true
+      feishu_status_success_ignore: false # ignore this build success status
+      feishu_status_change_success: false # must open [ status_success_ignore ], when status change to success, compare with CI_PREV_PIPELINE_STATUS
+    when:
+      status: # only support failure/success,  both open will send anything
+        - failure
+        - success
 ```
 
 - workflow with backend `local`, must install at local and effective at evn `PATH`
 
 ```bash
-# install at ${GOPATH}/bin
-$ go install -v github.com/woodpecker-kit/woodpecker-feishu-group-robot/cmd/woodpecker-feishu-group-robot@latest
-# install version v1.0.0
-$ go install -v github.com/woodpecker-kit/woodpecker-feishu-group-robot/cmd/woodpecker-feishu-group-robot@v1.0.0
+go install -a github.com/woodpecker-kit/woodpecker-feishu-group-robot/cmd/woodpecker-feishu-group-robot@latest
+```
+
+- install at ${GOPATH}/bin, v1.0.0
+
+```bash
+go install -v github.com/woodpecker-kit/woodpecker-feishu-group-robot/cmd/woodpecker-feishu-group-robot@v1.0.0
 ```
 
 ```yml
 labels:
   backend: local
 steps:
-  env:
+  notification-feishu-group-robot:
     image: woodpecker-feishu-group-robot
     settings:
-      # debug: false
-      env_printer_print_keys: # print env keys
-        - GOPATH
-        - GOPRIVATE
-        - GOBIN
-      env_printer_padding_left_max: 36 # padding left max
-      steps_transfer_demo: false # open this show steps transfer demo
+      # debug: true # plugin debug switch
+      # feishu_ntp_target: "pool.ntp.org" # if not set will not sync ntp time
+      feishu_webhook:
+        # https://woodpecker-ci.org/docs/usage/secrets
+        from_secret: feishu_group_bot_token
+      feishu_secret:
+        from_secret: feishu_group_secret_bot
+      feishu_msg_title: "CI Notification" # default [CI Notification]
+      # let notification card change more info see https://open.feishu.cn/document/ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN
+      feishu_enable_forward: true
+      feishu_status_success_ignore: false # ignore this build success status
+      feishu_status_change_success: false # must open [ status_success_ignore ], when status change to success, compare with CI_PREV_PIPELINE_STATUS
+    when:
+      status: # only support failure/success,  both open will send anything
+        - failure
+        - success
 ```
+
+### steps transfer
+
+#### In step by mark: oss_send_transfer
+
+- with ResourceUrl
+
+```json
+{
+    "InfoSendResult": "success",
+    "OssHost": "https://docs.aws.amazon.com/s3/index.html",
+    "OssPath": "dist/demo/pass.tar.gz",
+    "OssUserProfile": {
+        "UserName": "",
+        "UserToken": ""
+    },
+    "PagePasswd": "",
+    "PageUrl": "",
+    "ResourceUrl": "https://docs.aws.amazon.com/s/dist/demo/pass.tar.gz"
+}
+```
+
+- with share by password
+
+```json
+{
+    "InfoSendResult": "success",
+    "OssHost": "https://docs.aws.amazon.com/s3/index.html",
+    "OssPath": "dist/demo/pass.tar.gz",
+    "OssUserProfile": {
+        "UserName": "",
+        "UserToken": ""
+    },
+    "PagePasswd": "abc-zxy",
+    "PageUrl": "https://docs.aws.amazon.com/p/dist/demo/page-xyz.html",
+    "ResourceUrl": ""
+}
+```
+
+### custom settings
+
+- `settings.debug` or `PLUGIN_DEBUG` can open plugin debug mode
+- `settings.timeout_second` or `PLUGIN_TIMEOUT_SECOND` can set send message timeout
+
+- `settings.feishu_ntp_target` or `PLUGIN_FEISHU_NTP_TARGET` set ntp server to sync time for `Signature validation` by error code 19021
+- `settings.feishu_msg_title` or `PLUGIN_FEISHU_MSG_TITLE` can change message card title
+- `settings.feishu_enable_forward` or `PLUGIN_FEISHU_ENABLE_FORWARD` can change message share way
+- `settings.feishu_msg_powered_by_image_key` or `PLUGIN_FEISHU_MSG_POWERED_BY_IMAGE_KEY` can change card img by feishu-image-key
+- `settings.feishu_msg_powered_by_image_alt` or `PLUGIN_FEISHU_MSG_POWERED_BY_IMAGE_ALT` can change card img alt tag name
 
 ---
 

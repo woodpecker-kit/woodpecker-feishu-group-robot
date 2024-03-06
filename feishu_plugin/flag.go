@@ -9,35 +9,35 @@ import (
 )
 
 const (
-	CliPluginNtpTarget = "settings.ntp_target"
-	EnvPluginNtpTarget = "PLUGIN_NTP_TARGET"
+	CliPluginNtpTarget = "settings.feishu_ntp_target"
+	EnvPluginNtpTarget = "PLUGIN_FEISHU_NTP_TARGET"
 
-	CliPluginWebhook = "settings.webhook"
-	EnvPluginWebhook = "PLUGIN_WEBHOOK"
+	CliPluginWebhook = "settings.feishu_webhook"
+	EnvPluginWebhook = "PLUGIN_FEISHU_WEBHOOK"
 
-	CliPluginSecret = "settings.secret"
-	EnvPluginSecret = "PLUGIN_SECRET"
+	CliPluginSecret = "settings.feishu_secret"
+	EnvPluginSecret = "PLUGIN_FEISHU_SECRET"
 
 	CliPluginFeishuEnableForward = "settings.feishu_enable_forward"
 	EnvPluginFeishuEnableForward = "PLUGIN_FEISHU_ENABLE_FORWARD"
 
-	CliPluginMsgType = "settings.msg_type"
-	EnvPluginMsgType = "PLUGIN_MSG_TYPE"
+	CliPluginStatusSuccessIgnore = "settings.feishu_status_success_ignore"
+	EnvPluginStatusSuccessIgnore = "PLUGIN_FEISHU_STATUS_SUCCESS_IGNORE"
 
-	CliPluginTitle = "settings.msg_title"
-	EnvPluginTitle = "PLUGIN_MSG_TITLE"
+	CliPluginStatusChangeSuccess = "settings.feishu_status_change_success"
+	EnvPluginStatusChangeSuccess = "PLUGIN_FEISHU_STATUS_CHANGE_SUCCESS"
 
-	CliPluginPoweredByImageKey = "settings.msg_powered_by_image_key"
-	EnvPluginPoweredByImageKey = "PLUGIN_MSG_POWERED_BY_IMAGE_KEY"
+	CliPluginTitle = "settings.feishu_msg_title"
+	EnvPluginTitle = "PLUGIN_FEISHU_MSG_TITLE"
 
-	CliPluginPoweredByImageAlt = "settings.msg_powered_by_image_alt"
-	EnvPluginPoweredByImageAlt = "PLUGIN_MSG_POWERED_BY_IMAGE_ALT"
+	CliPluginMsgType = "settings.feishu_msg_type"
+	EnvPluginMsgType = "PLUGIN_FEISHU_MSG_TYPE"
 
-	CliPluginStatusSuccessIgnore = "settings.status_success_ignore"
-	EnvPluginStatusSuccessIgnore = "PLUGIN_STATUS_SUCCESS_IGNORE"
+	CliPluginPoweredByImageKey = "settings.feishu_msg_powered_by_image_key"
+	EnvPluginPoweredByImageKey = "PLUGIN_FEISHU_MSG_POWERED_BY_IMAGE_KEY"
 
-	CliPluginStatusChangeSuccess = "settings.status_change_success"
-	EnvPluginStatusChangeSuccess = "PLUGIN_STATUS_CHANGE_SUCCESS"
+	CliPluginPoweredByImageAlt = "settings.feishu_msg_powered_by_image_alt"
+	EnvPluginPoweredByImageAlt = "PLUGIN_FEISHU_MSG_POWERED_BY_IMAGE_ALT"
 
 	OssUserNameUnknown = "unknown"
 )

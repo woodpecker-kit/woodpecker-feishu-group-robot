@@ -174,6 +174,7 @@ func TestPlugin(t *testing.T) {
 		p               feishu_plugin.FeishuPlugin
 		isDryRun        bool
 		workRoot        string
+		ossTransferKey  string
 		ossTransferData feishu_plugin_transfer.OssSendTransfer
 		wantErr         bool
 	}{
@@ -213,9 +214,10 @@ func TestPlugin(t *testing.T) {
 			isDryRun: true,
 		},
 		{
-			name:     "ossCardSendFailure",
-			p:        ossCardSendFailure,
-			workRoot: filepath.Join(testGoldenKit.GetTestDataFolderFullPath(), "ossCardSendFailure"),
+			name:           "ossCardSendFailure",
+			p:              ossCardSendFailure,
+			workRoot:       filepath.Join(testGoldenKit.GetTestDataFolderFullPath(), "ossCardSendFailure"),
+			ossTransferKey: feishu_plugin_transfer.OssSendTransferKey,
 			ossTransferData: feishu_plugin_transfer.OssSendTransfer{
 				InfoSendResult: wd_info.BuildStatusFailure,
 				OssHost:        mockOssHost,
@@ -223,9 +225,10 @@ func TestPlugin(t *testing.T) {
 			isDryRun: true,
 		},
 		{
-			name:     "ossCardOssSuccess",
-			p:        ossCardOssSuccess,
-			workRoot: filepath.Join(testGoldenKit.GetTestDataFolderFullPath(), "ossCardOssSuccess"),
+			name:           "ossCardOssSuccess",
+			p:              ossCardOssSuccess,
+			workRoot:       filepath.Join(testGoldenKit.GetTestDataFolderFullPath(), "ossCardOssSuccess"),
+			ossTransferKey: feishu_plugin_transfer.OssSendTransferKey,
 			ossTransferData: feishu_plugin_transfer.OssSendTransfer{
 				InfoSendResult: wd_info.BuildStatusSuccess,
 				OssHost:        mockOssHost,
@@ -235,9 +238,10 @@ func TestPlugin(t *testing.T) {
 			isDryRun: true,
 		},
 		{
-			name:     "ossCardSendSuccessWithPass",
-			p:        ossCardSendSuccessWithPass,
-			workRoot: filepath.Join(testGoldenKit.GetTestDataFolderFullPath(), "ossCardSendSuccessWithPass"),
+			name:           "ossCardSendSuccessWithPass",
+			p:              ossCardSendSuccessWithPass,
+			workRoot:       filepath.Join(testGoldenKit.GetTestDataFolderFullPath(), "ossCardSendSuccessWithPass"),
+			ossTransferKey: feishu_plugin_transfer.OssSendTransferKey,
 			ossTransferData: feishu_plugin_transfer.OssSendTransfer{
 				InfoSendResult: wd_info.BuildStatusSuccess,
 				OssHost:        mockOssHost,
@@ -253,11 +257,11 @@ func TestPlugin(t *testing.T) {
 			tc.p.Config.DryRun = tc.isDryRun
 			if tc.workRoot != "" {
 				tc.p.Config.RootPath = tc.workRoot
-				errGenTransferData := genOssTransferSteps(
-					tc.p.Config.RootPath,
-					tc.p.Config.StepsTransferPath,
-					*tc.p.WoodpeckerInfo,
-					tc.ossTransferData)
+				errGenTransferData := generateTransferStepsOut(
+					tc.p,
+					tc.ossTransferKey,
+					tc.ossTransferData,
+				)
 				if errGenTransferData != nil {
 					t.Fatal(errGenTransferData)
 				}
@@ -271,7 +275,7 @@ func TestPlugin(t *testing.T) {
 	}
 }
 
-func genOssTransferSteps(rootPath, fileName string, wd wd_info.WoodpeckerInfo, transferData feishu_plugin_transfer.OssSendTransfer) error {
-	_, err := wd_steps_transfer.Out(rootPath, fileName, wd, feishu_plugin_transfer.OssSendTransferKey, transferData)
+func generateTransferStepsOut(plugin feishu_plugin.FeishuPlugin, mark string, data interface{}) error {
+	_, err := wd_steps_transfer.Out(plugin.Config.RootPath, plugin.Config.StepsTransferPath, *plugin.WoodpeckerInfo, mark, data)
 	return err
 }
