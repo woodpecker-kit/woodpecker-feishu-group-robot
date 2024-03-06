@@ -1,0 +1,15 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
+
+## 1.0.0 (2024-03-06)
+
+### ✨ Features
+
+* add final flag and add usage of doc ([e67e5d9d](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/e67e5d9dfc631637eafebcc234bf6a2a37823ad1))
+
+* full notify of woodpecker for 2.0.+ ([77cb4534](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/77cb4534fbb5c7c4813a8b283e24d7540d92e75e))
+
+### 👷‍ Build System
+
+* github.com/woodpecker-kit/woodpecker-tools v1.13.0 ([88e409f2](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/88e409f2b352931d0c102268590929b023a9c431))
