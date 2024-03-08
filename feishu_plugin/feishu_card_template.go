@@ -3,7 +3,6 @@ package feishu_plugin
 import (
 	"encoding/json"
 	"github.com/sinlov-go/go-common-lib/pkg/string_tools"
-	_ "github.com/sinlov-go/go-common-lib/pkg/string_tools"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_template"
 	"strings"

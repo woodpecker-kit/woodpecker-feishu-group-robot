@@ -1,5 +1,9 @@
 [![ci](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/workflows/ci/badge.svg)](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/actions/workflows/ci.yml)
 
+[![docker hub version semver](https://img.shields.io/docker/v/sinlov/woodpecker-feishu-group-robot?sort=semver)](https://hub.docker.com/r/sinlov/woodpecker-feishu-group-robot/tags?page=1&ordering=last_updated)
+[![docker hub image size](https://img.shields.io/docker/image-size/sinlov/woodpecker-feishu-group-robot)](https://hub.docker.com/r/sinlov/woodpecker-feishu-group-robot)
+[![docker hub image pulls](https://img.shields.io/docker/pulls/sinlov/woodpecker-feishu-group-robot)](https://hub.docker.com/r/sinlov/woodpecker-feishu-group-robot/tags?page=1&ordering=last_updated)
+
 [![go mod version](https://img.shields.io/github/go-mod/go-version/woodpecker-kit/woodpecker-feishu-group-robot?label=go.mod)](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot)
 [![GoDoc](https://godoc.org/github.com/woodpecker-kit/woodpecker-feishu-group-robot?status.png)](https://godoc.org/github.com/woodpecker-kit/woodpecker-feishu-group-robot)
 [![goreportcard](https://goreportcard.com/badge/github.com/woodpecker-kit/woodpecker-feishu-group-robot)](https://goreportcard.com/report/github.com/woodpecker-kit/woodpecker-feishu-group-robot)
