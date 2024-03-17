@@ -10,13 +10,14 @@ require (
 	github.com/sinlov-go/unittest-kit v1.1.0
 	github.com/stretchr/testify v1.9.0
 	github.com/urfave/cli/v2 v2.27.1
-	github.com/woodpecker-kit/woodpecker-tools v1.14.0
+	github.com/woodpecker-kit/woodpecker-tools v1.18.0
 )
 
 require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/sprig/v3 v3.2.3 // indirect
 	github.com/aymerick/raymond v2.0.2+incompatible // indirect
+	github.com/chainguard-dev/git-urls v1.0.2 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/google/uuid v1.1.1 // indirect
