@@ -10,13 +10,13 @@
       "template": "red",
       "title": {
         "tag": "plain_text",
-        "content": "[Failure]woodpecker-kit/guidance-woodpecker-agent"
+        "content": "[Failure] woodpecker-kit/guidance-woodpecker-agent"
       }
     },
     "elements": [
       {
         "tag": "markdown",
-        "content": "****"
+        "content": "**CI Notification**"
       },
       {
         "tag": "hr"

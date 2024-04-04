@@ -1,44 +1,76 @@
 package feishu_plugin_test
 
 import (
-	"fmt"
-	"github.com/stretchr/testify/assert"
 	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/feishu_plugin"
 	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/feishu_plugin_transfer"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
+	"github.com/woodpecker-kit/woodpecker-tools/wd_log"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_mock"
-	"github.com/woodpecker-kit/woodpecker-tools/wd_steps_transfer"
+	"github.com/woodpecker-kit/woodpecker-tools/wd_short_info"
 	"path/filepath"
 	"testing"
 )
 
-func TestPluginMustArgs(t *testing.T) {
-	t.Log("mock FeishuPlugin")
-	p := mockPlugin(t)
-
-	t.Log("mock woodpecker info")
-	// mock woodpecker info
-	woodpeckerInfo := wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusCreated),
+func TestCheckArgsPlugin(t *testing.T) {
+	t.Log("mock TestCheckArgsPlugin")
+	// successArgs
+	successArgsWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
+		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
 	)
-	p.WoodpeckerInfo = woodpeckerInfo
+	successArgsSettings := mockPluginSettings()
+	successArgsSettings.Webhook = "some webhook"
 
-	p.Config.Webhook = ""
-	err := p.Exec()
-	assert.Equal(t, fmt.Errorf("check args err missing feishu webhook, please set feishu webhook"), err)
+	// emptyWebhook
+	emptyWebhookWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
+		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+	)
+	emptyWebhookSettings := mockPluginSettings()
+	emptyWebhookSettings.Webhook = ""
 
-	if envCheck(t) {
-		return
+	tests := []struct {
+		name           string
+		woodpeckerInfo wd_info.WoodpeckerInfo
+		settings       feishu_plugin.Settings
+		workRoot       string
+
+		isDryRun          bool
+		wantArgFlagNotErr bool
+	}{
+		{
+			name:              "successArgs",
+			woodpeckerInfo:    successArgsWoodpeckerInfo,
+			settings:          successArgsSettings,
+			wantArgFlagNotErr: true,
+		},
+		{
+			name:           "emptyWebhook",
+			woodpeckerInfo: emptyWebhookWoodpeckerInfo,
+			settings:       emptyWebhookSettings,
+		},
 	}
-	if envMustArgsCheck(t) {
-		return
-	}
 
-	t.Log("do FeishuPlugin")
-	err = p.Exec()
-	t.Log("verify woodpecker FeishuPlugin")
-	if err != nil {
-		t.Fatal(err)
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			p := mockPluginWithSettings(t, tc.woodpeckerInfo, tc.settings)
+			p.OnlyArgsCheck()
+			errPluginRun := p.Exec()
+			if tc.wantArgFlagNotErr {
+				if errPluginRun != nil {
+					wdShotInfo := wd_short_info.ParseWoodpeckerInfo2Short(p.GetWoodPeckerInfo())
+					wd_log.VerboseJsonf(wdShotInfo, "print WoodpeckerInfoShort")
+					wd_log.VerboseJsonf(p.Settings, "print Settings")
+					t.Fatalf("wantArgFlagNotErr %v\np.Exec() error:\n%v", tc.wantArgFlagNotErr, errPluginRun)
+					return
+				}
+				infoShot := p.ShortInfo()
+				wd_log.VerboseJsonf(infoShot, "print WoodpeckerInfoShort")
+			} else {
+				if errPluginRun == nil {
+					t.Fatalf("test case [ %s ], wantArgFlagNotErr %v, but p.Exec() not error", tc.name, tc.wantArgFlagNotErr)
+				}
+				t.Logf("check args error: %v", errPluginRun)
+			}
+		})
 	}
 }
 
@@ -50,97 +82,83 @@ func TestPlugin(t *testing.T) {
 		return
 	}
 
-	t.Log("mock FeishuPlugin")
-	p := mockPlugin(t)
-
 	t.Log("mock woodpecker plugin")
+
 	// statusSuccessIgnore
-	var statusSuccessIgnore feishu_plugin.FeishuPlugin
-	deepCopyByPlugin(&p, &statusSuccessIgnore)
-	statusSuccessIgnore.Config.StatusSuccessIgnore = true
+	statusSuccessIgnoreWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
+		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+		wd_mock.WithPreviousPipelineInfo(
+			wd_mock.WithCiPreviousPipelineStatus(wd_info.BuildStatusSuccess),
+		),
+	)
+	statusSuccessIgnoreSettings := mockPluginSettings()
+	statusSuccessIgnoreSettings.StatusSuccessIgnore = true
 
 	// statusChangeSuccess
-	var statusChangeSuccess feishu_plugin.FeishuPlugin
-	deepCopyByPlugin(&p, &statusChangeSuccess)
-	statusChangeSuccess.Config.StatusChangeSuccess = true
-	statusChangeSuccess.WoodpeckerInfo = wd_mock.NewWoodpeckerInfo(
+	statusChangeSuccessWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
 		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
 		wd_mock.WithPreviousPipelineInfo(
 			wd_mock.WithCiPreviousPipelineStatus(wd_info.BuildStatusFailure),
 		),
 	)
+	statusChangeSuccessSettings := mockPluginSettings()
+	statusChangeSuccessSettings.StatusChangeSuccess = true
 
 	// statusSuccess
-	var statusSuccess feishu_plugin.FeishuPlugin
-	deepCopyByPlugin(&p, &statusSuccess)
+	statusSuccessWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
+		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+	)
+	statusSuccessSettings := mockPluginSettings()
 
 	// statusFailure
-	var statusFailure feishu_plugin.FeishuPlugin
-	deepCopyByPlugin(&p, &statusFailure)
-	statusFailure.WoodpeckerInfo = wd_mock.NewWoodpeckerInfo(
+	statusFailureWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
 		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusFailure),
 	)
+	statusFailureSettings := mockPluginSettings()
 
 	// tagSuccess
-	var tagSuccess feishu_plugin.FeishuPlugin
-	deepCopyByPlugin(&p, &tagSuccess)
-	tagSuccess.WoodpeckerInfo = wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
-		wd_mock.WithCurrentPipelineInfo(
-			wd_mock.WithCiPipelineEvent(wd_info.EventPipelineTag),
-		),
-		wd_mock.WithCurrentCommitInfo(
-			wd_mock.WithCiCommitRef(fmt.Sprintf("refs/tags/%s", "v1.2.3")),
-			wd_mock.WithCiCommitTag("v1.2.3"),
-			wd_mock.WithCiCommitBranch(""),
-		),
+	tagSuccessWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
+		wd_mock.WithFastMockTag("v1.2.3", "new tag v1.2.3"),
 	)
+	tagSuccessSettings := mockPluginSettings()
 
 	// prOpenSuccess
-	var prOpenSuccess feishu_plugin.FeishuPlugin
-	deepCopyByPlugin(&p, &prOpenSuccess)
-	prOpenSuccess.WoodpeckerInfo = wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineInfo(
-			wd_mock.WithCiPipelineEvent(wd_info.EventPipelinePullRequest),
-		),
-		wd_mock.WithCurrentCommitInfo(
-			wd_mock.WithCiCommitBranch("main"),
-			wd_mock.WithCiCommitPullRequest("13"),
-			wd_mock.WithCiCommitRef(fmt.Sprintf("refs/pull/%s/head", "13")),
-			wd_mock.WithCiCommitSourceBranch("feature-new"),
-			wd_mock.WithCiCommitTargetBranch("main"),
-		),
+	prOpenSuccessWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
+		wd_mock.WithFastMockPullRequest("13", "new pr 13", "feature-new", "main", "main"),
 	)
+	prOpenSuccessSettings := mockPluginSettings()
+
 	// prCloseSuccess
-	var prCloseSuccess feishu_plugin.FeishuPlugin
-	deepCopyByPlugin(&p, &prCloseSuccess)
-	prCloseSuccess.WoodpeckerInfo = wd_mock.NewWoodpeckerInfo(
+	prCloseSuccessWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
+		wd_mock.WithFastMockPullRequest("13", "new pr 13", "feature-new", "main", "main"),
 		wd_mock.WithCurrentPipelineInfo(
 			wd_mock.WithCiPipelineEvent(wd_info.EventPipelinePullRequestClose),
 		),
-		wd_mock.WithCurrentCommitInfo(
-			wd_mock.WithCiCommitBranch("main"),
-			wd_mock.WithCiCommitPullRequest("13"),
-			wd_mock.WithCiCommitRef(fmt.Sprintf("refs/pull/%s/head", "13")),
-			wd_mock.WithCiCommitSourceBranch("feature-new"),
-			wd_mock.WithCiCommitTargetBranch("main"),
-		),
 	)
+	prCloseSuccessSettings := mockPluginSettings()
+
 	// ossCardSendFailure
-	var ossCardSendFailure feishu_plugin.FeishuPlugin
-	deepCopyByPlugin(&p, &ossCardSendFailure)
+	ossCardSendFailureWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
+		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+	)
+	ossCardSendFailureSettings := mockPluginSettings()
 
 	// ossCardOssSuccess
-	var ossCardOssSuccess feishu_plugin.FeishuPlugin
-	deepCopyByPlugin(&p, &ossCardOssSuccess)
+	ossCardOssSuccessWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
+		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+	)
+	ossCardOssSuccessSettings := mockPluginSettings()
 
 	// ossCardSendSuccessWithPass
-	var ossCardSendSuccessWithPass feishu_plugin.FeishuPlugin
-	deepCopyByPlugin(&p, &ossCardSendSuccessWithPass)
+	ossCardSendSuccessWithPassWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
+		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+	)
+	ossCardSendSuccessWithPassSettings := mockPluginSettings()
 
 	tests := []struct {
 		name            string
-		p               feishu_plugin.FeishuPlugin
+		woodpeckerInfo  wd_info.WoodpeckerInfo
+		settings        feishu_plugin.Settings
 		isDryRun        bool
 		workRoot        string
 		ossTransferKey  string
@@ -148,59 +166,68 @@ func TestPlugin(t *testing.T) {
 		wantErr         bool
 	}{
 		{
-			name:     "statusSuccessIgnore",
-			p:        statusSuccessIgnore,
-			isDryRun: false,
+			name:           "statusSuccessIgnore",
+			woodpeckerInfo: statusSuccessIgnoreWoodpeckerInfo,
+			settings:       statusSuccessIgnoreSettings,
+			isDryRun:       false,
 		},
 		{
-			name:     "statusChangeSuccess",
-			p:        statusChangeSuccess,
-			isDryRun: true,
+			name:           "statusChangeSuccess",
+			woodpeckerInfo: statusChangeSuccessWoodpeckerInfo,
+			settings:       statusChangeSuccessSettings,
+			isDryRun:       true,
 		},
 		{
-			name:     "statusSuccess",
-			p:        statusSuccess,
-			isDryRun: true,
+			name:           "statusSuccess",
+			woodpeckerInfo: statusSuccessWoodpeckerInfo,
+			settings:       statusSuccessSettings,
+			isDryRun:       true,
 		},
 		{
-			name:     "statusFailure",
-			p:        statusFailure,
-			isDryRun: true,
+			name:           "statusFailure",
+			woodpeckerInfo: statusFailureWoodpeckerInfo,
+			settings:       statusFailureSettings,
+			isDryRun:       true,
 		},
 		{
-			name:     "tagSuccess",
-			p:        tagSuccess,
-			isDryRun: true,
+			name:           "tagSuccess",
+			woodpeckerInfo: tagSuccessWoodpeckerInfo,
+			settings:       tagSuccessSettings,
+			isDryRun:       true,
 		},
 		{
-			name:     "prOpenSuccess",
-			p:        prOpenSuccess,
-			isDryRun: true,
+			name:           "prOpenSuccess",
+			woodpeckerInfo: prOpenSuccessWoodpeckerInfo,
+			settings:       prOpenSuccessSettings,
+			isDryRun:       true,
 		},
 		{
-			name:     "prCloseSuccess",
-			p:        prCloseSuccess,
-			isDryRun: true,
+			name:           "prCloseSuccess",
+			woodpeckerInfo: prCloseSuccessWoodpeckerInfo,
+			settings:       prCloseSuccessSettings,
+			isDryRun:       true,
 		},
 		{
 			name:           "ossCardSendFailure",
-			p:              ossCardSendFailure,
+			woodpeckerInfo: ossCardSendFailureWoodpeckerInfo,
+			settings:       ossCardSendFailureSettings,
 			workRoot:       filepath.Join(testGoldenKit.GetTestDataFolderFullPath(), "ossCardSendFailure"),
 			ossTransferKey: feishu_plugin_transfer.OssSendTransferKey,
 			ossTransferData: feishu_plugin_transfer.OssSendTransfer{
 				InfoSendResult: wd_info.BuildStatusFailure,
-				OssHost:        mockOssHost,
+				OssHost:        mockOssHostUrl,
 			},
 			isDryRun: true,
 		},
 		{
 			name:           "ossCardOssSuccess",
-			p:              ossCardOssSuccess,
+			woodpeckerInfo: ossCardOssSuccessWoodpeckerInfo,
+			settings:       ossCardOssSuccessSettings,
 			workRoot:       filepath.Join(testGoldenKit.GetTestDataFolderFullPath(), "ossCardOssSuccess"),
 			ossTransferKey: feishu_plugin_transfer.OssSendTransferKey,
 			ossTransferData: feishu_plugin_transfer.OssSendTransfer{
 				InfoSendResult: wd_info.BuildStatusSuccess,
-				OssHost:        mockOssHost,
+				OssHost:        mockOssHostUrl,
 				OssPath:        mockOssPath,
 				ResourceUrl:    mockOssResourceUrl,
 			},
@@ -208,12 +235,13 @@ func TestPlugin(t *testing.T) {
 		},
 		{
 			name:           "ossCardSendSuccessWithPass",
-			p:              ossCardSendSuccessWithPass,
+			woodpeckerInfo: ossCardSendSuccessWithPassWoodpeckerInfo,
+			settings:       ossCardSendSuccessWithPassSettings,
 			workRoot:       filepath.Join(testGoldenKit.GetTestDataFolderFullPath(), "ossCardSendSuccessWithPass"),
 			ossTransferKey: feishu_plugin_transfer.OssSendTransferKey,
 			ossTransferData: feishu_plugin_transfer.OssSendTransfer{
 				InfoSendResult: wd_info.BuildStatusSuccess,
-				OssHost:        mockOssHost,
+				OssHost:        mockOssHostUrl,
 				OssPath:        mockOssPath,
 				PageUrl:        mockOssPageUrl,
 				PagePasswd:     mockOssPagePasswd,
@@ -223,11 +251,13 @@ func TestPlugin(t *testing.T) {
 	}
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			tc.p.Config.DryRun = tc.isDryRun
+			tc.settings.DryRun = tc.isDryRun
+
+			p := mockPluginWithSettings(t, tc.woodpeckerInfo, tc.settings)
 			if tc.workRoot != "" {
-				tc.p.Config.RootPath = tc.workRoot
+				p.Settings.RootPath = tc.workRoot
 				errGenTransferData := generateTransferStepsOut(
-					tc.p,
+					p,
 					tc.ossTransferKey,
 					tc.ossTransferData,
 				)
@@ -235,16 +265,11 @@ func TestPlugin(t *testing.T) {
 					t.Fatal(errGenTransferData)
 				}
 			}
-			err := tc.p.Exec()
+			err := p.Exec()
 			if (err != nil) != tc.wantErr {
 				t.Errorf("FeishuPlugin.Exec() error = %v, wantErr %v", err, tc.wantErr)
 				return
 			}
 		})
 	}
-}
-
-func generateTransferStepsOut(plugin feishu_plugin.FeishuPlugin, mark string, data interface{}) error {
-	_, err := wd_steps_transfer.Out(plugin.Config.RootPath, plugin.Config.StepsTransferPath, *plugin.WoodpeckerInfo, mark, data)
-	return err
 }

@@ -10,7 +10,7 @@ type OssUserProfile struct {
 type OssSendTransfer struct {
 
 	// OssHost
-	// must Oss Host to access oss resource
+	// must Oss HostUrl to access oss resource
 	OssHost string
 
 	// InfoSendResult

@@ -6,6 +6,7 @@ import (
 	"github.com/woodpecker-kit/woodpecker-tools/wd_flag"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_log"
+	"github.com/woodpecker-kit/woodpecker-tools/wd_short_info"
 )
 
 const (
@@ -20,6 +21,22 @@ const (
 
 	CliPluginFeishuEnableForward = "settings.feishu_enable_forward"
 	EnvPluginFeishuEnableForward = "PLUGIN_FEISHU_ENABLE_FORWARD"
+
+	CliPluginFeishuEnableDebugNotice = "settings.feishu-enable-debug-notice"
+	EnvPluginFeishuEnableDebugNotice = "PLUGIN_FEISHU_ENABLE_DEBUG_NOTICE"
+
+	// CliPluginFeishuNoticeTypes
+	// feishu_notice_types
+	CliPluginFeishuNoticeTypes = "settings.feishu-notice-types"
+	EnvPluginFeishuNoticeTypes = "PLUGIN_FEISHU_NOTICE_TYPES"
+
+	// NoticeTypeBuildStatus
+	// build status notice, default notice type
+	NoticeTypeBuildStatus = "build_status"
+
+	// NoticeTypeFileBrowser
+	// file browser notice
+	NoticeTypeFileBrowser = "file_browser"
 
 	CliPluginStatusSuccessIgnore = "settings.feishu_status_success_ignore"
 	EnvPluginStatusSuccessIgnore = "PLUGIN_FEISHU_STATUS_SUCCESS_IGNORE"
@@ -38,8 +55,13 @@ const (
 
 	CliPluginPoweredByImageAlt = "settings.feishu_msg_powered_by_image_alt"
 	EnvPluginPoweredByImageAlt = "PLUGIN_FEISHU_MSG_POWERED_BY_IMAGE_ALT"
+)
 
-	OssUserNameUnknown = "unknown"
+var (
+	noticeTypeSupport = []string{
+		NoticeTypeBuildStatus,
+		NoticeTypeFileBrowser,
+	}
 )
 
 // GlobalFlag
@@ -67,6 +89,19 @@ func GlobalFlag() []cli.Flag {
 			Usage:   "feishu robot forward message enable",
 			EnvVars: []string{EnvPluginFeishuEnableForward},
 		},
+		&cli.BoolFlag{
+			Name:    CliPluginFeishuEnableDebugNotice,
+			Usage:   "when debug open, will not notice, must enable it to notice under debug open",
+			EnvVars: []string{EnvPluginFeishuEnableDebugNotice},
+		},
+
+		&cli.StringSliceFlag{
+			Name:    CliPluginFeishuNoticeTypes,
+			Usage:   fmt.Sprintf("feishu notice types, now support: %v", noticeTypeSupport),
+			Value:   cli.NewStringSlice(NoticeTypeBuildStatus),
+			EnvVars: []string{EnvPluginFeishuNoticeTypes},
+		},
+
 		&cli.StringFlag{
 			Name:    CliPluginMsgType,
 			Usage:   "feishu message type",
@@ -105,19 +140,35 @@ func HideGlobalFlag() []cli.Flag {
 	return []cli.Flag{}
 }
 
-func BindCliFlags(c *cli.Context, cliName, cliVersion string, wdInfo *wd_info.WoodpeckerInfo, rootPath, stepsTransferPath string) (*FeishuPlugin, error) {
-	debug := isBuildDebugOpen(c)
+func BindCliFlags(c *cli.Context,
+	debug bool,
+	cliName, cliVersion string,
+	wdInfo *wd_info.WoodpeckerInfo,
+	rootPath,
+	stepsTransferPath string, stepsOutDisable bool,
+) (*FeishuPlugin, error) {
 
-	config := Config{
+	noticeTypes := c.StringSlice(CliPluginFeishuNoticeTypes)
+
+	if len(noticeTypes) == 0 {
+		wd_log.Warnf("notice types is empty, use default notice types %s", NoticeTypeBuildStatus)
+		noticeTypes = []string{NoticeTypeBuildStatus}
+	}
+
+	config := Settings{
 		Debug:             debug,
 		TimeoutSecond:     c.Uint(wd_flag.NameCliPluginTimeoutSecond),
 		StepsTransferPath: stepsTransferPath,
+		StepsOutDisable:   stepsOutDisable,
 		RootPath:          rootPath,
 
 		NtpTarget:           c.String(CliPluginNtpTarget),
 		Webhook:             c.String(CliPluginWebhook),
 		Secret:              c.String(CliPluginSecret),
 		FeishuEnableForward: c.Bool(CliPluginFeishuEnableForward),
+		NoticeWhenDebug:     c.Bool(CliPluginFeishuEnableDebugNotice),
+		NoticeTypes:         noticeTypes,
+
 		Title:               c.String(CliPluginTitle),
 		StatusSuccessIgnore: c.Bool(CliPluginStatusSuccessIgnore),
 		StatusChangeSuccess: c.Bool(CliPluginStatusChangeSuccess),
@@ -134,18 +185,15 @@ func BindCliFlags(c *cli.Context, cliName, cliVersion string, wdInfo *wd_info.Wo
 
 	wd_log.Debugf("args %s: %v", wd_flag.NameCliPluginTimeoutSecond, config.TimeoutSecond)
 
+	infoShort := wd_short_info.ParseWoodpeckerInfo2Short(*wdInfo)
+
 	p := FeishuPlugin{
 		Name:           cliName,
 		Version:        cliVersion,
-		WoodpeckerInfo: wdInfo,
-		Config:         config,
+		woodpeckerInfo: wdInfo,
+		wdShortInfo:    &infoShort,
+		Settings:       config,
 	}
 
 	return &p, nil
-}
-
-// isBuildDebugOpen
-// when config or build open debug will open debug
-func isBuildDebugOpen(c *cli.Context) bool {
-	return c.Bool(wd_flag.NameCliPluginDebug)
 }

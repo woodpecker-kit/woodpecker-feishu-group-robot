@@ -57,6 +57,7 @@ steps:
     pull: false
     settings:
       # debug: true # plugin debug switch
+      # feishu_enable_debug_notice: true # open debug notice, default debug mode not send message
       # feishu_ntp_target: "pool.ntp.org" # if not set will not sync ntp time
       feishu_webhook:
         # https://woodpecker-ci.org/docs/usage/secrets
@@ -94,6 +95,7 @@ steps:
     image: woodpecker-feishu-group-robot
     settings:
       # debug: true # plugin debug switch
+      # feishu_enable_debug_notice: true # open debug notice, default debug mode not send message
       # feishu_ntp_target: "pool.ntp.org" # if not set will not sync ntp time
       feishu_webhook:
         # https://woodpecker-ci.org/docs/usage/secrets

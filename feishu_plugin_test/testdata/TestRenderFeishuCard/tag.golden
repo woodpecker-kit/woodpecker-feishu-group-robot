@@ -16,7 +16,7 @@
     "elements": [
       {
         "tag": "markdown",
-        "content": "****"
+        "content": "**CI Notification**"
       },
       {
         "tag": "hr"
@@ -31,7 +31,7 @@
       },
       {
         "tag": "markdown",
-        "content": "**Commit:**\ntest: use source to load env vars at before step"
+        "content": "**Commit:**\ntag: v1.2.3, new tag"
       },
       {
         "tag": "markdown",

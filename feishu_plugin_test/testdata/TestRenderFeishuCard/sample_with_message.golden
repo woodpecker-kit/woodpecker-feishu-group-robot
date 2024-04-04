@@ -16,7 +16,7 @@
     "elements": [
       {
         "tag": "markdown",
-        "content": "****"
+        "content": "**CI Notification**"
       },
       {
         "tag": "hr"

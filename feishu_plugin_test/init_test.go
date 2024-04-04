@@ -1,7 +1,6 @@
 package feishu_plugin_test
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/sinlov-go/unittest-kit/env_kit"
 	"github.com/sinlov-go/unittest-kit/unittest_file_kit"
@@ -9,7 +8,6 @@ import (
 	"github.com/woodpecker-kit/woodpecker-tools/wd_flag"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_log"
-	"github.com/woodpecker-kit/woodpecker-tools/wd_mock"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_steps_transfer"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_template"
 	"os"
@@ -26,7 +24,7 @@ const (
 	mockVersion        = "1.0.0"
 	mockName           = "woodpecker-feishu-group-robot"
 	mockTitle          = "CI Notification"
-	mockOssHost        = "https://docs.aws.amazon.com/s3/index.html"
+	mockOssHostUrl     = "https://docs.aws.amazon.com/s3/index.html"
 	mockOssUser        = "ossAdmin"
 	mockOssPath        = "dist/demo/pass.tar.gz"
 	mockOssResourceUrl = "https://docs.aws.amazon.com/s/dist/demo/pass.tar.gz"
@@ -59,6 +57,7 @@ var (
 	valEnvPluginDebug   = false
 	valEnvPluginWebHook = ""
 	valEnvPluginSecret  = ""
+	valEnvNoticeTypes   = []string{feishu_plugin.NoticeTypeBuildStatus}
 	valEnvPluginTitle   = ""
 )
 
@@ -75,6 +74,10 @@ func init() {
 	valEnvPluginWebHook = env_kit.FetchOsEnvStr(feishu_plugin.EnvPluginWebhook, "")
 	valEnvPluginSecret = env_kit.FetchOsEnvStr(feishu_plugin.EnvPluginSecret, "")
 	valEnvPluginTitle = env_kit.FetchOsEnvStr(feishu_plugin.EnvPluginTitle, mockTitle)
+	envNoticeTypes := env_kit.FetchOsEnvStringSlice(feishu_plugin.EnvPluginFeishuNoticeTypes)
+	if len(envNoticeTypes) > 0 {
+		valEnvNoticeTypes = envNoticeTypes
+	}
 }
 
 // test case basic tools start
@@ -123,55 +126,41 @@ func envMustArgsCheck(t *testing.T) bool {
 	return false
 }
 
-func mockPlugin(t *testing.T) feishu_plugin.FeishuPlugin {
+func generateTransferStepsOut(plugin feishu_plugin.FeishuPlugin, mark string, data interface{}) error {
+	_, err := wd_steps_transfer.Out(plugin.Settings.RootPath, plugin.Settings.StepsTransferPath, plugin.GetWoodPeckerInfo(), mark, data)
+	return err
+}
 
+func mockPluginSettings() feishu_plugin.Settings {
+	// all mock settings can set here
+	settings := feishu_plugin.Settings{
+		// use env:PLUGIN_DEBUG
+		Debug:             valEnvPluginDebug,
+		TimeoutSecond:     envTimeoutSecond,
+		RootPath:          testGoldenKit.GetTestDataFolderFullPath(),
+		StepsTransferPath: wd_steps_transfer.DefaultKitStepsFileName,
+
+		Webhook:     valEnvPluginWebHook,
+		Secret:      valEnvPluginSecret,
+		NoticeTypes: valEnvNoticeTypes,
+
+		Title: valEnvPluginTitle,
+	}
+
+	return settings
+
+}
+
+func mockPluginWithSettings(t *testing.T, woodpeckerInfo wd_info.WoodpeckerInfo, settings feishu_plugin.Settings) feishu_plugin.FeishuPlugin {
 	p := feishu_plugin.FeishuPlugin{
 		Name:    mockName,
 		Version: mockVersion,
 	}
 
-	// use env:ENV_DEBUG
-	p.Config.Debug = valEnvPluginDebug
-	p.Config.TimeoutSecond = envTimeoutSecond
-	p.Config.RootPath = testGoldenKit.GetTestDataFolderFullPath()
-	p.Config.StepsTransferPath = wd_steps_transfer.DefaultKitStepsFileName
-
-	p.Config.Webhook = valEnvPluginWebHook
-	p.Config.Title = valEnvPluginTitle
-	p.Config.Secret = valEnvPluginSecret
-
 	// mock woodpecker info
-	woodpeckerInfo := wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
-	)
-	p.WoodpeckerInfo = woodpeckerInfo
+	//t.Log("mockPluginWithStatus")
+	p.SetWoodpeckerInfo(woodpeckerInfo)
+
+	p.Settings = settings
 	return p
-}
-
-func deepCopyByPlugin(src, dst *feishu_plugin.FeishuPlugin) {
-	if tmp, err := json.Marshal(&src); err != nil {
-		return
-	} else {
-		err = json.Unmarshal(tmp, dst)
-		return
-	}
-}
-
-func checkCardOssRenderByPlugin(p *feishu_plugin.FeishuPlugin, pagePasswd string, sendOssSucc bool) {
-	p.Config.CardOss.PagePasswd = pagePasswd
-	if p.Config.CardOss.PagePasswd == "" {
-		p.Config.CardOss.RenderResourceUrl = feishu_plugin.RenderStatusShow
-	} else {
-		p.Config.CardOss.RenderResourceUrl = feishu_plugin.RenderStatusHide
-	}
-	if sendOssSucc {
-		p.Config.CardOss.InfoSendResult = feishu_plugin.RenderStatusShow
-	} else {
-		p.Config.CardOss.InfoSendResult = feishu_plugin.RenderStatusHide
-	}
-	p.Config.CardOss.Host = mockOssHost
-	p.Config.CardOss.InfoUser = mockOssUser
-	p.Config.CardOss.InfoPath = mockOssPath
-	p.Config.CardOss.ResourceUrl = mockOssResourceUrl
-	p.Config.CardOss.PageUrl = mockOssPageUrl
 }

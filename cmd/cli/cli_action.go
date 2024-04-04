@@ -13,6 +13,7 @@ import (
 	"github.com/woodpecker-kit/woodpecker-tools/wd_urfave_cli_v2"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_urfave_cli_v2/cli_exit_urfave"
 	"os"
+	"os/user"
 )
 
 var wdPlugin *feishu_plugin.FeishuPlugin
@@ -22,10 +23,19 @@ var wdPlugin *feishu_plugin.FeishuPlugin
 func GlobalBeforeAction(c *cli.Context) error {
 	isDebug := wd_urfave_cli_v2.IsBuildDebugOpen(c)
 	if isDebug {
-		wd_log.OpenDebug()
+		// print global debug info
 		allEnvPrintStr := env_kit.FindAllEnv4PrintAsSortJust(36)
-		wd_log.Debugf("==> feishu_plugin start with all env:\n%s", allEnvPrintStr)
+		wd_log.Verbosef("==> plugin start with all env:\n%s", allEnvPrintStr)
+		currentUser, err := user.Current()
+		if err == nil {
+			wd_log.Verbosef("==> current Username : %s\n", currentUser.Username)
+			wd_log.Verbosef("==> current user name: %s\n", currentUser.Name)
+			wd_log.Verbosef("==> current gid: %s, uid: %s\n", currentUser.Gid, currentUser.Uid)
+			wd_log.Verbosef("==> current user home: %s\n", currentUser.HomeDir)
+		}
+		wd_log.OpenDebug()
 	}
+
 	namePlugin := pkgJson.GetPackageJsonName()
 	cliVersion := pkgJson.GetPackageJsonVersionGoStyle(true)
 
@@ -58,8 +68,15 @@ func GlobalBeforeAction(c *cli.Context) error {
 		return cli_exit_urfave.Err(errRootPath)
 	}
 	stepsTransferFilePath := c.String(constant.NameCliPluginStepsTransferFilePath)
+	stepsOutDisable := c.Bool(constant.NameCliPluginStepsTransferDisableOut)
 
-	pluginBind, errBindPlugin := feishu_plugin.BindCliFlags(c, namePlugin, cliVersion, &woodpeckerInfo, rootPath, stepsTransferFilePath)
+	pluginBind, errBindPlugin := feishu_plugin.BindCliFlags(c,
+		isDebug,
+		namePlugin, cliVersion,
+		&woodpeckerInfo,
+		rootPath,
+		stepsTransferFilePath, stepsOutDisable,
+	)
 	if errBindPlugin != nil {
 		return cli_exit_urfave.Err(errBindPlugin)
 	}

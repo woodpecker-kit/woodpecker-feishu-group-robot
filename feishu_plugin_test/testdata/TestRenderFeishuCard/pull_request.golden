@@ -10,20 +10,20 @@
       "template": "orange",
       "title": {
         "tag": "plain_text",
-        "content": "woodpecker-kit/guidance-woodpecker-agent PullRequest: #13"
+        "content": "woodpecker-kit/guidance-woodpecker-agent PR: #13"
       }
     },
     "elements": [
       {
         "tag": "markdown",
-        "content": "****"
+        "content": "**CI Notification**"
       },
       {
         "tag": "hr"
       },
       {
         "tag": "markdown",
-        "content": "🏗️ Pull Request: feature-new -> main [#13](https://gitea.domain.com/woodpecker-kit/guidance-woodpecker-agent/pulls/13)"
+        "content": "🏗️ Pull Request: feature-new -> feature-new\nAuthor: **sinlov** on **main** PR Url: [PR Link](https://gitea.domain.com/sinlov/woodpecker-tools/commit/9c764dd487bce596c5c0402478fabde5f0344983)"
       },
       {
         "tag": "markdown",
@@ -31,11 +31,11 @@
       },
       {
         "tag": "markdown",
-        "content": "**Commit:**\ntest: use source to load env vars at before step"
+        "content": "**Commit:**\npr: 13, feature-new"
       },
       {
         "tag": "markdown",
-        "content": "[See Git Link](https://gitea.domain.com/woodpecker-kit/guidance-woodpecker-agent/pulls/13) | [See Build Details](https://woodpecker.domain.com/repos/2/pipeline/10)"
+        "content": "[See Git Link](https://gitea.domain.com/sinlov/woodpecker-tools/commit/9c764dd487bce596c5c0402478fabde5f0344983) | [See Build Details](https://woodpecker.domain.com/repos/2/pipeline/10)"
       },
       {
         "tag": "hr"
