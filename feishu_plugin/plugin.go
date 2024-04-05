@@ -21,8 +21,16 @@ type (
 
 		FuncPlugin FuncPlugin `json:"-"`
 
+		innerData innerData
+	}
+
+	innerData struct {
 		// by wd_share_file_browser_upload.WdShareFileBrowserUpload
 		renderOssCardFileBrowser *OssCardFileBrowserRender
+
+		// copyRenderFeishuCard
+		// this data will remove timestamp and sign
+		copyRenderFeishuCard string
 	}
 )
 
@@ -40,5 +48,13 @@ type FuncPlugin interface {
 	checkArgs() error
 	saveStepsTransfer() error
 
-	addOssCardFileBrowserRender(shareData wd_share_file_browser_upload.WdShareFileBrowserUpload) error
+	saveDeepCopyInnerData() error
+	GetInnerCopyRenderFeishuCardContext() string
+
+	// loadStepsFileBrowser
+	// for NoticeTypeFileBrowser data load
+	loadStepsFileBrowser() error
+	// addOssCardFileBrowserRender
+	// for NoticeTypeFileBrowser data render
+	addRenderFileBrowser(shareData wd_share_file_browser_upload.WdShareFileBrowserUpload) error
 }

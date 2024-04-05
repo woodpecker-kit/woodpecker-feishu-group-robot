@@ -7,10 +7,10 @@
       "enable_forward": true
     },
     "header": {
-      "template": "green",
+      "template": "red",
       "title": {
         "tag": "plain_text",
-        "content": "woodpecker-kit/guidance-woodpecker-agent"
+        "content": "[Failure] woodpecker-kit/guidance-woodpecker-agent"
       }
     },
     "elements": [
@@ -23,22 +23,7 @@
       },
       {
         "tag": "markdown",
-        "content": "📝 Commit by sinlov on **main**\nCommitCode: 9c764dd487bce596c5c0402478fabde5f0344983"
-      },
-      {
-        "tag": "markdown",
-        "content": "✅ Build [#10](https://woodpecker.domain.com/repos/2/pipeline/10) success"
-      },
-      {
-        "tag": "markdown",
-        "content": "**Commit:**\ntest: test message\n\n this is a test message"
-      },
-      {
-        "tag": "markdown",
-        "content": "[See Git Link](https://gitea.domain.com/sinlov/woodpecker-tools/commit/9c764dd487bce596c5c0402478fabde5f0344983) | [See Build Details](https://woodpecker.domain.com/repos/2/pipeline/10)"
-      },
-      {
-        "tag": "hr"
+        "content": "send file browser to [https://filebrowser.foo.com](https://filebrowser.foo.com) failed, please check at [build Details](https://woodpecker.domain.com/repos/2/pipeline/10)"
       },
       {
         "tag": "markdown",

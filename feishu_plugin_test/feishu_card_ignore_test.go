@@ -12,7 +12,7 @@ func TestIgnoreConfig(t *testing.T) {
 
 	// notIgnore
 	notIgnoreWdInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
 	)
 	notIgnoreSettings := mockPluginSettings()
 	notIgnoreSettings.StatusSuccessIgnore = false
@@ -20,7 +20,7 @@ func TestIgnoreConfig(t *testing.T) {
 
 	// ignoreSuccessStatusSuccess
 	ignoreSuccessStatusSuccessWdInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
 	)
 	ignoreSuccessStatusSuccessSettings := mockPluginSettings()
 	ignoreSuccessStatusSuccessSettings.StatusSuccessIgnore = true
@@ -28,7 +28,7 @@ func TestIgnoreConfig(t *testing.T) {
 
 	// ignoreSuccessStatusFailure
 	ignoreSuccessStatusFailureWdInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusFailure),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusFailure),
 	)
 	ignoreSuccessStatusFailureSettings := mockPluginSettings()
 	ignoreSuccessStatusFailureSettings.StatusSuccessIgnore = true
@@ -36,7 +36,7 @@ func TestIgnoreConfig(t *testing.T) {
 
 	// ignoreChangeSuccessStatusAllSuccess
 	ignoreChangeSuccessStatusAllSuccessWdInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
 		wd_mock.WithPreviousPipelineInfo(
 			wd_mock.WithCiPreviousPipelineStatus(wd_info.BuildStatusSuccess),
 		),
@@ -47,7 +47,7 @@ func TestIgnoreConfig(t *testing.T) {
 
 	// ignoreChangeSuccessStatusAllFailure
 	ignoreChangeSuccessStatusAllFailureWdInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusFailure),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusFailure),
 		wd_mock.WithPreviousPipelineInfo(
 			wd_mock.WithCiPreviousPipelineStatus(wd_info.BuildStatusFailure),
 		),
@@ -58,7 +58,7 @@ func TestIgnoreConfig(t *testing.T) {
 
 	// ignoreChangeSuccessStatusNowFailure
 	ignoreChangeSuccessStatusNowFailureWdInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusFailure),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusFailure),
 		wd_mock.WithPreviousPipelineInfo(
 			wd_mock.WithCiPreviousPipelineStatus(wd_info.BuildStatusSuccess),
 		),
@@ -69,7 +69,7 @@ func TestIgnoreConfig(t *testing.T) {
 
 	// ignoreChangeSuccessStatusFailureChange2Success
 	ignoreChangeSuccessStatusFailureChange2SuccessWdInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
 		wd_mock.WithPreviousPipelineInfo(
 			wd_mock.WithCiPreviousPipelineStatus(wd_info.BuildStatusFailure),
 		),

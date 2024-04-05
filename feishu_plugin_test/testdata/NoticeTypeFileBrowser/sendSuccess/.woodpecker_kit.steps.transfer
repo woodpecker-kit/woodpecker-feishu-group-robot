@@ -1,0 +1,1 @@
+[{"Mark":"file-browser-upload","CiWorkflowName":"build","CiWorkflowNumber":"1","Data":{"is_send_success":true,"host_url":"https://filebrowser.foo.com","file_browser_user_name":"admin","resource_url":"dist/demo/pass.tar.gz","download_url":"","download_page":"https://docs.aws.amazon.com/p/dist/demo/page-xyz.html","download_passwd":""}}]

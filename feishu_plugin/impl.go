@@ -10,8 +10,6 @@ import (
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_log"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_short_info"
-	"github.com/woodpecker-kit/woodpecker-tools/wd_steps_transfer"
-	"github.com/woodpecker-kit/woodpecker-transfer-data/wd_share_file_browser_upload"
 	_ "github.com/woodpecker-kit/woodpecker-transfer-data/wd_share_file_browser_upload"
 	"io"
 	"log"
@@ -82,36 +80,13 @@ func (p *FeishuPlugin) loadStepsTransfer() error {
 			wd_log.Debugf("just load steps transfer by notice type [ %s ]", noticeType)
 			switch noticeType {
 			case NoticeTypeFileBrowser:
-				var wdShareFileBrowserUpload wd_share_file_browser_upload.WdShareFileBrowserUpload
-				errShareFileBrowserUpload := wd_steps_transfer.In(
-					p.Settings.RootPath, p.Settings.StepsTransferPath, p.GetWoodPeckerInfo(),
-					wd_share_file_browser_upload.WdShareKeyFileBrowserUpload,
-					&wdShareFileBrowserUpload,
-				)
-				if errShareFileBrowserUpload != nil {
-					wd_log.Warnf("load steps transfer by notice type [ %s ] err: %v", noticeType, errShareFileBrowserUpload)
-					return nil
-				}
-
-				errAddOssCardFileBrowserRender := p.addOssCardFileBrowserRender(wdShareFileBrowserUpload)
-				if errAddOssCardFileBrowserRender != nil {
-					return errAddOssCardFileBrowserRender
+				errLoadStepsFileBrowser := p.loadStepsFileBrowser()
+				if errLoadStepsFileBrowser != nil {
+					return errLoadStepsFileBrowser
 				}
 			}
 		}
 	}
-
-	return nil
-}
-
-func (p *FeishuPlugin) addOssCardFileBrowserRender(shareData wd_share_file_browser_upload.WdShareFileBrowserUpload) error {
-
-	cardFileBrowserRender, err := parseOssCardFileBrowserRender(shareData, p.ShortInfo())
-	if err != nil {
-		wd_log.Warnf("addOssCardFileBrowserRender err: %v", err)
-		return err
-	}
-	p.renderOssCardFileBrowser = &cardFileBrowserRender
 
 	return nil
 }
@@ -203,6 +178,7 @@ func (p *FeishuPlugin) fetchInfoAndSend() error {
 	if errFetch != nil {
 		return errFetch
 	}
+
 	if p.Settings.DryRun {
 		wd_log.Info("dry run mode not send, please open debug to see more info")
 		return nil
@@ -259,15 +235,21 @@ func (p *FeishuPlugin) fetchSendTarget() (SendTarget, error) {
 		robotMsgTemplate.CtxTemp = ctxTemp
 		p.FeishuRobotMsgTemplate = robotMsgTemplate
 
-		renderFeishuCard, err := RenderFeishuCardFromPlugin(p)
-		if err != nil {
-			return sendTarget, err
+		renderFeishuCard, errRender := renderFeishuCardFromPlugin(p)
+		if errRender != nil {
+			return sendTarget, errRender
 		}
 		if p.Settings.Debug {
-			wd_log.Debugf("fetchSendTarget renderFeishuCard: %v\n", renderFeishuCard)
+			wd_log.Debugf("fetchSendTarget copyRenderFeishuCard: %v\n", renderFeishuCard)
 		}
-		if renderFeishuCard != "" {
-			sendTarget.FeishuRobotMeg = []byte(renderFeishuCard)
+		if renderFeishuCard == "" {
+			return sendTarget, fmt.Errorf("fetchSendTarget copyRenderFeishuCard is empty")
+		}
+		sendTarget.FeishuRobotMeg = []byte(renderFeishuCard)
+
+		errSave := p.saveDeepCopyInnerData()
+		if errSave != nil {
+			return sendTarget, errSave
 		}
 	}
 

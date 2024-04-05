@@ -20,13 +20,13 @@ func TestRenderFeishuCard(t *testing.T) {
 
 	// sampleFailRender
 	sampleFailRenderWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusFailure),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusFailure),
 	)
 	sampleFailRenderSettings := mockPluginSettings()
 
 	// sampleRenderWithMessage
 	sampleRenderWithMessageWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
 		wd_mock.WithCurrentCommitInfo(
 			wd_mock.WithCiCommitMessage("test: test message\r\n\r\n this is a test message"),
 		),
@@ -35,22 +35,19 @@ func TestRenderFeishuCard(t *testing.T) {
 
 	// tagMessageRender
 	tagMessageRenderWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithFastMockTag("v1.2.3", "new tag"),
+		wd_mock.FastTag("v1.2.3", "new tag"),
 	)
 	tagMessageRenderSettings := mockPluginSettings()
 
 	// prMessageRender
 	prMessageRenderWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithFastMockPullRequest("13", "feature-new", "feature-new", "feature-new", "main"),
+		wd_mock.FastPullRequest("13", "feature-new", "feature-new", "feature-new", "main"),
 	)
 	prMessageRenderSettings := mockPluginSettings()
 
 	// prCloseMessageRender
 	prCloseMessageRenderWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithFastMockPullRequest("13", "feature-new", "feature-new", "feature-new", "main"),
-		wd_mock.WithCurrentPipelineInfo(
-			wd_mock.WithCiPipelineEvent(wd_info.EventPipelinePullRequestClose),
-		),
+		wd_mock.FastPullRequestClose("13", "feature-new", "feature-new", "feature-new", "main"),
 	)
 	prCloseMessageRenderSettings := mockPluginSettings()
 
@@ -98,16 +95,22 @@ func TestRenderFeishuCard(t *testing.T) {
 				goldie.WithDiffEngine(goldie.ClassicDiff),
 			)
 
+			// each test case settings start
+			tc.settings.Webhook = "some webhook"
+			tc.settings.DryRun = true
+			// each test case settings end
+
 			p := mockPluginWithSettings(t, tc.woodpeckerInfo, tc.settings)
 
 			// do RenderFeishuCard
-			renderFeishuCard, gotErr := feishu_plugin.RenderFeishuCardFromPlugin(&p)
+			gotErr := p.Exec()
 			assert.Equal(t, tc.wantErr, gotErr != nil)
 			if tc.wantErr {
 				t.Logf("~> RenderFeishuCard error: %s", gotErr.Error())
 				return
 			}
 			// verify RenderFeishuCard
+			renderFeishuCard := p.GetInnerCopyRenderFeishuCardContext()
 			g.Assert(t, t.Name(), []byte(renderFeishuCard))
 		})
 	}

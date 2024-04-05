@@ -1,4 +1,6 @@
 !testdata/
-!testdata/ossCardOssSuccess/.woodpecker_kit.steps.transfer
-!testdata/ossCardSendFailure/.woodpecker_kit.steps.transfer
-!testdata/ossCardSendSuccessWithPass/.woodpecker_kit.steps.transfer
+!testdata/NoticeTypeFileBrowser/sendWithPasswdAndStatusSuccess/.woodpecker_kit.steps.transfer
+!testdata/NoticeTypeFileBrowser/sendSuccess/.woodpecker_kit.steps.transfer
+!testdata/NoticeTypeFileBrowser/sendSuccessWithPasswd/.woodpecker_kit.steps.transfer
+!testdata/NoticeTypeFileBrowser/pullRequestSendWithPasswd/.woodpecker_kit.steps.transfer
+!testdata/NoticeTypeFileBrowser/failSendStatusSuccess/.woodpecker_kit.steps.transfer

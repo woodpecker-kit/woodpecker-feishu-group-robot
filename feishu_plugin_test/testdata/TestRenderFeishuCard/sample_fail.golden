@@ -4,7 +4,7 @@
   "msg_type": "interactive",
   "card": {
     "config": {
-      "enable_forward": false
+      "enable_forward": true
     },
     "header": {
       "template": "red",
@@ -56,10 +56,10 @@
           },
           {
             "tag": "img",
-            "img_key": "",
+            "img_key": "img_v2_18a207ce-2428-4b5c-8fc0-f791c05d938g",
             "alt": {
               "tag": "plain_text",
-              "content": ""
+              "content": "sinlov"
             }
           }
         ]
