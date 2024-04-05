@@ -4,7 +4,7 @@
   "msg_type": "interactive",
   "card": {
     "config": {
-      "enable_forward": false
+      "enable_forward": true
     },
     "header": {
       "template": "orange",
@@ -23,7 +23,7 @@
       },
       {
         "tag": "markdown",
-        "content": "🏗️ Pull Request: feature-new -> feature-new\nAuthor: **sinlov** on **main** PR Url: [PR Link](https://gitea.domain.com/sinlov/woodpecker-tools/commit/9c764dd487bce596c5c0402478fabde5f0344983)"
+        "content": "🏗️ Pull Request: feature-new -> feature-new\nAuthor: **sinlov** on **main** PR Url: [PR Link](https://gitea.domain.com/woodpecker-kit/guidance-woodpecker-agent/pulls/13)"
       },
       {
         "tag": "markdown",
@@ -35,7 +35,7 @@
       },
       {
         "tag": "markdown",
-        "content": "[See Git Link](https://gitea.domain.com/sinlov/woodpecker-tools/commit/9c764dd487bce596c5c0402478fabde5f0344983) | [See Build Details](https://woodpecker.domain.com/repos/2/pipeline/10)"
+        "content": "[See Git Link](https://gitea.domain.com/woodpecker-kit/guidance-woodpecker-agent/pulls/13) | [See Build Details](https://woodpecker.domain.com/repos/2/pipeline/10)"
       },
       {
         "tag": "hr"
@@ -56,10 +56,10 @@
           },
           {
             "tag": "img",
-            "img_key": "",
+            "img_key": "img_v2_18a207ce-2428-4b5c-8fc0-f791c05d938g",
             "alt": {
               "tag": "plain_text",
-              "content": ""
+              "content": "sinlov"
             }
           }
         ]

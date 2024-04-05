@@ -31,7 +31,7 @@
       },
       {
         "tag": "markdown",
-        "content": "**Commit:**\ntest: test message\n\n this is a test message"
+        "content": "**Commit:**\ntest: use source to load env vars at before step"
       },
       {
         "tag": "markdown",
@@ -39,6 +39,14 @@
       },
       {
         "tag": "hr"
+      },
+      {
+        "tag": "markdown",
+        "content": ":📝 file browser from Commit by sinlov on **main**\nCommitCode: 9c764dd487bce596c5c0402478fabde5f0344983"
+      },
+      {
+        "tag": "markdown",
+        "content": "file browser to [https://filebrowser.foo.com](https://filebrowser.foo.com)\nPage: [https://docs.aws.amazon.com/p/dist/demo/page-xyz.html](https://docs.aws.amazon.com/p/dist/demo/page-xyz.html)\nPasswd: abc-zxy"
       },
       {
         "tag": "markdown",

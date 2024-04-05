@@ -8,27 +8,38 @@ import (
 
 // renderFileBrowser
 // use OssCardFileBrowserRender
-const renderFileBrowser = `      {{#if CardOssFB.IsSendSuccess }}
+const renderFileBrowser = `{{#if CardOssFB.IsSendSuccess }}      
 {{#if CardOssFB.IsTagResult }}
       {
         "tag": "markdown",
-        "content": "📦 **Tag:** {{ CiInfo.Commit.Tag }}\nCommitCode: {{ CiInfo.Commit.Sha }}"
+        "content": "📦 file browser from **Tag:** {{ CiInfo.Commit.Tag }}\nCommitCode: {{ CiInfo.Commit.Sha }}"
       },
 {{else if CardOssFB.IsPullRequestResult}}
       {
         "tag": "markdown",
-        "content": "🏗️ Pull Request: {{ CiInfo.Commit.SourceBranch }} -> {{ CiInfo.Commit.TargetBranch }} [#{{ CiInfo.Commit.PR }}]({{ CiInfo.Commit.Url }})"
+        "content": "🏗️ file browser from Pull Request: {{ CiInfo.Commit.SourceBranch }} -> {{ CiInfo.Commit.TargetBranch }} [#{{ CiInfo.Commit.PR }}]({{ CiInfo.Commit.Link }})"
       },
 {{else}}
       {
         "tag": "markdown",
-        "content": ":📝 Commit by [#{{ CiInfo.Commit.PR }}]({{ CiInfo.Commit.Url }})"
+        "content": ":📝 file browser from Commit by {{ CiInfo.Commit.CommitAuthor.Username }} on **{{ CiInfo.Commit.CommitBranch }}**\nCommitCode: {{ CiInfo.Commit.Sha }}"
+      },
+{{/if}}
+{{#if CardOssFB.IsRenderPassword }}
+      {
+        "tag": "markdown",
+        "content": "file browser to [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }})\nPage: [{{ CardOssFB.PageUrl }}]({{ CardOssFB.PageUrl }})\nPasswd: {{ CardOssFB.PagePasswd }}"
+      },
+{{else}}
+      {
+        "tag": "markdown",
+        "content": "file browser to [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }})\nDownload: [{{ CardOssFB.PageUrl }}]({{ CardOssFB.PageUrl }})"
       },
 {{/if}}
 {{else}}
       {
         "tag": "markdown",
-        "content": "send file browser to [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }}) failed, please check log"
+        "content": "send file browser to [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }}) failed, please check at [build Details]({{ CiInfo.Build.LinkCi }})"
       },
 {{/if}}
 `
@@ -57,16 +68,14 @@ type CardOssFB struct {
 
 	InfoUser string
 
-	PageUrl    string
-	PagePasswd string
-
-	IsRenderResourceUrl bool
-	ResourceUrl         string
+	PageUrl          string
+	IsRenderPassword bool
+	PagePasswd       string
 }
 
 func renderOssCardFileBrowser(r *OssCardFileBrowserRender) (string, error) {
 
-	out, err := wd_template.Render(renderFileBrowser, &r)
+	out, err := wd_template.Render(renderFileBrowser, *r)
 	if err != nil {
 		return "", err
 	}
@@ -82,10 +91,8 @@ func parseOssCardFileBrowserRender(shareData wd_share_file_browser_upload.WdShar
 
 			InfoUser: shareData.FileBrowserUserName,
 
-			PageUrl:    shareData.ResourceUrl,
+			PageUrl:    shareData.DownloadPage,
 			PagePasswd: shareData.DownloadPasswd,
-
-			ResourceUrl: shareData.ResourceUrl,
 		},
 	}
 
@@ -103,8 +110,8 @@ func formatOssCardFileBrowser(r *OssCardFileBrowserRender) {
 		r.CardOssFB.IsPullRequestResult = true
 	}
 
-	r.CardOssFB.IsRenderResourceUrl = false
-	if r.CardOssFB.PagePasswd == "" {
-		r.CardOssFB.IsRenderResourceUrl = true
+	r.CardOssFB.IsRenderPassword = false
+	if r.CardOssFB.PagePasswd != "" {
+		r.CardOssFB.IsRenderPassword = true
 	}
 }

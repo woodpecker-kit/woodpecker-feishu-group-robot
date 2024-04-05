@@ -70,7 +70,7 @@ const tplFeishuCardTail = `      {
   }
 }`
 
-func RenderFeishuCardFromPlugin(p *FeishuPlugin) (string, error) {
+func renderFeishuCardFromPlugin(p *FeishuPlugin) (string, error) {
 	renderPlugin, errFormat := formatRenderPluginData(*p)
 	if errFormat != nil {
 		return "", errFormat
@@ -229,15 +229,16 @@ func parserCardElementNoticeList(f *FeishuPlugin) ([]string, string, error) {
 		}
 	}
 
+	// render notice type
 	var lessNoticeContent []string
 	for _, noticeType := range lessNoticeType {
 		switch noticeType {
-		case NoticeTypeFileBrowser:
-			if f.renderOssCardFileBrowser != nil {
-				if !f.renderOssCardFileBrowser.CardOssFB.IsSendSuccess {
+		case NoticeTypeFileBrowser: // NoticeTypeFileBrowser
+			if f.innerData.renderOssCardFileBrowser != nil {
+				if !f.innerData.renderOssCardFileBrowser.CardOssFB.IsSendSuccess {
 					buildStatus = wd_info.BuildStatusFailure
 				}
-				cardFileBrowserContent, errRenderOssCardFileBrowser := renderOssCardFileBrowser(f.renderOssCardFileBrowser)
+				cardFileBrowserContent, errRenderOssCardFileBrowser := renderOssCardFileBrowser(f.innerData.renderOssCardFileBrowser)
 				if errRenderOssCardFileBrowser != nil {
 					return noticeList, buildStatus, errRenderOssCardFileBrowser
 				}
@@ -286,6 +287,8 @@ func formatRenderPluginData(f FeishuPlugin) (FeishuPlugin, error) {
 		Version:        f.Version,
 		woodpeckerInfo: &woodPeckerInfo,
 		Settings:       f.Settings,
+
+		innerData: f.innerData,
 	}
 
 	p.SetWoodpeckerInfo(woodPeckerInfo)

@@ -17,19 +17,24 @@ import (
 )
 
 const (
-	keyEnvDebug        = "CI_DEBUG"
-	keyEnvCiNum        = "CI_NUMBER"
-	keyEnvCiKey        = "CI_KEY"
-	keyEnvCiKeys       = "CI_KEYS"
-	mockVersion        = "1.0.0"
-	mockName           = "woodpecker-feishu-group-robot"
-	mockTitle          = "CI Notification"
-	mockOssHostUrl     = "https://docs.aws.amazon.com/s3/index.html"
-	mockOssUser        = "ossAdmin"
-	mockOssPath        = "dist/demo/pass.tar.gz"
-	mockOssResourceUrl = "https://docs.aws.amazon.com/s/dist/demo/pass.tar.gz"
-	mockOssPageUrl     = "https://docs.aws.amazon.com/p/dist/demo/page-xyz.html"
-	mockOssPagePasswd  = "abc-zxy"
+	keyEnvDebug  = "CI_DEBUG"
+	keyEnvCiNum  = "CI_NUMBER"
+	keyEnvCiKey  = "CI_KEY"
+	keyEnvCiKeys = "CI_KEYS"
+	mockVersion  = "1.0.0"
+	mockName     = "woodpecker-feishu-group-robot"
+	mockTitle    = "CI Notification"
+
+	// NoticeTypeFileBrowser mock
+	mockFileBrowserHostUrl         = "https://filebrowser.foo.com"
+	mockFileBrowserUserName        = "admin"
+	mockFileBrowserResourceUrl     = "dist/demo/pass.tar.gz"
+	mockFileBrowserDownloadPageUrl = "https://docs.aws.amazon.com/p/dist/demo/page-xyz.html"
+	mockFileBrowserDownloadPasswd  = "abc-zxy"
+
+	// some oss
+	mockOssHostUrl = "https://docs.aws.amazon.com/s3/index.html"
+	mockOssPath    = "dist/demo/pass.tar.gz"
 )
 
 var (
@@ -54,11 +59,12 @@ var (
 		feishu_plugin.EnvPluginWebhook,
 	}
 
-	valEnvPluginDebug   = false
-	valEnvPluginWebHook = ""
-	valEnvPluginSecret  = ""
-	valEnvNoticeTypes   = []string{feishu_plugin.NoticeTypeBuildStatus}
-	valEnvPluginTitle   = ""
+	valEnvPluginDebug               = false
+	valEnvPluginWebHook             = ""
+	valEnvPluginSecret              = ""
+	valEnvNoticeTypes               = []string{feishu_plugin.NoticeTypeBuildStatus}
+	valEnvPluginFeishuEnableForward = true
+	valEnvPluginTitle               = ""
 )
 
 func init() {
@@ -74,6 +80,7 @@ func init() {
 	valEnvPluginWebHook = env_kit.FetchOsEnvStr(feishu_plugin.EnvPluginWebhook, "")
 	valEnvPluginSecret = env_kit.FetchOsEnvStr(feishu_plugin.EnvPluginSecret, "")
 	valEnvPluginTitle = env_kit.FetchOsEnvStr(feishu_plugin.EnvPluginTitle, mockTitle)
+	valEnvPluginFeishuEnableForward = env_kit.FetchOsEnvBool(feishu_plugin.EnvPluginFeishuEnableForward, true)
 	envNoticeTypes := env_kit.FetchOsEnvStringSlice(feishu_plugin.EnvPluginFeishuNoticeTypes)
 	if len(envNoticeTypes) > 0 {
 		valEnvNoticeTypes = envNoticeTypes
@@ -144,7 +151,8 @@ func mockPluginSettings() feishu_plugin.Settings {
 		Secret:      valEnvPluginSecret,
 		NoticeTypes: valEnvNoticeTypes,
 
-		Title: valEnvPluginTitle,
+		Title:               valEnvPluginTitle,
+		FeishuEnableForward: valEnvPluginFeishuEnableForward,
 	}
 
 	return settings
