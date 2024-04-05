@@ -1,6 +1,14 @@
 package feishu_plugin
 
 const (
+	// NoticeTypeBuildStatus
+	// build status notice, default notice type
+	NoticeTypeBuildStatus = "build_status"
+
+	// NoticeTypeFileBrowser
+	// file browser notice
+	NoticeTypeFileBrowser = "file_browser"
+
 	RenderStatusShow = "success"
 	RenderStatusHide = "failure"
 
@@ -10,6 +18,11 @@ const (
 )
 
 var (
+	noticeTypeSupport = []string{
+		NoticeTypeBuildStatus,
+		NoticeTypeFileBrowser,
+	}
+
 	// supportMsgType
 	supportRenderStatus = []string{
 		RenderStatusShow,

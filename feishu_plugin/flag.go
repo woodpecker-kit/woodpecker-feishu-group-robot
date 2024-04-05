@@ -15,14 +15,6 @@ const (
 	CliPluginFeishuNoticeTypes = "settings.feishu-notice-types"
 	EnvPluginFeishuNoticeTypes = "PLUGIN_FEISHU_NOTICE_TYPES"
 
-	// NoticeTypeBuildStatus
-	// build status notice, default notice type
-	NoticeTypeBuildStatus = "build_status"
-
-	// NoticeTypeFileBrowser
-	// file browser notice
-	NoticeTypeFileBrowser = "file_browser"
-
 	CliPluginWebhook = "settings.feishu-webhook"
 	EnvPluginWebhook = "PLUGIN_FEISHU_WEBHOOK"
 
@@ -55,13 +47,6 @@ const (
 
 	CliPluginMsgType = "settings.feishu-msg-type"
 	EnvPluginMsgType = "PLUGIN_FEISHU_MSG_TYPE"
-)
-
-var (
-	noticeTypeSupport = []string{
-		NoticeTypeBuildStatus,
-		NoticeTypeFileBrowser,
-	}
 )
 
 // GlobalFlag
