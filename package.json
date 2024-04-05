@@ -1,7 +1,7 @@
 {
   "name": "woodpecker-feishu-group-robot",
   "version": "1.2.0",
-  "description": "template of golang cli tools, and can print basic env info",
+  "description": "woodpecker feishu group robot kits",
   "directories": {
     "doc": "doc"
   },
@@ -10,10 +10,9 @@
     "url": "git+https://github.com/woodpecker-kit/woodpecker-feishu-group-robot.git"
   },
   "keywords": [
-    "go",
-    "make",
+    "woodpecker",
     "docker",
-    "action"
+    "feishu"
   ],
   "author": {
     "name": "woodpecker-kit",

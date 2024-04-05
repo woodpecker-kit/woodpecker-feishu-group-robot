@@ -10,21 +10,6 @@ import (
 )
 
 const (
-	CliPluginNtpTarget = "settings.feishu_ntp_target"
-	EnvPluginNtpTarget = "PLUGIN_FEISHU_NTP_TARGET"
-
-	CliPluginWebhook = "settings.feishu_webhook"
-	EnvPluginWebhook = "PLUGIN_FEISHU_WEBHOOK"
-
-	CliPluginSecret = "settings.feishu_secret"
-	EnvPluginSecret = "PLUGIN_FEISHU_SECRET"
-
-	CliPluginFeishuEnableForward = "settings.feishu_enable_forward"
-	EnvPluginFeishuEnableForward = "PLUGIN_FEISHU_ENABLE_FORWARD"
-
-	CliPluginFeishuEnableDebugNotice = "settings.feishu-enable-debug-notice"
-	EnvPluginFeishuEnableDebugNotice = "PLUGIN_FEISHU_ENABLE_DEBUG_NOTICE"
-
 	// CliPluginFeishuNoticeTypes
 	// feishu_notice_types
 	CliPluginFeishuNoticeTypes = "settings.feishu-notice-types"
@@ -38,23 +23,38 @@ const (
 	// file browser notice
 	NoticeTypeFileBrowser = "file_browser"
 
-	CliPluginStatusSuccessIgnore = "settings.feishu_status_success_ignore"
+	CliPluginWebhook = "settings.feishu-webhook"
+	EnvPluginWebhook = "PLUGIN_FEISHU_WEBHOOK"
+
+	CliPluginSecret = "settings.feishu-secret"
+	EnvPluginSecret = "PLUGIN_FEISHU_SECRET"
+
+	CliPluginFeishuEnableForward = "settings.feishu-enable-forward"
+	EnvPluginFeishuEnableForward = "PLUGIN_FEISHU_ENABLE_FORWARD"
+
+	CliPluginFeishuEnableDebugNotice = "settings.feishu-enable-debug-notice"
+	EnvPluginFeishuEnableDebugNotice = "PLUGIN_FEISHU_ENABLE_DEBUG_NOTICE"
+
+	CliPluginNtpTarget = "settings.feishu-ntp-target"
+	EnvPluginNtpTarget = "PLUGIN_FEISHU_NTP_TARGET"
+
+	CliPluginStatusSuccessIgnore = "settings.feishu-status-success-ignore"
 	EnvPluginStatusSuccessIgnore = "PLUGIN_FEISHU_STATUS_SUCCESS_IGNORE"
 
-	CliPluginStatusChangeSuccess = "settings.feishu_status_change_success"
+	CliPluginStatusChangeSuccess = "settings.feishu-status-change-success"
 	EnvPluginStatusChangeSuccess = "PLUGIN_FEISHU_STATUS_CHANGE_SUCCESS"
 
-	CliPluginTitle = "settings.feishu_msg_title"
+	CliPluginTitle = "settings.feishu-msg-title"
 	EnvPluginTitle = "PLUGIN_FEISHU_MSG_TITLE"
 
-	CliPluginMsgType = "settings.feishu_msg_type"
-	EnvPluginMsgType = "PLUGIN_FEISHU_MSG_TYPE"
-
-	CliPluginPoweredByImageKey = "settings.feishu_msg_powered_by_image_key"
+	CliPluginPoweredByImageKey = "settings.feishu-msg-powered-by-image-key"
 	EnvPluginPoweredByImageKey = "PLUGIN_FEISHU_MSG_POWERED_BY_IMAGE_KEY"
 
-	CliPluginPoweredByImageAlt = "settings.feishu_msg_powered_by_image_alt"
+	CliPluginPoweredByImageAlt = "settings.feishu-msg-powered-by-image-alt"
 	EnvPluginPoweredByImageAlt = "PLUGIN_FEISHU_MSG_POWERED_BY_IMAGE_ALT"
+
+	CliPluginMsgType = "settings.feishu-msg-type"
+	EnvPluginMsgType = "PLUGIN_FEISHU_MSG_TYPE"
 )
 
 var (
@@ -76,12 +76,12 @@ func GlobalFlag() []cli.Flag {
 		},
 		&cli.StringFlag{
 			Name:    CliPluginWebhook,
-			Usage:   "feishu robot webhook",
+			Usage:   "feishu robot webhook, like `https://open.feishu.cn/open-apis/bot/v2/hook/{web_hook}` end `{web_hook}`",
 			EnvVars: []string{EnvPluginWebhook},
 		},
 		&cli.StringFlag{
 			Name:    CliPluginSecret,
-			Usage:   "feishu robot secret",
+			Usage:   "feishu robot secret, just `signature verification`, empty will not open.",
 			EnvVars: []string{EnvPluginSecret},
 		},
 		&cli.BoolFlag{
@@ -91,20 +91,21 @@ func GlobalFlag() []cli.Flag {
 		},
 		&cli.BoolFlag{
 			Name:    CliPluginFeishuEnableDebugNotice,
-			Usage:   "when debug open, will not notice, must enable it to notice under debug open",
+			Usage:   "when debug open, will not send message, must enable it to notice under debug open",
 			EnvVars: []string{EnvPluginFeishuEnableDebugNotice},
 		},
 
 		&cli.StringSliceFlag{
 			Name:    CliPluginFeishuNoticeTypes,
-			Usage:   fmt.Sprintf("feishu notice types, now support: %v", noticeTypeSupport),
+			Usage:   fmt.Sprintf("feishu notice types, if empty will use [ %s ], now support: %v", NoticeTypeBuildStatus, noticeTypeSupport),
 			Value:   cli.NewStringSlice(NoticeTypeBuildStatus),
 			EnvVars: []string{EnvPluginFeishuNoticeTypes},
 		},
 
 		&cli.StringFlag{
 			Name:    CliPluginMsgType,
-			Usage:   "feishu message type",
+			Usage:   fmt.Sprintf("feishu message type, now support: %v", supportMsgType),
+			Value:   MsgTypeInteractive,
 			EnvVars: []string{EnvPluginMsgType},
 		},
 		&cli.StringFlag{
