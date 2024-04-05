@@ -2,11 +2,11 @@
 name: woodpecker-feishu-group-robot
 description: woodpecker plugin template
 author: woodpecker-kit
-tags: [ environment, woodpecker-feishu-group-robot ]
-containerImage: woodpecker-kit/woodpecker-feishu-group-robot
-containerImageUrl: https://hub.docker.com/r/woodpecker-kit/woodpecker-feishu-group-robot
+tags: [ feishu, robot, notice ]
+containerImage: sinlov/woodpecker-feishu-group-robot
+containerImageUrl: https://hub.docker.com/r/sinlov/woodpecker-feishu-group-robot
 url: https://github.com/woodpecker-kit/woodpecker-feishu-group-robot
-icon: https://woodpecker-ci.org/img/logo.svg
+icon: https://raw.githubusercontent.com/woodpecker-kit/woodpecker-feishu-group-robot/main/doc/icon.png
 ---
 
 woodpecker-feishu-group-robot
