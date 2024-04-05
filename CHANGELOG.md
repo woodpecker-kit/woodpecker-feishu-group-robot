@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.3.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.2.0...v1.3.0) (2024-04-06)
+
+### 🐛 Bug Fixes
+
+* change plugin rander to support more info to show by `settings.feishu-notice-types` ([11f0b2a5](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/11f0b2a554ae666c0730bb46f7ff5619e9d0bb2c))
+
+### ✨ Features
+
+* change flag name with style `*-*`, and update usage of doc ([076cc10f](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/076cc10f04d22d426a3587f3994f1f2b8b316c78))
+
+* support `NoticeTypeFileBrowser` and update unit test case more safe ([bc156278](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/bc156278ce9f3cd083404f84e5994a6bfe20022a))
+
+### 📝 Documentation
+
+* add woodpecker docs, and icon ([ba4e8154](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/ba4e815440f326b655f114da2242589db0f92eb9))
+
+* add template usage at doc/README.md ([1345a216](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/1345a2160b523aafd90c7540e15050f519f4acd4))
+
+* add docker bagdes and remove useless code of plugin ([785b68f3](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/785b68f3c7abb021d0f5dffa34b51e23edb96e54))
+
+### ♻ Refactor
+
+* change test code file and update dev doc at doc/README.md ([54892014](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/548920147b32c8a515d4273175e937ed7d2c8758))
+
 ## [1.2.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.1.0...v1.2.0) (2024-03-06)
 
 ### ✨ Features
