@@ -160,10 +160,35 @@ $ make helpDocker
 package foo
 
 func GlobalBeforeAction(c *cli.Context) error {
-  isDebug := wd_urfave_cli_v2.IsBuildDebugOpen(c)
-  if isDebug {
-    wd_log.OpenDebug()
-  }
-  return nil
+	isDebug := wd_urfave_cli_v2.IsBuildDebugOpen(c)
+	if isDebug {
+		wd_log.OpenDebug()
+	}
+	return nil
+}
+```
+
+### template
+
+- [https://github.com/aymerick/raymond](https://github.com/aymerick/raymond)
+- function doc [https://masterminds.github.io/sprig/](https://masterminds.github.io/sprig/)
+
+- open template support at cli `main.go`
+
+```go
+package main
+func main() {
+	// register helpers once
+	wd_template.RegisterSettings(wd_template.DefaultHelpers)
+}
+```
+- and open at test `init_test.go`
+
+```go
+package plugin_test
+
+func init() {
+	// if open wd_template please open this
+	wd_template.RegisterSettings(wd_template.DefaultHelpers)
 }
 ```
