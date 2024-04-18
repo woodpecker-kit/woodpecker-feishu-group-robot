@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/sinlov-go/unittest-kit/env_kit"
 	"github.com/urfave/cli/v2"
+	woodpecker_feishu_group_robot "github.com/woodpecker-kit/woodpecker-feishu-group-robot"
 	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/constant"
 	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/feishu_plugin"
 	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/internal/pkgJson"
@@ -67,6 +68,12 @@ func GlobalBeforeAction(c *cli.Context) error {
 	if errRootPath != nil {
 		return cli_exit_urfave.Err(errRootPath)
 	}
+
+	errCheckAllResource := woodpecker_feishu_group_robot.CheckAllResource(rootPath)
+	if errCheckAllResource != nil {
+		return cli_exit_urfave.Err(errCheckAllResource)
+	}
+
 	stepsTransferFilePath := c.String(constant.NameCliPluginStepsTransferFilePath)
 	stepsOutDisable := c.Bool(constant.NameCliPluginStepsTransferDisableOut)
 

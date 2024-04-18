@@ -1,0 +1,19 @@
+      {
+        "tag": "markdown",
+        "content": "📝 Commit by {{ Commit.CommitAuthor.Username }} on **{{ Commit.CommitBranch }}**\nCommitCode: {{ Commit.Sha }}"
+      },
+      {
+        "tag": "markdown",
+        "content": "{{#success Build.Status }}✅{{/success}}{{#failure Build.Status }}❌{{/failure}} Build [#{{ Build.Number }}]({{ Build.LinkCi }}) {{ Build.Status }}"
+      },
+      {
+        "tag": "markdown",
+        "content": "**Commit:**\n{{ Commit.Message }}"
+      },
+      {
+        "tag": "markdown",
+        "content": "[See Git Link]({{ Commit.Link }}) | [See Build Details]({{ Build.LinkCi }})"
+      },
+      {
+        "tag": "hr"
+      },
