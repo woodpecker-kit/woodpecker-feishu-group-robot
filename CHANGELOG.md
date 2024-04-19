@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.4.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.3.0...v1.4.0) (2024-04-19)
+
+### ✨ Features
+
+* add settings `feishu-msg-i18n-lang` to change i18n, and add check of this setings ([5343b070](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/5343b070c237291883e7bc2e3cdbf5e041a86efd)), feat [#5](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/issues/5)
+
+* add basic i18n to support feishu_card_build_status and add basic tpl ([abb0bb7d](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/abb0bb7d7f5fdb50cc5186e5abb39ecbfbbaf03f))
+
+### 📝 Documentation
+
+* rEMDE.md Features item added ([b260657a](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/b260657a473cf98c7189a5488639a4b13eb38122))
+
+### ♻ Refactor
+
+* add card template test for different lang ([c6548fe4](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/c6548fe4105b33c7b8698acfc2650f8ff727ab7e))
+
+* change render tast case more clear ([689ddc19](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/689ddc198c815fef1bf612c7d68e41f8231714fb))
+
+* add zh-CN template and update test case ([97e1292f](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/97e1292f9fafc1944b55bd96e0b328d8f2f697b7))
+
+* feishu card template management by embed Resource ([7f61f53c](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/7f61f53c2b16f7f321c14eef63851fd8427d13fd))
+
+### 👷‍ Build System
+
+* platform`linux/amd64 linux/386 linux/arm64/v8 linux/arm/v7 linux/ppc64le linux/s390x` ([06823610](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/068236108b377b0340e6e64e9a741833c4c4906a)), feat [#7](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/issues/7)
+
 ## [1.3.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.2.0...v1.3.0) (2024-04-06)
 
 ### 🐛 Bug Fixes
