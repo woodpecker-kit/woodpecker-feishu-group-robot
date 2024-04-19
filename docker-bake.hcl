@@ -28,6 +28,10 @@ target "image-all" {
   inherits = ["image"]
   platforms = [
     "linux/amd64",
-    "linux/arm64/v8"
+    "linux/386",
+    "linux/arm64/v8",
+    "linux/arm/v7",
+    "linux/ppc64le",
+    "linux/s390x",
   ]
 }

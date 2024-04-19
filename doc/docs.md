@@ -11,6 +11,14 @@ icon: https://raw.githubusercontent.com/woodpecker-kit/woodpecker-feishu-group-r
 
 woodpecker-feishu-group-robot
 
+## Features
+
+- [x] simple to set up and easy to use
+- [x] Supports ignoring build success notifications in the same steps and comparing notifications after the last build failure.
+- [x] internationalization support: en-US, zh-CN more support see --help (v1.4.+)
+- [x] docker platform support
+  - linux/amd64 linux/386 linux/arm64/v8 linux/arm/v7 linux/ppc64le linux/s390x (v1.4.+)
+
 ## before use
 
 - sed doc at [feishu Custom bot guide](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN?lang=en-US), to
