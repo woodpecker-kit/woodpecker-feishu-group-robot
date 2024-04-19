@@ -1,0 +1,69 @@
+{
+  "timestamp": 0,
+  "sign": "",
+  "msg_type": "interactive",
+  "card": {
+    "config": {
+      "enable_forward": true
+    },
+    "header": {
+      "template": "orange",
+      "title": {
+        "tag": "plain_text",
+        "content": "woodpecker-kit/guidance-woodpecker-agent PR: #13"
+      }
+    },
+    "elements": [
+      {
+        "tag": "markdown",
+        "content": "**CI Notification**"
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "markdown",
+        "content": "🏗️ Pull Request: feature-new -> feature-new\n提交人: **sinlov** 分支 **main** PR 链接: [PR Link](https://gitea.domain.com/woodpecker-kit/guidance-woodpecker-agent/pulls/13)"
+      },
+      {
+        "tag": "markdown",
+        "content": "✅ 构建编号 [#10](https://woodpecker.domain.com/repos/2/pipeline/10) success"
+      },
+      {
+        "tag": "markdown",
+        "content": "**提交信息:**\npr: 13, feature-new"
+      },
+      {
+        "tag": "markdown",
+        "content": "[查看 Git 链接](https://gitea.domain.com/woodpecker-kit/guidance-woodpecker-agent/pulls/13) | [查看构建详情](https://woodpecker.domain.com/repos/2/pipeline/10)"
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "markdown",
+        "content": "**构建开始于: ** 2024-01-19-09-55-41\n**构建时间: ** 25s\n构建设备: worker\n平台标识: linux/amd64\n触发事件: pull_request"
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "note",
+        "elements": [
+          {
+            "tag": "plain_text",
+            "content": "From 2.3.0@woodpecker.domain.com. Powered By"
+          },
+          {
+            "tag": "img",
+            "img_key": "img_v2_18a207ce-2428-4b5c-8fc0-f791c05d938g",
+            "alt": {
+              "tag": "plain_text",
+              "content": "sinlov"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

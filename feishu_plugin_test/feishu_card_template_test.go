@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/sebdah/goldie/v2"
 	"github.com/stretchr/testify/assert"
+	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/constant"
 	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/feishu_plugin"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_mock"
@@ -28,6 +29,72 @@ func TestRenderFeishuCard(t *testing.T) {
 
 	doTestRenderFeishuCardByi18n(t,
 		"",
+		sampleRenderWoodpeckerInfo,
+		sampleRenderSettings,
+		sampleFailRenderWoodpeckerInfo,
+		sampleFailRenderSettings,
+		sampleRenderWithMessageWoodpeckerInfo,
+		sampleRenderWithMessageSettings,
+		tagMessageRenderWoodpeckerInfo,
+		tagMessageRenderSettings,
+		prMessageRenderWoodpeckerInfo,
+		prMessageRenderSettings,
+		prCloseMessageRenderWoodpeckerInfo,
+		prCloseMessageRenderSettings,
+	)
+}
+
+func TestRenderFeishuCardEnUS(t *testing.T) {
+
+	// template config start
+	sampleRenderWoodpeckerInfo,
+		sampleRenderSettings,
+		sampleFailRenderWoodpeckerInfo,
+		sampleFailRenderSettings,
+		sampleRenderWithMessageWoodpeckerInfo,
+		sampleRenderWithMessageSettings,
+		tagMessageRenderWoodpeckerInfo,
+		tagMessageRenderSettings,
+		prMessageRenderWoodpeckerInfo,
+		prMessageRenderSettings,
+		prCloseMessageRenderWoodpeckerInfo,
+		prCloseMessageRenderSettings := mockRenderFeishuCardCase(t)
+
+	doTestRenderFeishuCardByi18n(t,
+		constant.LangEnUS,
+		sampleRenderWoodpeckerInfo,
+		sampleRenderSettings,
+		sampleFailRenderWoodpeckerInfo,
+		sampleFailRenderSettings,
+		sampleRenderWithMessageWoodpeckerInfo,
+		sampleRenderWithMessageSettings,
+		tagMessageRenderWoodpeckerInfo,
+		tagMessageRenderSettings,
+		prMessageRenderWoodpeckerInfo,
+		prMessageRenderSettings,
+		prCloseMessageRenderWoodpeckerInfo,
+		prCloseMessageRenderSettings,
+	)
+}
+
+func TestRenderFeishuCardZhCn(t *testing.T) {
+
+	// template config start
+	sampleRenderWoodpeckerInfo,
+		sampleRenderSettings,
+		sampleFailRenderWoodpeckerInfo,
+		sampleFailRenderSettings,
+		sampleRenderWithMessageWoodpeckerInfo,
+		sampleRenderWithMessageSettings,
+		tagMessageRenderWoodpeckerInfo,
+		tagMessageRenderSettings,
+		prMessageRenderWoodpeckerInfo,
+		prMessageRenderSettings,
+		prCloseMessageRenderWoodpeckerInfo,
+		prCloseMessageRenderSettings := mockRenderFeishuCardCase(t)
+
+	doTestRenderFeishuCardByi18n(t,
+		constant.LangZhCN,
 		sampleRenderWoodpeckerInfo,
 		sampleRenderSettings,
 		sampleFailRenderWoodpeckerInfo,
