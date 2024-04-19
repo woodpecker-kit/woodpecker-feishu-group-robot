@@ -12,118 +12,18 @@ import (
 )
 
 func TestRenderFeishuCard(t *testing.T) {
-
-	// template config start
-	sampleRenderWoodpeckerInfo,
-		sampleRenderSettings,
-		sampleFailRenderWoodpeckerInfo,
-		sampleFailRenderSettings,
-		sampleRenderWithMessageWoodpeckerInfo,
-		sampleRenderWithMessageSettings,
-		tagMessageRenderWoodpeckerInfo,
-		tagMessageRenderSettings,
-		prMessageRenderWoodpeckerInfo,
-		prMessageRenderSettings,
-		prCloseMessageRenderWoodpeckerInfo,
-		prCloseMessageRenderSettings := mockRenderFeishuCardCase(t)
-
-	doTestRenderFeishuCardByi18n(t,
-		"",
-		sampleRenderWoodpeckerInfo,
-		sampleRenderSettings,
-		sampleFailRenderWoodpeckerInfo,
-		sampleFailRenderSettings,
-		sampleRenderWithMessageWoodpeckerInfo,
-		sampleRenderWithMessageSettings,
-		tagMessageRenderWoodpeckerInfo,
-		tagMessageRenderSettings,
-		prMessageRenderWoodpeckerInfo,
-		prMessageRenderSettings,
-		prCloseMessageRenderWoodpeckerInfo,
-		prCloseMessageRenderSettings,
-	)
+	doTestRenderFeishuCardByi18n(t, "")
 }
 
 func TestRenderFeishuCardEnUS(t *testing.T) {
-
-	// template config start
-	sampleRenderWoodpeckerInfo,
-		sampleRenderSettings,
-		sampleFailRenderWoodpeckerInfo,
-		sampleFailRenderSettings,
-		sampleRenderWithMessageWoodpeckerInfo,
-		sampleRenderWithMessageSettings,
-		tagMessageRenderWoodpeckerInfo,
-		tagMessageRenderSettings,
-		prMessageRenderWoodpeckerInfo,
-		prMessageRenderSettings,
-		prCloseMessageRenderWoodpeckerInfo,
-		prCloseMessageRenderSettings := mockRenderFeishuCardCase(t)
-
-	doTestRenderFeishuCardByi18n(t,
-		constant.LangEnUS,
-		sampleRenderWoodpeckerInfo,
-		sampleRenderSettings,
-		sampleFailRenderWoodpeckerInfo,
-		sampleFailRenderSettings,
-		sampleRenderWithMessageWoodpeckerInfo,
-		sampleRenderWithMessageSettings,
-		tagMessageRenderWoodpeckerInfo,
-		tagMessageRenderSettings,
-		prMessageRenderWoodpeckerInfo,
-		prMessageRenderSettings,
-		prCloseMessageRenderWoodpeckerInfo,
-		prCloseMessageRenderSettings,
-	)
+	doTestRenderFeishuCardByi18n(t, constant.LangEnUS)
 }
 
 func TestRenderFeishuCardZhCn(t *testing.T) {
-
-	// template config start
-	sampleRenderWoodpeckerInfo,
-		sampleRenderSettings,
-		sampleFailRenderWoodpeckerInfo,
-		sampleFailRenderSettings,
-		sampleRenderWithMessageWoodpeckerInfo,
-		sampleRenderWithMessageSettings,
-		tagMessageRenderWoodpeckerInfo,
-		tagMessageRenderSettings,
-		prMessageRenderWoodpeckerInfo,
-		prMessageRenderSettings,
-		prCloseMessageRenderWoodpeckerInfo,
-		prCloseMessageRenderSettings := mockRenderFeishuCardCase(t)
-
-	doTestRenderFeishuCardByi18n(t,
-		constant.LangZhCN,
-		sampleRenderWoodpeckerInfo,
-		sampleRenderSettings,
-		sampleFailRenderWoodpeckerInfo,
-		sampleFailRenderSettings,
-		sampleRenderWithMessageWoodpeckerInfo,
-		sampleRenderWithMessageSettings,
-		tagMessageRenderWoodpeckerInfo,
-		tagMessageRenderSettings,
-		prMessageRenderWoodpeckerInfo,
-		prMessageRenderSettings,
-		prCloseMessageRenderWoodpeckerInfo,
-		prCloseMessageRenderSettings,
-	)
+	doTestRenderFeishuCardByi18n(t, constant.LangZhCN)
 }
 
-func mockRenderFeishuCardCase(t *testing.T) (
-	wd_info.WoodpeckerInfo,
-	feishu_plugin.Settings,
-	wd_info.WoodpeckerInfo,
-	feishu_plugin.Settings,
-	wd_info.WoodpeckerInfo,
-	feishu_plugin.Settings,
-	wd_info.WoodpeckerInfo,
-	feishu_plugin.Settings,
-	wd_info.WoodpeckerInfo,
-	feishu_plugin.Settings,
-	wd_info.WoodpeckerInfo,
-	feishu_plugin.Settings,
-) {
+func doTestRenderFeishuCardByi18n(t *testing.T, lang string) {
 	t.Log("mock FeishuPlugin")
 
 	// sampleRender
@@ -162,24 +62,7 @@ func mockRenderFeishuCardCase(t *testing.T) (
 		wd_mock.FastPullRequestClose("13", "feature-new", "feature-new", "feature-new", "main"),
 	)
 	prCloseMessageRenderSettings := mockPluginSettings()
-	return sampleRenderWoodpeckerInfo, sampleRenderSettings, sampleFailRenderWoodpeckerInfo, sampleFailRenderSettings, sampleRenderWithMessageWoodpeckerInfo, sampleRenderWithMessageSettings, tagMessageRenderWoodpeckerInfo, tagMessageRenderSettings, prMessageRenderWoodpeckerInfo, prMessageRenderSettings, prCloseMessageRenderWoodpeckerInfo, prCloseMessageRenderSettings
-}
 
-func doTestRenderFeishuCardByi18n(t *testing.T,
-	lang string,
-	sampleRenderWoodpeckerInfo wd_info.WoodpeckerInfo,
-	sampleRenderSettings feishu_plugin.Settings,
-	sampleFailRenderWoodpeckerInfo wd_info.WoodpeckerInfo,
-	sampleFailRenderSettings feishu_plugin.Settings,
-	sampleRenderWithMessageWoodpeckerInfo wd_info.WoodpeckerInfo,
-	sampleRenderWithMessageSettings feishu_plugin.Settings,
-	tagMessageRenderWoodpeckerInfo wd_info.WoodpeckerInfo,
-	tagMessageRenderSettings feishu_plugin.Settings,
-	prMessageRenderWoodpeckerInfo wd_info.WoodpeckerInfo,
-	prMessageRenderSettings feishu_plugin.Settings,
-	prCloseMessageRenderWoodpeckerInfo wd_info.WoodpeckerInfo,
-	prCloseMessageRenderSettings feishu_plugin.Settings,
-) {
 	appendTestcase := ""
 	if lang != "" {
 		appendTestcase = fmt.Sprintf("_%s", lang)
