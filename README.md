@@ -29,6 +29,9 @@ Please read [Contributor Guide](.github/CONTRIBUTING_DOC/CONTRIBUTING.md) for mo
 
 ## Features
 
+- [x] simple to set up and easy to use
+- [x] Supports ignoring build success notifications in the same steps and comparing notifications after the last build failure.
+- [x] internationalization support: en-US, zh-CN more support see --help (v1.4.+)
 - [ ] more perfect test case coverage
 - [ ] more perfect benchmark case
 
@@ -48,4 +51,4 @@ Please read [Contributor Guide](.github/CONTRIBUTING_DOC/CONTRIBUTING.md) for mo
 
 ## dev
 
-- want dev this project, see [doc](doc/README.md)
+- want dev this project, see [dev doc](doc/README.md)
