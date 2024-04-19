@@ -1,14 +1,10 @@
       {
         "tag": "markdown",
-        "content": "📝 提交人 **{{ Commit.CommitAuthor.Username }}** 分支 **{{ Commit.CommitBranch }}**\n提交Code: {{ Commit.Sha }}"
+        "content": "🤖 **Cron:** {{ Build.Number }}\n提交Code: {{ Commit.Sha }}"
       },
       {
         "tag": "markdown",
         "content": "{{#success Build.Status }}✅{{/success}}{{#failure Build.Status }}❌{{/failure}} 构建编号 [#{{ Build.Number }}]({{ Build.LinkCi }}) {{ Build.Status }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "**提交信息:**\n{{ Commit.Message }}"
       },
       {
         "tag": "markdown",

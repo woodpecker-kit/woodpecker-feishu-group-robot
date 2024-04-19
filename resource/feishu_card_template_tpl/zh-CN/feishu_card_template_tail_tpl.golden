@@ -1,0 +1,27 @@
+      {
+        "tag": "markdown",
+        "content": "**构建开始于: ** {{ CardElementsTail.BuildTimeCreated }}\n**构建时间: ** {{ CardElementsTail.BuildTimeTotal }}\n构建设备: {{ CardElementsTail.RunnerMachine }}\n平台标识: {{ CardElementsTail.RunnerPlatform }}\n触发事件: {{ CardElementsTail.BuildEvent }}"
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "note",
+        "elements": [
+          {
+            "tag": "plain_text",
+            "content": "From {{ CardNoteTail.CiSystemVersion }}@{{ CardNoteTail.CiSystemHost}}. Powered By"
+          },
+          {
+            "tag": "img",
+            "img_key": "{{ CardNoteTail.LogoImgKey }}",
+            "alt": {
+              "tag": "plain_text",
+              "content": "{{ CardNoteTail.LogoAltStr }}"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

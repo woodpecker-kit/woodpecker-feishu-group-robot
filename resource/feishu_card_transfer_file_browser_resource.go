@@ -15,7 +15,7 @@ const (
 
 func FetchFeishuCardTransferFileBrowserTplByName(name string, lang string) (string, error) {
 	conventionalTitleEmbed, err := embed_source.GetResourceByLanguage(PathResourceRoot,
-		path.Join(GroupFeishuCardTemplateTpl, name), lang)
+		path.Join(GroupFeishuCardTransferFileBrowserTpl, name), lang)
 	if err != nil {
 		return "", err
 	}

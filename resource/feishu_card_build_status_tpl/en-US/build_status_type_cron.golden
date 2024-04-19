@@ -1,14 +1,10 @@
       {
         "tag": "markdown",
-        "content": "📝 Commit by **{{ Commit.CommitAuthor.Username }}** on **{{ Commit.CommitBranch }}**\nCommitCode: {{ Commit.Sha }}"
+        "content": "🤖 **Cron:** {{ Build.Number }}\nCommitCode: {{ Commit.Sha }}"
       },
       {
         "tag": "markdown",
         "content": "{{#success Build.Status }}✅{{/success}}{{#failure Build.Status }}❌{{/failure}} Build [#{{ Build.Number }}]({{ Build.LinkCi }}) {{ Build.Status }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "**Commit:**\n{{ Commit.Message }}"
       },
       {
         "tag": "markdown",

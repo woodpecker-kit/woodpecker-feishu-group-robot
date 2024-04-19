@@ -1,6 +1,6 @@
       {
         "tag": "markdown",
-        "content": "📝 Commit by **{{ Commit.CommitAuthor.Username }}** on **{{ Commit.CommitBranch }}**\nCommitCode: {{ Commit.Sha }}"
+        "content": "🏗️ Pull Request: {{ Commit.SourceBranch }} -> {{ Commit.TargetBranch }}\nAuthor: **{{ Commit.CommitAuthor.Username }}** on **{{ Commit.CommitBranch }}** PR Url: [PR Link]({{ Commit.Link }})"
       },
       {
         "tag": "markdown",
