@@ -1,8 +1,10 @@
 package feishu_plugin_test
 
 import (
+	"fmt"
 	"github.com/sebdah/goldie/v2"
 	"github.com/stretchr/testify/assert"
+	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/constant"
 	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/feishu_plugin"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_mock"
@@ -12,6 +14,18 @@ import (
 )
 
 func TestNoticeTypeFileBrowser(t *testing.T) {
+	doRenderTypeFileBrowserByI18n(t, "")
+}
+
+func TestNoticeTypeFileBrowserLangEnUS(t *testing.T) {
+	doRenderTypeFileBrowserByI18n(t, constant.LangEnUS)
+}
+
+func TestNoticeTypeFileBrowserLangZhCN(t *testing.T) {
+	doRenderTypeFileBrowserByI18n(t, constant.LangZhCN)
+}
+
+func doRenderTypeFileBrowserByI18n(t *testing.T, lang string) {
 	// mock NoticeTypeFileBrowser
 
 	// sendWithPasswdAndStatusSuccess
@@ -101,6 +115,11 @@ func TestNoticeTypeFileBrowser(t *testing.T) {
 		DownloadPasswd:      mockFileBrowserDownloadPasswd,
 	}
 
+	appendTestcase := ""
+	if lang != "" {
+		appendTestcase = fmt.Sprintf("_%s", lang)
+	}
+
 	type args struct {
 		stepOut wd_share_file_browser_upload.WdShareFileBrowserUpload
 		stepKey string
@@ -117,7 +136,7 @@ func TestNoticeTypeFileBrowser(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:           "sendWithPasswdAndStatusSuccess", // testdata/TestNoticeTypeFileBrowser/sendWithPasswdAndStatusSuccess.golden
+			name:           fmt.Sprintf("sendWithPasswdAndStatusSuccess%s", appendTestcase),
 			workRoot:       sendWithPasswdAndStatusSuccessWorkRoot,
 			woodpeckerInfo: sendWithPasswdAndStatusSuccessWoodpeckerInfo,
 			settings:       sendWithPasswdAndStatusSuccessSettings,
@@ -127,7 +146,7 @@ func TestNoticeTypeFileBrowser(t *testing.T) {
 			},
 		},
 		{
-			name:           "sendSuccess", // testdata/TestNoticeTypeFileBrowser/sendSuccess.golden
+			name:           fmt.Sprintf("sendSuccess%s", appendTestcase),
 			workRoot:       sendSuccessWorkRoot,
 			woodpeckerInfo: sendSuccessWoodpeckerInfo,
 			settings:       sendSuccessSettings,
@@ -137,7 +156,7 @@ func TestNoticeTypeFileBrowser(t *testing.T) {
 			},
 		},
 		{
-			name:           "sendSuccessWithPasswd", // testdata/TestNoticeTypeFileBrowser/sendSuccessWithPasswd.golden
+			name:           fmt.Sprintf("sendSuccessWithPasswd%s", appendTestcase),
 			workRoot:       sendSuccessWithPasswdWorkRoot,
 			woodpeckerInfo: sendSuccessWithPasswdWoodpeckerInfo,
 			settings:       sendSuccessWithPasswdSettings,
@@ -147,7 +166,7 @@ func TestNoticeTypeFileBrowser(t *testing.T) {
 			},
 		},
 		{
-			name:           "failSendStatusSuccess", // testdata/TestNoticeTypeFileBrowser/failSendStatusSuccess.golden
+			name:           fmt.Sprintf("failSendStatusSuccess%s", appendTestcase),
 			workRoot:       failSendStatusSuccessRoot,
 			woodpeckerInfo: failSendStatusSuccessWoodpeckerInfo,
 			settings:       failSendStatusSuccessSettings,
@@ -157,7 +176,7 @@ func TestNoticeTypeFileBrowser(t *testing.T) {
 			},
 		},
 		{
-			name:           "pullRequestSendWithPasswd", // testdata/TestNoticeTypeFileBrowser/pullRequestSendWithPasswd.golden
+			name:           fmt.Sprintf("pullRequestSendWithPasswd%s", appendTestcase),
 			workRoot:       pullRequestSendWithPasswdWorkRoot,
 			woodpeckerInfo: pullRequestSendWithPasswdWoodpeckerInfo,
 			settings:       pullRequestSendWithPasswdSettings,

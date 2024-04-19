@@ -1,0 +1,15 @@
+      {
+        "tag": "markdown",
+        "content": "🤖 **Cron:** {{ Build.Number }}\n提交Code: {{ Commit.Sha }}"
+      },
+      {
+        "tag": "markdown",
+        "content": "{{#success Build.Status }}✅{{/success}}{{#failure Build.Status }}❌{{/failure}} 构建编号 [#{{ Build.Number }}]({{ Build.LinkCi }}) {{ Build.Status }}"
+      },
+      {
+        "tag": "markdown",
+        "content": "[查看 Git 链接]({{ Commit.Link }}) | [查看构建详情]({{ Build.LinkCi }})"
+      },
+      {
+        "tag": "hr"
+      },

@@ -1,8 +1,10 @@
 package feishu_plugin_test
 
 import (
+	"fmt"
 	"github.com/sebdah/goldie/v2"
 	"github.com/stretchr/testify/assert"
+	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/constant"
 	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/feishu_plugin"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_mock"
@@ -10,8 +12,18 @@ import (
 )
 
 func TestRenderFeishuCard(t *testing.T) {
+	doTestRenderFeishuCardByi18n(t, "")
+}
 
-	// template config start
+func TestRenderFeishuCardLangEnUS(t *testing.T) {
+	doTestRenderFeishuCardByi18n(t, constant.LangEnUS)
+}
+
+func TestRenderFeishuCardLangZhCN(t *testing.T) {
+	doTestRenderFeishuCardByi18n(t, constant.LangZhCN)
+}
+
+func doTestRenderFeishuCardByi18n(t *testing.T, lang string) {
 	t.Log("mock FeishuPlugin")
 
 	// sampleRender
@@ -51,6 +63,11 @@ func TestRenderFeishuCard(t *testing.T) {
 	)
 	prCloseMessageRenderSettings := mockPluginSettings()
 
+	appendTestcase := ""
+	if lang != "" {
+		appendTestcase = fmt.Sprintf("_%s", lang)
+	}
+
 	tests := []struct {
 		name           string
 		woodpeckerInfo wd_info.WoodpeckerInfo
@@ -58,32 +75,32 @@ func TestRenderFeishuCard(t *testing.T) {
 		wantErr        bool
 	}{
 		{
-			name:           "sample_render", // testdata/TestRenderFeishuCard/sample_render.golden
+			name:           fmt.Sprintf("sample_render%s", appendTestcase),
 			woodpeckerInfo: sampleRenderWoodpeckerInfo,
 			settings:       sampleRenderSettings,
 		},
 		{
-			name:           "sample_fail", // testdata/TestRenderFeishuCard/sample_fail.golden
+			name:           fmt.Sprintf("sample_fail%s", appendTestcase),
 			woodpeckerInfo: sampleFailRenderWoodpeckerInfo,
 			settings:       sampleFailRenderSettings,
 		},
 		{
-			name:           "sample_with_message", // testdata/TestRenderFeishuCard/sample_with_message.golden
+			name:           fmt.Sprintf("sample_with_message%s", appendTestcase),
 			woodpeckerInfo: sampleRenderWithMessageWoodpeckerInfo,
 			settings:       sampleRenderWithMessageSettings,
 		},
 		{
-			name:           "tag", // testdata/TestRenderFeishuCard/tag.golden
+			name:           fmt.Sprintf("tag%s", appendTestcase),
 			woodpeckerInfo: tagMessageRenderWoodpeckerInfo,
 			settings:       tagMessageRenderSettings,
 		},
 		{
-			name:           "pull_request", // testdata/TestRenderFeishuCard/pull_request.golden
+			name:           fmt.Sprintf("pull_request%s", appendTestcase),
 			woodpeckerInfo: prMessageRenderWoodpeckerInfo,
 			settings:       prMessageRenderSettings,
 		},
 		{
-			name:           "pull_request_close", // testdata/TestRenderFeishuCard/pull_request_close.golden
+			name:           fmt.Sprintf("pull_request_close%s", appendTestcase),
 			woodpeckerInfo: prCloseMessageRenderWoodpeckerInfo,
 			settings:       prCloseMessageRenderSettings,
 		},
@@ -98,6 +115,7 @@ func TestRenderFeishuCard(t *testing.T) {
 			// each test case settings start
 			tc.settings.Webhook = "some webhook"
 			tc.settings.DryRun = true
+			tc.settings.I18nLangSet = lang
 			// each test case settings end
 
 			p := mockPluginWithSettings(t, tc.woodpeckerInfo, tc.settings)
@@ -114,5 +132,4 @@ func TestRenderFeishuCard(t *testing.T) {
 			g.Assert(t, t.Name(), []byte(renderFeishuCard))
 		})
 	}
-
 }

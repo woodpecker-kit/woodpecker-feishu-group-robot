@@ -1,0 +1,27 @@
+      {
+        "tag": "markdown",
+        "content": "**Build Created At:** {{ CardElementsTail.BuildTimeCreated }}\n**Build Time:** {{ CardElementsTail.BuildTimeTotal }}\nMachine: {{ CardElementsTail.RunnerMachine }}\nPlatform: {{ CardElementsTail.RunnerPlatform }}\nEvent: {{ CardElementsTail.BuildEvent }}"
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "note",
+        "elements": [
+          {
+            "tag": "plain_text",
+            "content": "From {{ CardNoteTail.CiSystemVersion }}@{{ CardNoteTail.CiSystemHost}}. Powered By"
+          },
+          {
+            "tag": "img",
+            "img_key": "{{ CardNoteTail.LogoImgKey }}",
+            "alt": {
+              "tag": "plain_text",
+              "content": "{{ CardNoteTail.LogoAltStr }}"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

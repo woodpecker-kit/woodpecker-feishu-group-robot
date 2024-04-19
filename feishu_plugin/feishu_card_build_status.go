@@ -1,6 +1,7 @@
 package feishu_plugin
 
 import (
+	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/resource"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_log"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_short_info"
@@ -16,176 +17,86 @@ func renderBuildStatus(p FeishuPlugin, buildStatus string) (string, error) {
 
 	switch shortInfo.Build.Event {
 	default:
-		return renderBuildStatusTypeCommit(shortInfo)
+		return renderBuildStatusTypeCommit(shortInfo, p.Settings.I18nLangSet)
 	case wd_info.EventPipelinePush:
-		return renderBuildStatusTypeCommit(shortInfo)
+		return renderBuildStatusTypeCommit(shortInfo, p.Settings.I18nLangSet)
 	case wd_info.EventPipelinePullRequest:
-		return renderBuildStatusTypePullRequest(shortInfo)
+		return renderBuildStatusTypePullRequest(shortInfo, p.Settings.I18nLangSet)
 	case wd_info.EventPipelinePullRequestClose:
-		return renderBuildStatusTypePullRequestClose(shortInfo)
+		return renderBuildStatusTypePullRequestClose(shortInfo, p.Settings.I18nLangSet)
 	case wd_info.EventPipelineTag:
-		return renderBuildStatusTypeTag(shortInfo)
+		return renderBuildStatusTypeTag(shortInfo, p.Settings.I18nLangSet)
 	case wd_info.EventPipelineRelease:
-		return renderBuildStatusTypeRelease(shortInfo)
+		return renderBuildStatusTypeRelease(shortInfo, p.Settings.I18nLangSet)
 	case wd_info.EventPipelineCron:
-		return renderBuildStatusTypeCron(shortInfo)
+		return renderBuildStatusTypeCron(shortInfo, p.Settings.I18nLangSet)
 	}
 }
 
-// tplFeishuCardBuildStatusTypeCommit
+// renderBuildStatusTypeCommit
 // this template use wd_short_info.WoodpeckerInfoShort
-const tplFeishuCardBuildStatusTypeCommit = `      {
-        "tag": "markdown",
-        "content": "📝 Commit by {{ Commit.CommitAuthor.Username }} on **{{ Commit.CommitBranch }}**\nCommitCode: {{ Commit.Sha }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "{{#success Build.Status }}✅{{/success}}{{#failure Build.Status }}❌{{/failure}} Build [#{{ Build.Number }}]({{ Build.LinkCi }}) {{ Build.Status }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "**Commit:**\n{{ Commit.Message }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "[See Git Link]({{ Commit.Link }}) | [See Build Details]({{ Build.LinkCi }})"
-      },
-      {
-        "tag": "hr"
-      },
-`
+func renderBuildStatusTypeCommit(short wd_short_info.WoodpeckerInfoShort, lang string) (string, error) {
 
-func renderBuildStatusTypeCommit(short wd_short_info.WoodpeckerInfoShort) (string, error) {
-	return wd_template.Render(tplFeishuCardBuildStatusTypeCommit, short)
+	tpl, err := resource.FetchFeishuCardBuildStatusTplByName(resource.ItemFeishuCardBuildStatusTypeCommit, lang)
+	if err != nil {
+		return "", err
+	}
+
+	return wd_template.Render(tpl, short)
 }
 
-// tplFeishuCardBuildStatusTypePullRequest
+// renderBuildStatusTypePullRequest
 // this template use wd_short_info.WoodpeckerInfoShort
-const tplFeishuCardBuildStatusTypePullRequest = `      {
-        "tag": "markdown",
-        "content": "🏗️ Pull Request: {{ Commit.SourceBranch }} -> {{ Commit.TargetBranch }}\nAuthor: **{{ Commit.CommitAuthor.Username }}** on **{{ Commit.CommitBranch }}** PR Url: [PR Link]({{ Commit.Link }})"
-      },
-      {
-        "tag": "markdown",
-        "content": "{{#success Build.Status }}✅{{/success}}{{#failure Build.Status }}❌{{/failure}} Build [#{{ Build.Number }}]({{ Build.LinkCi }}) {{ Build.Status }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "**Commit:**\n{{ Commit.Message }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "[See Git Link]({{ Commit.Link }}) | [See Build Details]({{ Build.LinkCi }})"
-      },
-      {
-        "tag": "hr"
-      },
-`
+func renderBuildStatusTypePullRequest(short wd_short_info.WoodpeckerInfoShort, lang string) (string, error) {
+	tpl, err := resource.FetchFeishuCardBuildStatusTplByName(resource.ItemFeishuCardBuildStatusTypePullRequest, lang)
+	if err != nil {
+		return "", err
+	}
 
-func renderBuildStatusTypePullRequest(short wd_short_info.WoodpeckerInfoShort) (string, error) {
-	return wd_template.Render(tplFeishuCardBuildStatusTypePullRequest, short)
+	return wd_template.Render(tpl, short)
 }
 
-// tplFeishuCardBuildStatusTypePullRequestClose
+// renderBuildStatusTypePullRequestClose
 // this template use wd_short_info.WoodpeckerInfoShort
-const tplFeishuCardBuildStatusTypePullRequestClose = `      {
-        "tag": "markdown",
-        "content": "🏗️ Pull Request close: {{ Commit.SourceBranch }} -> {{ Commit.TargetBranch }}\nAuthor: **{{ Commit.CommitAuthor.Username }}** on **{{ Commit.CommitBranch }}** PR Url: [PR Link]({{ Commit.Link }})"
-      },
-      {
-        "tag": "markdown",
-        "content": "{{#success Build.Status }}✅{{/success}}{{#failure Build.Status }}❌{{/failure}} Build [#{{ Build.Number }}]({{ Build.LinkCi }}) {{ Build.Status }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "**Commit:**\n{{ Commit.Message }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "[See Git Link]({{ Commit.Link }}) | [See Build Details]({{ Build.LinkCi }})"
-      },
-      {
-        "tag": "hr"
-      },
-`
+func renderBuildStatusTypePullRequestClose(short wd_short_info.WoodpeckerInfoShort, lang string) (string, error) {
+	tpl, err := resource.FetchFeishuCardBuildStatusTplByName(resource.ItemFeishuCardBuildStatusTypePullRequestClose, lang)
+	if err != nil {
+		return "", err
+	}
 
-func renderBuildStatusTypePullRequestClose(short wd_short_info.WoodpeckerInfoShort) (string, error) {
-	return wd_template.Render(tplFeishuCardBuildStatusTypePullRequestClose, short)
+	return wd_template.Render(tpl, short)
 }
 
-// tplFeishuCardBuildStatusTypeTag
+// renderBuildStatusTypeTag
 // this template use wd_short_info.WoodpeckerInfoShort
-const tplFeishuCardBuildStatusTypeTag = `      {
-        "tag": "markdown",
-        "content": "📦 **Tag:** {{ Commit.Tag }}\nCommitCode: {{ Commit.Sha }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "{{#success Build.Status }}✅{{/success}}{{#failure Build.Status }}❌{{/failure}} Build [#{{ Build.Number }}]({{ Build.LinkCi }}) {{ Build.Status }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "**Commit:**\n{{ Commit.Message }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "[See Git Link]({{ Commit.Link }}) | [See Build Details]({{ Build.LinkCi }})"
-      },
-      {
-        "tag": "hr"
-      },
-`
+func renderBuildStatusTypeTag(short wd_short_info.WoodpeckerInfoShort, lang string) (string, error) {
+	tpl, err := resource.FetchFeishuCardBuildStatusTplByName(resource.ItemFeishuCardBuildStatusTypeTag, lang)
+	if err != nil {
+		return "", err
+	}
 
-func renderBuildStatusTypeTag(short wd_short_info.WoodpeckerInfoShort) (string, error) {
-	return wd_template.Render(tplFeishuCardBuildStatusTypeTag, short)
+	return wd_template.Render(tpl, short)
 }
 
-// tplFeishuCardBuildStatusTypeRelease
+// renderBuildStatusTypeRelease
 // this template use wd_short_info.WoodpeckerInfoShort
-const tplFeishuCardBuildStatusTypeRelease = `      {
-        "tag": "markdown",
-        "content": "🔖 **Release:** {{ Build.Number }}\nCommitCode: {{ Commit.Sha }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "{{#success Build.Status }}✅{{/success}}{{#failure Build.Status }}❌{{/failure}} Build [#{{ Build.Number }}]({{ Build.LinkCi }}) {{ Build.Status }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "**Commit:**\n{{ Commit.Message }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "[See Git Link]({{ Commit.Link }}) | [See Build Details]({{ Build.LinkCi }})"
-      },
-      {
-        "tag": "hr"
-      },
-`
+func renderBuildStatusTypeRelease(short wd_short_info.WoodpeckerInfoShort, lang string) (string, error) {
+	tpl, err := resource.FetchFeishuCardBuildStatusTplByName(resource.ItemFeishuCardBuildStatusTypeRelease, lang)
+	if err != nil {
+		return "", err
+	}
 
-func renderBuildStatusTypeRelease(short wd_short_info.WoodpeckerInfoShort) (string, error) {
-	return wd_template.Render(tplFeishuCardBuildStatusTypeRelease, short)
+	return wd_template.Render(tpl, short)
 }
 
-// tplFeishuCardBuildStatusTypeCron
+// renderBuildStatusTypeCron
 // this template use wd_short_info.WoodpeckerInfoShort
-const tplFeishuCardBuildStatusTypeCron = `      {
-        "tag": "markdown",
-        "content": "🤖 **Cron:** {{ Build.Number }}\nCommitCode: {{ Commit.Sha }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "{{#success Build.Status }}✅{{/success}}{{#failure Build.Status }}❌{{/failure}} Build [#{{ Build.Number }}]({{ Build.LinkCi }}) {{ Build.Status }}"
-      },
-      {
-        "tag": "markdown",
-        "content": "[See Git Link]({{ Commit.Link }}) | [See Build Details]({{ Build.LinkCi }})"
-      },
-      {
-        "tag": "hr"
-      },
-`
+func renderBuildStatusTypeCron(short wd_short_info.WoodpeckerInfoShort, lang string) (string, error) {
+	tpl, err := resource.FetchFeishuCardBuildStatusTplByName(resource.ItemFeishuCardBuildStatusTypeCron, lang)
+	if err != nil {
+		return "", err
+	}
 
-func renderBuildStatusTypeCron(short wd_short_info.WoodpeckerInfoShort) (string, error) {
-	return wd_template.Render(tplFeishuCardBuildStatusTypeCron, short)
+	return wd_template.Render(tpl, short)
+
 }

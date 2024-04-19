@@ -1,0 +1,23 @@
+{
+  "timestamp": {{ FeishuRobotMsgTemplate.Timestamp }},
+  "sign": "{{ FeishuRobotMsgTemplate.Sign }}",
+  "msg_type": "interactive",
+  "card": {
+    "config": {
+      "enable_forward": {{ FeishuRobotMsgTemplate.CtxTemp.CardTemp.EnableForward }}
+    },
+    "header": {
+      "template": "{{ FeishuCardHeader.HeadTemplateStyle }}",
+      "title": {
+        "tag": "plain_text",
+        "content": "{{ FeishuCardHeader.HeaderTitle }}"
+      }
+    },
+    "elements": [
+      {
+        "tag": "markdown",
+        "content": "**{{ CardElementsHead.CardTitle }}**"
+      },
+      {
+        "tag": "hr"
+      },

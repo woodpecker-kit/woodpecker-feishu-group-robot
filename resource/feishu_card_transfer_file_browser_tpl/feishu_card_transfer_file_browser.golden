@@ -1,0 +1,34 @@
+{{#if CardOssFB.IsSendSuccess }}      
+{{#if CardOssFB.IsTagResult }}
+      {
+        "tag": "markdown",
+        "content": "📦 file browser from **Tag:** {{ CiInfo.Commit.Tag }}\nCommitCode: {{ CiInfo.Commit.Sha }}"
+      },
+{{else if CardOssFB.IsPullRequestResult}}
+      {
+        "tag": "markdown",
+        "content": "🏗️ file browser from Pull Request: {{ CiInfo.Commit.SourceBranch }} -> {{ CiInfo.Commit.TargetBranch }} [#{{ CiInfo.Commit.PR }}]({{ CiInfo.Commit.Link }})"
+      },
+{{else}}
+      {
+        "tag": "markdown",
+        "content": ":📝 file browser from Commit by **{{ CiInfo.Commit.CommitAuthor.Username }}** on **{{ CiInfo.Commit.CommitBranch }}**\nCommitCode: {{ CiInfo.Commit.Sha }}"
+      },
+{{/if}}
+{{#if CardOssFB.IsRenderPassword }}
+      {
+        "tag": "markdown",
+        "content": "file browser [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }})\nPage: [{{ CardOssFB.PageUrl }}]({{ CardOssFB.PageUrl }})\nPasswd: {{ CardOssFB.PagePasswd }}"
+      },
+{{else}}
+      {
+        "tag": "markdown",
+        "content": "file browser [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }})\nDownload: [{{ CardOssFB.PageUrl }}]({{ CardOssFB.PageUrl }})"
+      },
+{{/if}}
+{{else}}
+      {
+        "tag": "markdown",
+        "content": "send file browser [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }}) failed, please check at [build Details]({{ CiInfo.Build.LinkCi }})"
+      },
+{{/if}}

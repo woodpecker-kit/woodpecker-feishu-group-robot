@@ -1,48 +1,11 @@
 package feishu_plugin
 
 import (
+	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/resource"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_short_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_template"
 	"github.com/woodpecker-kit/woodpecker-transfer-data/wd_share_file_browser_upload"
 )
-
-// renderFileBrowser
-// use OssCardFileBrowserRender
-const renderFileBrowser = `{{#if CardOssFB.IsSendSuccess }}      
-{{#if CardOssFB.IsTagResult }}
-      {
-        "tag": "markdown",
-        "content": "📦 file browser from **Tag:** {{ CiInfo.Commit.Tag }}\nCommitCode: {{ CiInfo.Commit.Sha }}"
-      },
-{{else if CardOssFB.IsPullRequestResult}}
-      {
-        "tag": "markdown",
-        "content": "🏗️ file browser from Pull Request: {{ CiInfo.Commit.SourceBranch }} -> {{ CiInfo.Commit.TargetBranch }} [#{{ CiInfo.Commit.PR }}]({{ CiInfo.Commit.Link }})"
-      },
-{{else}}
-      {
-        "tag": "markdown",
-        "content": ":📝 file browser from Commit by {{ CiInfo.Commit.CommitAuthor.Username }} on **{{ CiInfo.Commit.CommitBranch }}**\nCommitCode: {{ CiInfo.Commit.Sha }}"
-      },
-{{/if}}
-{{#if CardOssFB.IsRenderPassword }}
-      {
-        "tag": "markdown",
-        "content": "file browser to [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }})\nPage: [{{ CardOssFB.PageUrl }}]({{ CardOssFB.PageUrl }})\nPasswd: {{ CardOssFB.PagePasswd }}"
-      },
-{{else}}
-      {
-        "tag": "markdown",
-        "content": "file browser to [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }})\nDownload: [{{ CardOssFB.PageUrl }}]({{ CardOssFB.PageUrl }})"
-      },
-{{/if}}
-{{else}}
-      {
-        "tag": "markdown",
-        "content": "send file browser to [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }}) failed, please check at [build Details]({{ CiInfo.Build.LinkCi }})"
-      },
-{{/if}}
-`
 
 type OssCardFileBrowserRender struct {
 	CiInfo    wd_short_info.WoodpeckerInfoShort
@@ -73,9 +36,14 @@ type CardOssFB struct {
 	PagePasswd       string
 }
 
-func renderOssCardFileBrowser(r *OssCardFileBrowserRender) (string, error) {
-
-	out, err := wd_template.Render(renderFileBrowser, *r)
+// renderOssCardFileBrowser render oss card file browser
+// use OssCardFileBrowserRender
+func renderOssCardFileBrowser(r *OssCardFileBrowserRender, lang string) (string, error) {
+	tpl, err := resource.FetchFeishuCardTransferFileBrowserTplByName(resource.ItemFeishuCardTransferFileBrowser, lang)
+	if err != nil {
+		return "", err
+	}
+	out, err := wd_template.Render(tpl, *r)
 	if err != nil {
 		return "", err
 	}

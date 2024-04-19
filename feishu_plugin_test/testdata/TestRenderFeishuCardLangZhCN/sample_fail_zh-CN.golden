@@ -1,0 +1,69 @@
+{
+  "timestamp": 0,
+  "sign": "",
+  "msg_type": "interactive",
+  "card": {
+    "config": {
+      "enable_forward": true
+    },
+    "header": {
+      "template": "red",
+      "title": {
+        "tag": "plain_text",
+        "content": "[Failure] woodpecker-kit/guidance-woodpecker-agent"
+      }
+    },
+    "elements": [
+      {
+        "tag": "markdown",
+        "content": "**CI Notification**"
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "markdown",
+        "content": "📝 提交人 **sinlov** 分支 **main**\n提交Code: 9c764dd487bce596c5c0402478fabde5f0344983"
+      },
+      {
+        "tag": "markdown",
+        "content": "❌ 构建编号 [#10](https://woodpecker.domain.com/repos/2/pipeline/10) failure"
+      },
+      {
+        "tag": "markdown",
+        "content": "**提交信息:**\ntest: use source to load env vars at before step"
+      },
+      {
+        "tag": "markdown",
+        "content": "[查看 Git 链接](https://gitea.domain.com/sinlov/woodpecker-tools/commit/9c764dd487bce596c5c0402478fabde5f0344983) | [查看构建详情](https://woodpecker.domain.com/repos/2/pipeline/10)"
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "markdown",
+        "content": "**构建开始于: ** 2024-01-19-09-55-41\n**构建时间: ** 25s\n构建设备: worker\n平台标识: linux/amd64\n触发事件: push"
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "note",
+        "elements": [
+          {
+            "tag": "plain_text",
+            "content": "From 2.3.0@woodpecker.domain.com. Powered By"
+          },
+          {
+            "tag": "img",
+            "img_key": "img_v2_18a207ce-2428-4b5c-8fc0-f791c05d938g",
+            "alt": {
+              "tag": "plain_text",
+              "content": "sinlov"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
