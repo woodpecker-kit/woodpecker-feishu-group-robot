@@ -16,6 +16,7 @@ import (
 	"log"
 	"net/http"
 	"os/exec"
+	"strings"
 	"time"
 )
 
@@ -107,7 +108,9 @@ func (p *FeishuPlugin) checkArgs() error {
 		p.Settings.I18nLangSet = constant.LangEnUS
 	} else {
 		if !(string_tools.StringInArr(p.Settings.I18nLangSet, constant.SupportLanguage())) {
-			return fmt.Errorf("settings [ feishu-msg-i18n-lang ] only support %v", constant.SupportLanguage())
+			return fmt.Errorf("settings [ feishu-msg-i18n-lang ], now is %s , now support: %s",
+				p.Settings.I18nLangSet, strings.Join(constant.SupportLanguage(), ", "),
+			)
 		}
 	}
 

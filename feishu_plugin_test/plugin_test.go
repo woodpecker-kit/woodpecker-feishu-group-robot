@@ -25,6 +25,14 @@ func TestCheckArgsPlugin(t *testing.T) {
 	emptyWebhookSettings := mockPluginSettings()
 	emptyWebhookSettings.Webhook = ""
 
+	// errorLang
+	errorLangWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
+	)
+	errorLangSettings := mockPluginSettings()
+	errorLangSettings.Webhook = "some webhook"
+	errorLangSettings.I18nLangSet = "errorLang"
+
 	tests := []struct {
 		name           string
 		woodpeckerInfo wd_info.WoodpeckerInfo
@@ -44,6 +52,11 @@ func TestCheckArgsPlugin(t *testing.T) {
 			name:           "emptyWebhook",
 			woodpeckerInfo: emptyWebhookWoodpeckerInfo,
 			settings:       emptyWebhookSettings,
+		},
+		{
+			name:           "errorLang",
+			woodpeckerInfo: errorLangWoodpeckerInfo,
+			settings:       errorLangSettings,
 		},
 	}
 
