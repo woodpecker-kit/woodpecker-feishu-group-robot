@@ -15,11 +15,11 @@ func TestRenderFeishuCard(t *testing.T) {
 	doTestRenderFeishuCardByi18n(t, "")
 }
 
-func TestRenderFeishuCardEnUS(t *testing.T) {
+func TestRenderFeishuCardLangEnUS(t *testing.T) {
 	doTestRenderFeishuCardByi18n(t, constant.LangEnUS)
 }
 
-func TestRenderFeishuCardZhCn(t *testing.T) {
+func TestRenderFeishuCardLangZhCN(t *testing.T) {
 	doTestRenderFeishuCardByi18n(t, constant.LangZhCN)
 }
 

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/sebdah/goldie/v2"
 	"github.com/stretchr/testify/assert"
+	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/constant"
 	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/feishu_plugin"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_mock"
@@ -14,6 +15,14 @@ import (
 
 func TestNoticeTypeFileBrowser(t *testing.T) {
 	doRenderTypeFileBrowserByI18n(t, "")
+}
+
+func TestNoticeTypeFileBrowserLangEnUS(t *testing.T) {
+	doRenderTypeFileBrowserByI18n(t, constant.LangEnUS)
+}
+
+func TestNoticeTypeFileBrowserLangZhCN(t *testing.T) {
+	doRenderTypeFileBrowserByI18n(t, constant.LangZhCN)
 }
 
 func doRenderTypeFileBrowserByI18n(t *testing.T, lang string) {

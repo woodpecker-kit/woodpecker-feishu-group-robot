@@ -1,0 +1,34 @@
+{{#if CardOssFB.IsSendSuccess }}      
+{{#if CardOssFB.IsTagResult }}
+      {
+        "tag": "markdown",
+        "content": "📦 file browser 从 **Tag:** {{ CiInfo.Commit.Tag }}\n提交Code: {{ Commit.Sha }}"
+      },
+{{else if CardOssFB.IsPullRequestResult}}
+      {
+        "tag": "markdown",
+        "content": "🏗️ file browser 从 Pull Request: {{ CiInfo.Commit.SourceBranch }} -> {{ CiInfo.Commit.TargetBranch }} [#{{ CiInfo.Commit.PR }}]({{ CiInfo.Commit.Link }})"
+      },
+{{else}}
+      {
+        "tag": "markdown",
+        "content": ":📝 file browser 从 提交人 **{{ Commit.CommitAuthor.Username }}** 分支 **{{ CiInfo.Commit.CommitBranch }}**\n提交Code: {{ Commit.Sha }}"
+      },
+{{/if}}
+{{#if CardOssFB.IsRenderPassword }}
+      {
+        "tag": "markdown",
+        "content": "file browser [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }})\n分享页面: [{{ CardOssFB.PageUrl }}]({{ CardOssFB.PageUrl }})\n密码: {{ CardOssFB.PagePasswd }}"
+      },
+{{else}}
+      {
+        "tag": "markdown",
+        "content": "file browser [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }})\n下载链接: [{{ CardOssFB.PageUrl }}]({{ CardOssFB.PageUrl }})"
+      },
+{{/if}}
+{{else}}
+      {
+        "tag": "markdown",
+        "content": "send file browser [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }}) 失败，请检查 [构建详情]({{ CiInfo.Build.LinkCi }})"
+      },
+{{/if}}

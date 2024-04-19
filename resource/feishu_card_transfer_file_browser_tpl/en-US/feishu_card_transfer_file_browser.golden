@@ -12,23 +12,23 @@
 {{else}}
       {
         "tag": "markdown",
-        "content": ":📝 file browser from Commit by {{ CiInfo.Commit.CommitAuthor.Username }} on **{{ CiInfo.Commit.CommitBranch }}**\nCommitCode: {{ CiInfo.Commit.Sha }}"
+        "content": ":📝 file browser from Commit by **{{ CiInfo.Commit.CommitAuthor.Username }}** on **{{ CiInfo.Commit.CommitBranch }}**\nCommitCode: {{ CiInfo.Commit.Sha }}"
       },
 {{/if}}
 {{#if CardOssFB.IsRenderPassword }}
       {
         "tag": "markdown",
-        "content": "file browser to [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }})\nPage: [{{ CardOssFB.PageUrl }}]({{ CardOssFB.PageUrl }})\nPasswd: {{ CardOssFB.PagePasswd }}"
+        "content": "file browser [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }})\nPage: [{{ CardOssFB.PageUrl }}]({{ CardOssFB.PageUrl }})\nPasswd: {{ CardOssFB.PagePasswd }}"
       },
 {{else}}
       {
         "tag": "markdown",
-        "content": "file browser to [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }})\nDownload: [{{ CardOssFB.PageUrl }}]({{ CardOssFB.PageUrl }})"
+        "content": "file browser [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }})\nDownload: [{{ CardOssFB.PageUrl }}]({{ CardOssFB.PageUrl }})"
       },
 {{/if}}
 {{else}}
       {
         "tag": "markdown",
-        "content": "send file browser to [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }}) failed, please check at [build Details]({{ CiInfo.Build.LinkCi }})"
+        "content": "send file browser [{{ CardOssFB.HostUrl }}]({{ CardOssFB.HostUrl }}) failed, please check at [build Details]({{ CiInfo.Build.LinkCi }})"
       },
 {{/if}}
