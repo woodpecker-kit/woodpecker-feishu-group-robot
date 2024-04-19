@@ -32,6 +32,7 @@ woodpecker-feishu-group-robot
 | `feishu-secret`                | **yes**  | *none*            | feishu robot secret, just `signature verification`, empty will not open.                                          |
 | `feishu-msg-title`             | **yes**  | *CI Notification* | feishu group robot message title, most input `Security settings area` keywords                                    |
 | `feishu-notice-types`          | **no**   | *none*            | feishu notice types, if empty will use `[ build_status ]`                                                         |
+| `feishu-msg-i18n-lang`         | **no**   | *en-US*           | feishu group robot message i18n lang, support: en-US, zh-CN more support see --help (v1.4.+)                      |
 | `feishu-status-success-ignore` | **no**   | *false*           | ignore this build success status                                                                                  |
 | `feishu-status-change-success` | **no**   | *false*           | must open `[ feishu-status-success-ignore ]`, when status change to success, compare with CI_PREV_PIPELINE_STATUS |
 | `feishu-enable-forward`        | **no**   | *false*           | let notification card change more info see https://open.feishu.cn/document/ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN      |
@@ -76,6 +77,7 @@ steps:
         from_secret: feishu_group_bot_token
       feishu-secret:
         from_secret: feishu_group_secret_bot
+      feishu-msg-i18n-lang: en-US # support: en-US, zh-CN more support see --help (v1.4.+)
       feishu-msg-title: "CI Notification" # default [CI Notification]
       # let notification card change more info see https://open.feishu.cn/document/ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN
       feishu-enable-forward: true
@@ -117,6 +119,7 @@ steps:
         from_secret: feishu_group_bot_token
       feishu-secret:
         from_secret: feishu_group_secret_bot
+      feishu-msg-i18n-lang: en-US # support: en-US, zh-CN more support see --help (v1.4.+)
       feishu-msg-title: "CI Notification" # default [CI Notification]
       # let notification card change more info see https://open.feishu.cn/document/ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN
       feishu-enable-forward: true

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/sinlov-go/go-common-lib/pkg/string_tools"
 	"github.com/sinlov-go/go-common-lib/pkg/struct_kit"
+	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/constant"
 	feishuMessageApi "github.com/woodpecker-kit/woodpecker-feishu-group-robot/feishu_open_api"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_log"
@@ -101,8 +102,17 @@ func (p *FeishuPlugin) checkArgs() error {
 		p.Settings.MsgType = MsgTypeInteractive
 	}
 
+	// set default I18nLangSet or check
+	if p.Settings.I18nLangSet == "" {
+		p.Settings.I18nLangSet = constant.LangEnUS
+	} else {
+		if !(string_tools.StringInArr(p.Settings.I18nLangSet, constant.SupportLanguage())) {
+			return fmt.Errorf("settings [ feishu-msg-i18n-lang ] only support %v", constant.SupportLanguage())
+		}
+	}
+
 	if !(string_tools.StringInArr(p.Settings.MsgType, supportMsgType)) {
-		return fmt.Errorf("config [ msg_type ] only support %v", supportMsgType)
+		return fmt.Errorf("settings [ feishu-msg-type ] only support %v", supportMsgType)
 	}
 
 	return nil

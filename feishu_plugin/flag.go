@@ -3,10 +3,12 @@ package feishu_plugin
 import (
 	"fmt"
 	"github.com/urfave/cli/v2"
+	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/constant"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_flag"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_log"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_short_info"
+	"strings"
 )
 
 const (
@@ -35,6 +37,9 @@ const (
 
 	CliPluginStatusChangeSuccess = "settings.feishu-status-change-success"
 	EnvPluginStatusChangeSuccess = "PLUGIN_FEISHU_STATUS_CHANGE_SUCCESS"
+
+	CliPluginI18nLang = "settings.feishu-msg-i18n-lang"
+	EnvPluginI18nLang = "PLUGIN_FEISHU_MSG_I18N_LANG"
 
 	CliPluginTitle = "settings.feishu-msg-title"
 	EnvPluginTitle = "PLUGIN_FEISHU_MSG_TITLE"
@@ -116,8 +121,16 @@ func GlobalFlag() []cli.Flag {
 		},
 		&cli.BoolFlag{
 			Name:    CliPluginStatusChangeSuccess,
-			Usage:   fmt.Sprintf("must open [ ignore this build success status ], when status change to success, compare with %s", wd_flag.EnvKeyPreviousCiPipelineStatus),
+			Usage:   fmt.Sprintf("must open [ %s ], when status change to success, compare with %s", CliPluginStatusSuccessIgnore, wd_flag.EnvKeyPreviousCiPipelineStatus),
 			EnvVars: []string{EnvPluginStatusChangeSuccess},
+		},
+
+		&cli.StringFlag{
+			Name: CliPluginI18nLang,
+			Usage: fmt.Sprintf("feishu message i18n lang, default %s, support: %s",
+				constant.LangEnUS, strings.Join(constant.SupportLanguage(), ", ")),
+			Value:   constant.LangEnUS,
+			EnvVars: []string{EnvPluginI18nLang},
 		},
 	}
 }
@@ -154,6 +167,8 @@ func BindCliFlags(c *cli.Context,
 		FeishuEnableForward: c.Bool(CliPluginFeishuEnableForward),
 		NoticeWhenDebug:     c.Bool(CliPluginFeishuEnableDebugNotice),
 		NoticeTypes:         noticeTypes,
+
+		I18nLangSet: c.String(CliPluginI18nLang),
 
 		Title:               c.String(CliPluginTitle),
 		StatusSuccessIgnore: c.Bool(CliPluginStatusSuccessIgnore),

@@ -8,7 +8,7 @@ import (
 	"github.com/woodpecker-kit/woodpecker-tools/wd_template"
 )
 
-func renderBuildStatus(p FeishuPlugin, buildStatus string, lang string) (string, error) {
+func renderBuildStatus(p FeishuPlugin, buildStatus string) (string, error) {
 	shortInfo := p.ShortInfo()
 	if shortInfo.Build.Status != buildStatus {
 		wd_log.Warnf("build status not match, expect: %s, got: %s, just use settings status build status [ %s ]", buildStatus, shortInfo.Build.Status, buildStatus)
@@ -17,19 +17,19 @@ func renderBuildStatus(p FeishuPlugin, buildStatus string, lang string) (string,
 
 	switch shortInfo.Build.Event {
 	default:
-		return renderBuildStatusTypeCommit(shortInfo, lang)
+		return renderBuildStatusTypeCommit(shortInfo, p.Settings.I18nLangSet)
 	case wd_info.EventPipelinePush:
-		return renderBuildStatusTypeCommit(shortInfo, lang)
+		return renderBuildStatusTypeCommit(shortInfo, p.Settings.I18nLangSet)
 	case wd_info.EventPipelinePullRequest:
-		return renderBuildStatusTypePullRequest(shortInfo, lang)
+		return renderBuildStatusTypePullRequest(shortInfo, p.Settings.I18nLangSet)
 	case wd_info.EventPipelinePullRequestClose:
-		return renderBuildStatusTypePullRequestClose(shortInfo, lang)
+		return renderBuildStatusTypePullRequestClose(shortInfo, p.Settings.I18nLangSet)
 	case wd_info.EventPipelineTag:
-		return renderBuildStatusTypeTag(shortInfo, lang)
+		return renderBuildStatusTypeTag(shortInfo, p.Settings.I18nLangSet)
 	case wd_info.EventPipelineRelease:
-		return renderBuildStatusTypeRelease(shortInfo, lang)
+		return renderBuildStatusTypeRelease(shortInfo, p.Settings.I18nLangSet)
 	case wd_info.EventPipelineCron:
-		return renderBuildStatusTypeCron(shortInfo, lang)
+		return renderBuildStatusTypeCron(shortInfo, p.Settings.I18nLangSet)
 	}
 }
 

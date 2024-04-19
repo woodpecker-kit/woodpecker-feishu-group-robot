@@ -3,7 +3,6 @@ package feishu_plugin
 import (
 	"fmt"
 	"github.com/sinlov-go/go-common-lib/pkg/string_tools"
-	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/constant"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_short_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_template"
@@ -249,7 +248,7 @@ func parserCardElementNoticeList(f *FeishuPlugin) ([]string, string, error) {
 	}
 
 	if isHasBuildStatus {
-		buildStatusContent, err := renderBuildStatus(*f, buildStatus, constant.LangEnUS)
+		buildStatusContent, err := renderBuildStatus(*f, buildStatus)
 		if err != nil {
 			return nil, buildStatus, err
 		}

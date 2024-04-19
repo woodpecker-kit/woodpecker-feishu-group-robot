@@ -25,16 +25,22 @@ type (
 		FeishuEnableForward bool
 		NoticeWhenDebug     bool
 		NoticeTypes         []string
-		MsgType             string
-		Title               string
-		PoweredByImageKey   string
-		PoweredByImageAlt   string
+
+		// set of i18n
+		I18nLangSet string
+
+		MsgType           string
+		Title             string
+		PoweredByImageKey string
+		PoweredByImageAlt string
 
 		// StatusSuccessIgnore
 		// for NoticeTypeBuildStatus
 		StatusSuccessIgnore bool
+
 		// StatusChangeSuccess
 		// for NoticeTypeBuildStatus
+		// must open StatusSuccessIgnore, when status change to success, compare with wd_flag.EnvKeyPreviousCiPipelineStatus
 		StatusChangeSuccess bool
 	}
 )
