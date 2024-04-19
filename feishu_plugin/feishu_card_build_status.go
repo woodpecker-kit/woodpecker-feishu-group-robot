@@ -37,7 +37,7 @@ func renderBuildStatus(p FeishuPlugin, buildStatus string) (string, error) {
 // this template use wd_short_info.WoodpeckerInfoShort
 func renderBuildStatusTypeCommit(short wd_short_info.WoodpeckerInfoShort, lang string) (string, error) {
 
-	tpl, err := resource.FetchFeishuCardTplByName(resource.ItemFeishuCardBuildStatusTypeCommit, lang)
+	tpl, err := resource.FetchFeishuCardBuildStatusTplByName(resource.ItemFeishuCardBuildStatusTypeCommit, lang)
 	if err != nil {
 		return "", err
 	}
@@ -48,7 +48,7 @@ func renderBuildStatusTypeCommit(short wd_short_info.WoodpeckerInfoShort, lang s
 // renderBuildStatusTypePullRequest
 // this template use wd_short_info.WoodpeckerInfoShort
 func renderBuildStatusTypePullRequest(short wd_short_info.WoodpeckerInfoShort, lang string) (string, error) {
-	tpl, err := resource.FetchFeishuCardTplByName(resource.ItemFeishuCardBuildStatusTypePullRequest, lang)
+	tpl, err := resource.FetchFeishuCardBuildStatusTplByName(resource.ItemFeishuCardBuildStatusTypePullRequest, lang)
 	if err != nil {
 		return "", err
 	}
@@ -59,7 +59,7 @@ func renderBuildStatusTypePullRequest(short wd_short_info.WoodpeckerInfoShort, l
 // renderBuildStatusTypePullRequestClose
 // this template use wd_short_info.WoodpeckerInfoShort
 func renderBuildStatusTypePullRequestClose(short wd_short_info.WoodpeckerInfoShort, lang string) (string, error) {
-	tpl, err := resource.FetchFeishuCardTplByName(resource.ItemFeishuCardBuildStatusTypePullRequestClose, lang)
+	tpl, err := resource.FetchFeishuCardBuildStatusTplByName(resource.ItemFeishuCardBuildStatusTypePullRequestClose, lang)
 	if err != nil {
 		return "", err
 	}
@@ -70,7 +70,7 @@ func renderBuildStatusTypePullRequestClose(short wd_short_info.WoodpeckerInfoSho
 // renderBuildStatusTypeTag
 // this template use wd_short_info.WoodpeckerInfoShort
 func renderBuildStatusTypeTag(short wd_short_info.WoodpeckerInfoShort, lang string) (string, error) {
-	tpl, err := resource.FetchFeishuCardTplByName(resource.ItemFeishuCardBuildStatusTypeTag, lang)
+	tpl, err := resource.FetchFeishuCardBuildStatusTplByName(resource.ItemFeishuCardBuildStatusTypeTag, lang)
 	if err != nil {
 		return "", err
 	}
@@ -81,7 +81,7 @@ func renderBuildStatusTypeTag(short wd_short_info.WoodpeckerInfoShort, lang stri
 // renderBuildStatusTypeRelease
 // this template use wd_short_info.WoodpeckerInfoShort
 func renderBuildStatusTypeRelease(short wd_short_info.WoodpeckerInfoShort, lang string) (string, error) {
-	tpl, err := resource.FetchFeishuCardTplByName(resource.ItemFeishuCardBuildStatusTypeRelease, lang)
+	tpl, err := resource.FetchFeishuCardBuildStatusTplByName(resource.ItemFeishuCardBuildStatusTypeRelease, lang)
 	if err != nil {
 		return "", err
 	}
@@ -92,7 +92,7 @@ func renderBuildStatusTypeRelease(short wd_short_info.WoodpeckerInfoShort, lang 
 // renderBuildStatusTypeCron
 // this template use wd_short_info.WoodpeckerInfoShort
 func renderBuildStatusTypeCron(short wd_short_info.WoodpeckerInfoShort, lang string) (string, error) {
-	tpl, err := resource.FetchFeishuCardTplByName(resource.ItemFeishuCardBuildStatusTypeCron, lang)
+	tpl, err := resource.FetchFeishuCardBuildStatusTplByName(resource.ItemFeishuCardBuildStatusTypeCron, lang)
 	if err != nil {
 		return "", err
 	}

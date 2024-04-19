@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	GroupFeishuCardTpl = "feishu_card_build_status_tpl"
+	GroupFeishuCardBuildStatusTpl = "feishu_card_build_status_tpl"
 
 	// ItemFeishuCardBuildStatusTypeCommit
 	// this template use wd_short_info.WoodpeckerInfoShort
@@ -33,9 +33,9 @@ const (
 	ItemFeishuCardBuildStatusTypeCron = "build_status_type_cron.golden"
 )
 
-func FetchFeishuCardTplByName(name string, lang string) (string, error) {
+func FetchFeishuCardBuildStatusTplByName(name string, lang string) (string, error) {
 	conventionalTitleEmbed, err := embed_source.GetResourceByLanguage(PathResourceRoot,
-		path.Join(GroupFeishuCardTpl, name), lang)
+		path.Join(GroupFeishuCardBuildStatusTpl, name), lang)
 	if err != nil {
 		return "", err
 	}

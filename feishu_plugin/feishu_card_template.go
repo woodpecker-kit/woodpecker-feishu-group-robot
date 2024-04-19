@@ -3,6 +3,7 @@ package feishu_plugin
 import (
 	"fmt"
 	"github.com/sinlov-go/go-common-lib/pkg/string_tools"
+	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/resource"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_short_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_template"
@@ -16,59 +17,6 @@ const (
 	headTemplateStyleOrange  = "orange"
 	headTemplateStylIndigo   = "indigo"
 )
-
-const tplFeishuCardHead = `{
-  "timestamp": {{ FeishuRobotMsgTemplate.Timestamp }},
-  "sign": "{{ FeishuRobotMsgTemplate.Sign }}",
-  "msg_type": "interactive",
-  "card": {
-    "config": {
-      "enable_forward": {{ FeishuRobotMsgTemplate.CtxTemp.CardTemp.EnableForward }}
-    },
-    "header": {
-      "template": "{{ FeishuCardHeader.HeadTemplateStyle }}",
-      "title": {
-        "tag": "plain_text",
-        "content": "{{ FeishuCardHeader.HeaderTitle }}"
-      }
-    },
-    "elements": [
-      {
-        "tag": "markdown",
-        "content": "**{{ CardElementsHead.CardTitle }}**"
-      },
-      {
-        "tag": "hr"
-      },
-`
-
-const tplFeishuCardTail = `      {
-        "tag": "markdown",
-        "content": "**Build Created At:** {{ CardElementsTail.BuildTimeCreated }}\n**Build Time:** {{ CardElementsTail.BuildTimeTotal }}\nMachine: {{ CardElementsTail.RunnerMachine }}\nPlatform: {{ CardElementsTail.RunnerPlatform }}\nEvent: {{ CardElementsTail.BuildEvent }}"
-      },
-      {
-        "tag": "hr"
-      },
-      {
-        "tag": "note",
-        "elements": [
-          {
-            "tag": "plain_text",
-            "content": "From {{ CardNoteTail.CiSystemVersion }}@{{ CardNoteTail.CiSystemHost}}. Powered By"
-          },
-          {
-            "tag": "img",
-            "img_key": "{{ CardNoteTail.LogoImgKey }}",
-            "alt": {
-              "tag": "plain_text",
-              "content": "{{ CardNoteTail.LogoAltStr }}"
-            }
-          }
-        ]
-      }
-    ]
-  }
-}`
 
 func renderFeishuCardFromPlugin(p *FeishuPlugin) (string, error) {
 	renderPlugin, errFormat := formatRenderPluginData(*p)
@@ -109,10 +57,21 @@ func renderFeishuCardFromPlugin(p *FeishuPlugin) (string, error) {
 	}
 	renderRoot.CardNoteTail = cardNoteTail
 
+	tplFeishuCardHead, errTplFeishuCardHead := resource.FetchFeishuCardTemplateTplByName(resource.ItemFeishuCardTemplateHeadTpl, p.Settings.I18nLangSet)
+	if errTplFeishuCardHead != nil {
+		return "", errTplFeishuCardHead
+	}
+
 	headContent, errRenderRootHead := wd_template.Render(tplFeishuCardHead, &renderRoot)
 	if errRenderRootHead != nil {
 		return "", errRenderRootHead
 	}
+
+	tplFeishuCardTail, errTplFeishuCardTail := resource.FetchFeishuCardTemplateTplByName(resource.ItemFeishuCardTemplateTailTpl, p.Settings.I18nLangSet)
+	if errTplFeishuCardTail != nil {
+		return "", errTplFeishuCardTail
+	}
+
 	tailContent, errRenderRootTail := wd_template.Render(tplFeishuCardTail, &renderRoot)
 	if errRenderRootTail != nil {
 		return "", errRenderRootTail
@@ -238,7 +197,7 @@ func parserCardElementNoticeList(f *FeishuPlugin) ([]string, string, error) {
 				if !f.innerData.renderOssCardFileBrowser.CardOssFB.IsSendSuccess {
 					buildStatus = wd_info.BuildStatusFailure
 				}
-				cardFileBrowserContent, errRenderOssCardFileBrowser := renderOssCardFileBrowser(f.innerData.renderOssCardFileBrowser)
+				cardFileBrowserContent, errRenderOssCardFileBrowser := renderOssCardFileBrowser(f.innerData.renderOssCardFileBrowser, f.Settings.I18nLangSet)
 				if errRenderOssCardFileBrowser != nil {
 					return noticeList, buildStatus, errRenderOssCardFileBrowser
 				}
