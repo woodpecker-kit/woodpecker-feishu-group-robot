@@ -10,7 +10,7 @@
       "template": "red",
       "title": {
         "tag": "plain_text",
-        "content": "[Failure] woodpecker-kit/guidance-woodpecker-agent"
+        "content": "[Failure] woodpecker-kit/guidance-woodpecker-agent ➜ build"
       }
     },
     "elements": [
@@ -27,7 +27,7 @@
       },
       {
         "tag": "markdown",
-        "content": "❌ Build [#10](https://woodpecker.domain.com/repos/2/pipeline/10) failure"
+        "content": "❌ Build [#10](https://woodpecker.domain.com/repos/2/pipeline/10) failure\nWorkflow Name: build"
       },
       {
         "tag": "markdown",

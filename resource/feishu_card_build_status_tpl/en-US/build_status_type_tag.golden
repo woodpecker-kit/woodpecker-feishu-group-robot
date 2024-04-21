@@ -4,7 +4,7 @@
       },
       {
         "tag": "markdown",
-        "content": "{{#success Build.Status }}✅{{/success}}{{#failure Build.Status }}❌{{/failure}} Build [#{{ Build.Number }}]({{ Build.LinkCi }}) {{ Build.Status }}"
+        "content": "{{#success Build.Status }}✅{{/success}}{{#failure Build.Status }}❌{{/failure}} Build [#{{ Build.Number }}]({{ Build.LinkCi }}) {{ Build.Status }}\nWorkflow Name: {{ CurrentWorkflow.Name }}"
       },
       {
         "tag": "markdown",

@@ -155,6 +155,10 @@ func parserFeishuCardHeader(p FeishuPlugin, status string) (FeishuCardHeader, er
 		}
 	}
 
+	if shortInfo.CurrentWorkflow.Name != "" {
+		headerTitle = fmt.Sprintf("%s ➜ %s", headerTitle, shortInfo.CurrentWorkflow.Name)
+	}
+
 	feishuCardHeader.HeadTemplateStyle = headStyle
 	feishuCardHeader.HeaderTitle = headerTitle
 
