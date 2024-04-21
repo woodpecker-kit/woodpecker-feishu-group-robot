@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.5.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.4.0...v1.5.0) (2024-04-21)
+
+### ✨ Features
+
+* add template to show `CI_WORKFLOW_NAME` update template ([59ca19f1](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/59ca19f1941105b8b2d2ddeb143290e343ad35b2)), feat [#9](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/issues/9)
+
+### 👷‍ Build System
+
+* github.com/woodpecker-kit/woodpecker-tools v1.20.0 ([66bb4e50](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/66bb4e504dbea13ff6a68e923a5132a55f56016d))
+
 ## [1.4.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.3.0...v1.4.0) (2024-04-19)
 
 ### ✨ Features
