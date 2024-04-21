@@ -10,7 +10,7 @@
       "template": "red",
       "title": {
         "tag": "plain_text",
-        "content": "[Failure] woodpecker-kit/guidance-woodpecker-agent"
+        "content": "[Failure] woodpecker-kit/guidance-woodpecker-agent ➜ build"
       }
     },
     "elements": [

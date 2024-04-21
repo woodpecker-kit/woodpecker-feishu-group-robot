@@ -10,7 +10,7 @@
       "template": "green",
       "title": {
         "tag": "plain_text",
-        "content": "woodpecker-kit/guidance-woodpecker-agent"
+        "content": "woodpecker-kit/guidance-woodpecker-agent ➜ build"
       }
     },
     "elements": [

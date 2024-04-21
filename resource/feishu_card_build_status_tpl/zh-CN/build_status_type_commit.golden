@@ -4,7 +4,7 @@
       },
       {
         "tag": "markdown",
-        "content": "{{#success Build.Status }}✅{{/success}}{{#failure Build.Status }}❌{{/failure}} 构建编号 [#{{ Build.Number }}]({{ Build.LinkCi }}) {{ Build.Status }}"
+        "content": "{{#success Build.Status }}✅{{/success}}{{#failure Build.Status }}❌{{/failure}} 构建编号 [#{{ Build.Number }}]({{ Build.LinkCi }}) {{ Build.Status }}\n工作流名称: {{ CurrentWorkflow.Name }}"
       },
       {
         "tag": "markdown",
