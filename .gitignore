@@ -80,7 +80,7 @@ _testmain.go
 .idea/gradle.xml
 .idea/libraries
 
-# Mongo Explorer feishu_plugin:
+# Mongo Explorer plugin:
 .idea/mongoSettings.xml
 
 ## File-based project format:
@@ -91,19 +91,19 @@ _testmain.go
 # IntelliJ
 /out/
 
-# mpeltonen/sbt-idea feishu_plugin
+# mpeltonen/sbt-idea plugin
 .idea_modules/
 
-# JIRA feishu_plugin
+# JIRA plugin
 atlassian-ide-plugin.xml
 
-# Crashlytics feishu_plugin (for Android Studio and IntelliJ)
+# Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-# Created by .ignore support feishu_plugin (hsz.mobi)
+# Created by .ignore support plugin (hsz.mobi)
 ### Linux template
 *~
 
