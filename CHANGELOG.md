@@ -2,6 +2,54 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.6.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.5.0...v1.6.0) (2024-12-21)
+
+### ✨ Features
+
+* update Go version to 1.21 ([22dfb0cb](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/22dfb0cb25c0836044695cf7d82c737755cb14d7)), re [#28](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/issues/28)
+
+* update dockerx bake build pipline ([563c44ee](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/563c44ee0486578e4a4508478430006cdd8320b1)), feat [#14](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/issues/14)
+
+### 📝 Documentation
+
+* update README and CHANGELOG file mod ([c6155b26](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/c6155b26675cec825a4f152619b43ad462f255c0))
+
+* update contributing guidelines and code of conduct ([0137035c](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/0137035c7329d5ebd7448693c4dcfdd32f8fc964))
+
+### 👷‍ Build System
+
+* bump github.com/woodpecker-kit/woodpecker-tools ([55d83349](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/55d83349fc4f098d9ded1275710c893f05d61a38))
+
+* update GitHub release action to v2 ([738fc5f3](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/738fc5f3c2d03270d43e1bfcfac5591ec0b8a2b2))
+
+* bump github.com/stretchr/testify from 1.9.0 to 1.10.0 ([e11a41b8](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/e11a41b888daf23110219297340a0c09cded34ff))
+
+* bump github.com/Masterminds/semver/v3 from 3.3.0 to 3.3.1 ([51d34112](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/51d34112fead3e5176ef8ceca7fcb43ab426ff7d))
+
+* bump github.com/urfave/cli/v2 from 2.27.4 to 2.27.5 ([217bfe17](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/217bfe17f02138a0a6f773661b2a8798e39f4ad0))
+
+* bump github.com/sinlov-go/unittest-kit from 1.1.1 to 1.2.1 ([6d2bd892](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/6d2bd89277cbdd38d92a308000d329d48337acbb))
+
+* bump github.com/Masterminds/semver/v3 from 3.2.1 to 3.3.0 ([b55b79a0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/b55b79a078375bb4dde9bd465e4657d7c4c7af67))
+
+* bump github.com/sinlov-go/go-common-lib from 1.7.0 to 1.7.1 ([4d4117b8](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/4d4117b87a89b0f7c05d4dd48a97b0790c872f65))
+
+* bump github.com/urfave/cli/v2 from 2.27.3 to 2.27.4 ([ebde9f57](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/ebde9f57465d4c9098710da9994096e5bca85224))
+
+* bump github.com/sebdah/goldie/v2 from 2.5.3 to 2.5.5 ([e87a77d6](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/e87a77d64e3f2e2d39896db2a2559fbf56dd9148))
+
+* bump github.com/urfave/cli/v2 from 2.27.2 to 2.27.3 ([92e7efaa](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/92e7efaa8118b9c17cd54dcb23b6933b12596069))
+
+* bump docker/bake-action from 4 to 5 ([fc0cc101](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/fc0cc101dd7f6c75a99f637f04600f4207a7bb51))
+
+* bump golangci/golangci-lint-action from 5 to 6 ([9ccedea1](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/9ccedea131b1de159b22de26d88757e3dc508201))
+
+* bump convention-change/conventional-version-check ([bf6b4258](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/bf6b425803d87c7cfce17177e351b1606f4d183a))
+
+* bump golangci/golangci-lint-action from 4 to 5 ([e8cca817](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/e8cca817ebae7703022555a161967ce60469cbac))
+
+* bump github.com/urfave/cli/v2 from 2.27.1 to 2.27.2 ([8b3030f3](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/8b3030f31eea4041273add8a21d49c8b40b34916))
+
 ## [1.5.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.4.0...v1.5.0) (2024-04-21)
 
 ### ✨ Features
