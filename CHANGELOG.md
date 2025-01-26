@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.6.1](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.6.0...v1.6.1) (2025-01-27)
+
+### 👷‍ Build System
+
+* bump github.com/woodpecker-kit/woodpecker-tools ([f55295f9](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/f55295f999e45ef4e28a18ea60a855a87a50d8c8))
+
 ## [1.6.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.5.0...v1.6.0) (2024-12-21)
 
 ### ✨ Features
