@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.7.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.6.1...v1.7.0) (2025-02-06)
+
+### ✨ Features
+
+* update docker bake action to v6 and add build timeout ([7782d4c4](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/7782d4c44cab8b274dd8d83c7496f1a95a452c00)), feat [#34](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/issues/34)
+
+### 👷‍ Build System
+
+* bump github.com/woodpecker-kit/woodpecker-tools ([dd39538f](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/dd39538f0db65ecd84b884d34c721a11f5640274))
+
 ## [1.6.1](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.6.0...v1.6.1) (2025-01-27)
 
 ### 👷‍ Build System
