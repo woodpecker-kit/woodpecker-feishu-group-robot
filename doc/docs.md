@@ -145,6 +145,35 @@ steps:
         - success
 ```
 
+### force notice failure
+
+```yaml
+labels: # https://woodpecker-ci.org/docs/usage/workflow-syntax#labels
+  platform: linux/amd64
+  backend: docker
+
+steps:
+  notification-feishu-failure:
+    image: sinlov/woodpecker-feishu-group-robot:latest
+    pull: false
+    settings:
+      # debug: true # plugin debug switch
+      # force status (1.8+). If empty will use woodpecker ci pipeline status, only support [success failure]
+      force-status: "failure"
+      feishu-webhook:
+        # https://woodpecker-ci.org/docs/usage/secrets
+        from_secret: feishu_group_bot_token
+      feishu-secret:
+        from_secret: feishu_group_secret_bot
+      feishu-msg-i18n-lang: en-US # support: en-US, zh-CN more support see --help (v1.4.+)
+      feishu-msg-title: "CI Notification" # default [CI Notification]
+      # let notification card change more info see https://open.feishu.cn/document/ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN
+      feishu-enable-forward: true
+    when:
+      status: # only support failure/success, both open will send anything
+        - failure
+```
+
 ### steps transfer
 
 - The response needs to enable support for the type corresponding to `settings.feishu-notice-types`
