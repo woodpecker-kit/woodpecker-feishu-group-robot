@@ -14,10 +14,11 @@ woodpecker-feishu-group-robot
 ## Features
 
 - [x] simple to set up and easy to use
-- [x] Supports ignoring build success notifications in the same steps and comparing notifications after the last build failure.
+- [x] Supports ignoring build success notifications in the same steps and comparing notifications after the last build
+  failure.
 - [x] internationalization support: en-US, zh-CN more support see --help (v1.4.+)
 - [x] docker platform support
-  - linux/amd64 linux/386 linux/arm64/v8 linux/arm/v7 linux/ppc64le linux/s390x (v1.4.+)
+    - linux/amd64 linux/386 linux/arm64/v8 linux/arm/v7 linux/ppc64le linux/s390x (v1.4.+)
 
 ## before use
 
@@ -35,6 +36,7 @@ woodpecker-feishu-group-robot
 | Name                           | Required | Default value     | Description                                                                                                       |
 |--------------------------------|----------|-------------------|-------------------------------------------------------------------------------------------------------------------|
 | `debug`                        | **no**   | *false*           | open debug log or open by env `PLUGIN_DEBUG`                                                                      |
+| `force-status`                 | **no**   | *""*              | force status (1.8+). If empty will use woodpecker ci pipeline status, only support `[success failure]`            |
 | `feishu-enable-debug-notice`   | **no**   | *false*           | when debug open, will not send message, must enable it to notice under debug open                                 |
 | `feishu-webhook`               | **yes**  | *none*            | feishu group robot webhook, end of feishu robot `https://open.feishu.cn/open-apis/bot/v2/hook/{web_hook}`         |
 | `feishu-secret`                | **yes**  | *none*            | feishu robot secret, just `signature verification`, empty will not open.                                          |
@@ -78,6 +80,8 @@ steps:
     pull: false
     settings:
       # debug: true # plugin debug switch
+      ## force status (1.8+). If empty will use woodpecker ci pipeline status, only support [success failure]
+      # force-status: "failure"
       # feishu-enable-debug-notice: true when debug open, will not send message, must enable it to notice under debug open
       # feishu-ntp-target: "pool.ntp.org" # if not set will not sync ntp time
       feishu-webhook:
@@ -120,6 +124,8 @@ steps:
     image: woodpecker-feishu-group-robot
     settings:
       # debug: true # plugin debug switch
+      ## force status (1.8+). If empty will use woodpecker ci pipeline status, only support [success failure]
+      # force-status: "failure"
       # feishu-enable-debug-notice: true when debug open, will not send message, must enable it to notice under debug open
       # feishu-ntp-target: "pool.ntp.org" # if not set will not sync ntp time
       feishu-webhook:

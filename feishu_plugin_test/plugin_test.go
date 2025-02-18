@@ -18,6 +18,14 @@ func TestCheckArgsPlugin(t *testing.T) {
 	successArgsSettings := mockPluginSettings()
 	successArgsSettings.Webhook = "some webhook"
 
+	// forceStatusFailure
+	forceStatusFailureWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
+	)
+	forceStatusFailureSettings := mockPluginSettings()
+	forceStatusFailureSettings.Webhook = "some webhook"
+	forceStatusFailureSettings.ForceStatus = wd_info.BuildStatusFailure
+
 	// emptyWebhook
 	emptyWebhookWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
 		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
@@ -46,6 +54,12 @@ func TestCheckArgsPlugin(t *testing.T) {
 			name:              "successArgs",
 			woodpeckerInfo:    successArgsWoodpeckerInfo,
 			settings:          successArgsSettings,
+			wantArgFlagNotErr: true,
+		},
+		{
+			name:              "forceStatusFailure",
+			woodpeckerInfo:    forceStatusFailureWoodpeckerInfo,
+			settings:          forceStatusFailureSettings,
 			wantArgFlagNotErr: true,
 		},
 		{

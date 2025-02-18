@@ -18,6 +18,8 @@ type (
 		RootPath          string
 		DryRun            bool
 
+		ForceStatus string
+
 		NtpTarget string
 
 		Webhook             string
