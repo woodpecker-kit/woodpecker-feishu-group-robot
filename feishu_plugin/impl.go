@@ -98,6 +98,16 @@ func (p *FeishuPlugin) checkArgs() error {
 		return fmt.Errorf("missing feishu webhook, please set feishu webhook")
 	}
 
+	if p.Settings.ForceStatus != "" { // check force status when not empty
+		if !string_tools.StringInArr(p.Settings.ForceStatus, supportRenderStatus) {
+			return fmt.Errorf("settings [ feishu-force-status ], now is: %s , only support %v", p.Settings.ForceStatus, supportRenderStatus)
+		}
+
+		// change status by force status
+		p.woodpeckerInfo.CurrentInfo.CurrentPipelineInfo.CiPipelineStatus = p.Settings.ForceStatus
+		p.wdShortInfo.Build.Status = p.Settings.ForceStatus
+	}
+
 	// set default MsgType
 	if p.Settings.MsgType == "" {
 		p.Settings.MsgType = MsgTypeInteractive

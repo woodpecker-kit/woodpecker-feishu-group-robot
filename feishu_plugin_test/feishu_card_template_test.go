@@ -36,6 +36,13 @@ func doTestRenderFeishuCardByi18n(t *testing.T, lang string) {
 	)
 	sampleFailRenderSettings := mockPluginSettings()
 
+	// sampleRenderWithForceStatus
+	sampleRenderWithForceStatusWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
+	)
+	sampleRenderWithForceStatusSettings := mockPluginSettings()
+	sampleRenderWithForceStatusSettings.ForceStatus = wd_info.BuildStatusFailure
+
 	// sampleRenderWithMessage
 	sampleRenderWithMessageWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
 		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
@@ -83,6 +90,11 @@ func doTestRenderFeishuCardByi18n(t *testing.T, lang string) {
 			name:           fmt.Sprintf("sample_fail%s", appendTestcase),
 			woodpeckerInfo: sampleFailRenderWoodpeckerInfo,
 			settings:       sampleFailRenderSettings,
+		},
+		{
+			name:           fmt.Sprintf("sample_with_force_status%s", appendTestcase),
+			woodpeckerInfo: sampleRenderWithForceStatusWoodpeckerInfo,
+			settings:       sampleRenderWithForceStatusSettings,
 		},
 		{
 			name:           fmt.Sprintf("sample_with_message%s", appendTestcase),

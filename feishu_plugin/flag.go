@@ -12,6 +12,9 @@ import (
 )
 
 const (
+	CliPluginForceStatus = "settings.force-status"
+	EnvPluginForceStatus = "PLUGIN_FORCE_STATUS"
+
 	// CliPluginFeishuNoticeTypes
 	// feishu_notice_types
 	CliPluginFeishuNoticeTypes = "settings.feishu-notice-types"
@@ -58,7 +61,13 @@ const (
 // Other modules also have flags
 func GlobalFlag() []cli.Flag {
 	return []cli.Flag{
-		// new flag string template if no use, please replace this
+		&cli.StringFlag{
+			Name:    CliPluginForceStatus,
+			Usage:   fmt.Sprintf("force status (v1.8+). If empty will use woodpecker ci pipeline status, only support %v", supportRenderStatus),
+			Value:   "",
+			EnvVars: []string{EnvPluginForceStatus},
+		},
+
 		&cli.StringFlag{
 			Name:    CliPluginNtpTarget,
 			Usage:   "ntp target for sync time like: pool.ntp.org, default not use ntpd to sync",
@@ -160,6 +169,8 @@ func BindCliFlags(c *cli.Context,
 		StepsTransferPath: stepsTransferPath,
 		StepsOutDisable:   stepsOutDisable,
 		RootPath:          rootPath,
+
+		ForceStatus: c.String(CliPluginForceStatus),
 
 		NtpTarget:           c.String(CliPluginNtpTarget),
 		Webhook:             c.String(CliPluginWebhook),
