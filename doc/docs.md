@@ -155,7 +155,7 @@ labels: # https://woodpecker-ci.org/docs/usage/workflow-syntax#labels
 steps:
   notification-feishu-failure:
     image: sinlov/woodpecker-feishu-group-robot:latest
-    pull: false
+    pull: true
     settings:
       # debug: true # plugin debug switch
       # force status (1.8+). If empty will use woodpecker ci pipeline status, only support [success failure]
