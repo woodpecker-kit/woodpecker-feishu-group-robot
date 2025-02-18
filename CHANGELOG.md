@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.8.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.7.0...v1.8.0) (2025-02-19)
+
+### ✨ Features
+
+* add force status option for change Feishu notifications ([4506cdf3](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/4506cdf35830593c96b01d07b994c0cef6a20adf)), feat [#36](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/issues/36)
+
+### 📝 Documentation
+
+* update workflow and improve documentation for `force-status` ([98f5772a](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/98f5772a42dceba407dabfedfbff5d265c35bf4b))
+
+* enable Docker image pull for Feishu notification plugin at doc ([7cd7cee4](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/7cd7cee46e155ab536a23a896303c0e55fb7c21b))
+
+* add example for forcing notice failure ([d73cc50b](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/d73cc50b8a9382cb709a0ae32985be0aae2364ec))
+
 ## [1.7.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.6.1...v1.7.0) (2025-02-06)
 
 ### ✨ Features
