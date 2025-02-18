@@ -34,6 +34,7 @@ Please read [Contributor Guide](.github/CONTRIBUTING_DOC/CONTRIBUTING.md) for mo
 - [x] internationalization support: en-US, zh-CN more support see --help (v1.4.+)
 - [x] docker platform support
   - linux/amd64 linux/386 linux/arm64/v8 linux/arm/v7 linux/ppc64le linux/s390x (v1.4.+)
+- [x] `force-status` to change status for show card (v1.8+)
 - [ ] more perfect test case coverage
 - [ ] more perfect benchmark case
 

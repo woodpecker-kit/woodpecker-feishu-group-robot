@@ -36,7 +36,7 @@ woodpecker-feishu-group-robot
 | Name                           | Required | Default value     | Description                                                                                                       |
 |--------------------------------|----------|-------------------|-------------------------------------------------------------------------------------------------------------------|
 | `debug`                        | **no**   | *false*           | open debug log or open by env `PLUGIN_DEBUG`                                                                      |
-| `force-status`                 | **no**   | *""*              | force status (1.8+). If empty will use woodpecker ci pipeline status, only support `[success failure]`            |
+| `force-status`                 | **no**   | *""*              | force status (v1.8+). If empty will use woodpecker ci pipeline status, only support `[success failure]`           |
 | `feishu-enable-debug-notice`   | **no**   | *false*           | when debug open, will not send message, must enable it to notice under debug open                                 |
 | `feishu-webhook`               | **yes**  | *none*            | feishu group robot webhook, end of feishu robot `https://open.feishu.cn/open-apis/bot/v2/hook/{web_hook}`         |
 | `feishu-secret`                | **yes**  | *none*            | feishu robot secret, just `signature verification`, empty will not open.                                          |
@@ -80,7 +80,7 @@ steps:
     pull: false
     settings:
       # debug: true # plugin debug switch
-      ## force status (1.8+). If empty will use woodpecker ci pipeline status, only support [success failure]
+      ## force status (v1.8+). If empty will use woodpecker ci pipeline status, only support [success failure]
       # force-status: "failure"
       # feishu-enable-debug-notice: true when debug open, will not send message, must enable it to notice under debug open
       # feishu-ntp-target: "pool.ntp.org" # if not set will not sync ntp time
@@ -124,7 +124,7 @@ steps:
     image: woodpecker-feishu-group-robot
     settings:
       # debug: true # plugin debug switch
-      ## force status (1.8+). If empty will use woodpecker ci pipeline status, only support [success failure]
+      ## force status (v1.8+). If empty will use woodpecker ci pipeline status, only support [success failure]
       # force-status: "failure"
       # feishu-enable-debug-notice: true when debug open, will not send message, must enable it to notice under debug open
       # feishu-ntp-target: "pool.ntp.org" # if not set will not sync ntp time
@@ -158,7 +158,7 @@ steps:
     pull: true
     settings:
       # debug: true # plugin debug switch
-      # force status (1.8+). If empty will use woodpecker ci pipeline status, only support [success failure]
+      # force status (v1.8+). If empty will use woodpecker ci pipeline status, only support [success failure]
       force-status: "failure"
       feishu-webhook:
         # https://woodpecker-ci.org/docs/usage/secrets

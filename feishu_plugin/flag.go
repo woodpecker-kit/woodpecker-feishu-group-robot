@@ -63,7 +63,7 @@ func GlobalFlag() []cli.Flag {
 	return []cli.Flag{
 		&cli.StringFlag{
 			Name:    CliPluginForceStatus,
-			Usage:   fmt.Sprintf("force status (1.8+). If empty will use woodpecker ci pipeline status, only support %v", supportRenderStatus),
+			Usage:   fmt.Sprintf("force status (v1.8+). If empty will use woodpecker ci pipeline status, only support %v", supportRenderStatus),
 			Value:   "",
 			EnvVars: []string{EnvPluginForceStatus},
 		},
