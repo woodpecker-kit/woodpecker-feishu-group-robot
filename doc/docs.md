@@ -192,7 +192,7 @@ steps:
 labels:
   backend: docker
 steps:
-  woodpecker-file-browser-upload:
+  woodpecker-fb-upload:
     image: sinlov/woodpecker-file-browser-upload:latest
     pull: false
     settings:
@@ -213,7 +213,7 @@ steps:
     image: sinlov/woodpecker-feishu-group-robot:latest
     pull: false
     depends_on:
-      - woodpecker-file-browser-upload # must depend on woodpecker-file-browser-upload plugin
+      - woodpecker-fb-upload # must depend on woodpecker-file-browser-upload plugin
     settings:
       feishu-webhook:
         # https://woodpecker-ci.org/docs/usage/secrets
