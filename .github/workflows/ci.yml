@@ -10,7 +10,7 @@ on:
       # - 'main'
       - 'release-*'
       - 'FE-*'
-      - '*-feature-*'
+      - '*-feature*'
       - 'BF-*'
       - '*-bug-*'
       - 'PU-*'

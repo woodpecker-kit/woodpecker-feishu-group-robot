@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/sinlov-go/unittest-kit/env_kit"
 	"github.com/sinlov-go/unittest-kit/unittest_file_kit"
-	woodpecker_feishu_group_robot "github.com/woodpecker-kit/woodpecker-feishu-group-robot"
+	woodpeckerfeishugrouprobot "github.com/woodpecker-kit/woodpecker-feishu-group-robot"
 	"github.com/woodpecker-kit/woodpecker-feishu-group-robot/feishu_plugin"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_flag"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
@@ -77,7 +77,7 @@ func init() {
 	testGoldenKit = unittest_file_kit.NewTestGoldenKit(testBaseFolderPath)
 
 	wd_template.RegisterSettings(wd_template.DefaultHelpers)
-	_ = woodpecker_feishu_group_robot.CheckAllResource(testGoldenKit.GetTestBaseFolderFullPath())
+	_ = woodpeckerfeishugrouprobot.CheckAllResource(testGoldenKit.GetTestBaseFolderFullPath())
 
 	valEnvPluginWebHook = env_kit.FetchOsEnvStr(feishu_plugin.EnvPluginWebhook, "")
 	valEnvPluginSecret = env_kit.FetchOsEnvStr(feishu_plugin.EnvPluginSecret, "")
