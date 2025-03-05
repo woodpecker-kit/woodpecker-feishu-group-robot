@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.9.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.8.0...v1.9.0) (2025-03-06)
+
+### BREAKING CHANGE:
+
+* remove env `CI_STEP_STATUS` `CI_PIPELINE_STATUS` `CI_STEP_FINISHED` `CI_COMMIT_URL`
+
+### ✨ Features
+
+* Deprecated ci environment variable CI_COMMIT_URL ([82ba73e5](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/82ba73e51e90308224fcc4df58ccb4611b0d6d74)), feat [#38](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/issues/38)
+
+### 📝 Documentation
+
+* update features and breaking changes ([7fc7b2ae](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/7fc7b2ae866ded383021047a0b8b1d0b8b09f683))
+
+* add share link and notification features ([64443e3b](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/64443e3b5505e17e418c86accab2fbaafa981fea))
+
+* update plugin name in documentation ([958e6ddf](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/958e6ddf54dc7c9e5bfb68cc504b40073d97f2a2))
+
+### 👷‍ Build System
+
+* update woodpecker-tools and adjust PR branch patterns ([291cdeae](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/commit/291cdeae6a6f1614c3b21fa4aa24f444ea49f4bd))
+
 ## [1.8.0](https://github.com/woodpecker-kit/woodpecker-feishu-group-robot/compare/1.7.0...v1.8.0) (2025-02-19)
 
 ### ✨ Features
