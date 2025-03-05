@@ -208,8 +208,12 @@ steps:
       file-browser-file-glob: # must set args, globs list of send to file_browser under file-browser-target-dist-root-path
         - "**/*.tar.gz"
         - "**/*.sha256"
+      file-browser-share-link-enable: true # share dist dir as link, default: false
+      file-browser-share-link-expire: 7 # if set 0, will allow share_link exist forever，default: 0
+      file-browser-share-link-unit: days # take effect by open share_link, only can use as [ days hours minutes seconds ]
+      file-browser-share-auto-password-enable: true # password of share_link auto, if open this will cover settings.file-browser-share-link-passwd. default: false
 
-  notification-feishu-group-robot:
+  notification-feishu-fb-upload:
     image: sinlov/woodpecker-feishu-group-robot:latest
     pull: false
     depends_on:
