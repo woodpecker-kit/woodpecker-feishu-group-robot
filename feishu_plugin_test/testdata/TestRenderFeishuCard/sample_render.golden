@@ -35,7 +35,7 @@
       },
       {
         "tag": "markdown",
-        "content": "[See Git Link](https://gitea.domain.com/sinlov/woodpecker-tools/commit/9c764dd487bce596c5c0402478fabde5f0344983) | [See Build Details](https://woodpecker.domain.com/repos/2/pipeline/10)"
+        "content": "[See Git Link](https://gitea.domain.com/woodpecker-kit/guidance-woodpecker-agent/commit/9c764dd487bce596c5c0402478fabde5f0344983) | [See Build Details](https://woodpecker.domain.com/repos/2/pipeline/10)"
       },
       {
         "tag": "hr"

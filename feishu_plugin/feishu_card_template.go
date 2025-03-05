@@ -233,9 +233,9 @@ func formatRenderPluginData(f FeishuPlugin) (FeishuPlugin, error) {
 		return p, errFeishuPluginMember2LineRaw
 	}
 
-	if woodPeckerInfo.CurrentInfo.CurrentCommitInfo.CiCommitUrl != "" {
-		woodPeckerInfo.CurrentInfo.CurrentCommitInfo.CiCommitUrl = strings.Replace(
-			woodPeckerInfo.CurrentInfo.CurrentCommitInfo.CiCommitUrl,
+	if woodPeckerInfo.CurrentInfo.CurrentPipelineInfo.CiPipelineForgeUrl != "" {
+		woodPeckerInfo.CurrentInfo.CurrentPipelineInfo.CiPipelineForgeUrl = strings.Replace(
+			woodPeckerInfo.CurrentInfo.CurrentPipelineInfo.CiPipelineForgeUrl,
 			"compare/0000000000000000000000000000000000000000...", "commit/", -1,
 		)
 	}
