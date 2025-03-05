@@ -30,11 +30,14 @@ Please read [Contributor Guide](.github/CONTRIBUTING_DOC/CONTRIBUTING.md) for mo
 ## Features
 
 - [x] simple to set up and easy to use
-- [x] Supports ignoring build success notifications in the same steps and comparing notifications after the last build failure.
+- [x] Supports ignoring build success notifications in the same steps and comparing notifications after the last build
+  failure.
 - [x] internationalization support: en-US, zh-CN more support see --help (v1.4.+)
 - [x] docker platform support
-  - linux/amd64 linux/386 linux/arm64/v8 linux/arm/v7 linux/ppc64le linux/s390x (v1.4.+)
+    - linux/amd64 linux/386 linux/arm64/v8 linux/arm/v7 linux/ppc64le linux/s390x (v1.4.+)
 - [x] `force-status` to change status for show card (v1.8+)
+- [x] Deprecated ci environment variable CI_COMMIT_URL for support woodpecker 3.0(v1.9.+)
+    - BREAKING-CHANGE: remove env `CI_STEP_STATUS` `CI_PIPELINE_STATUS` `CI_STEP_FINISHED` `CI_COMMIT_URL`
 - [ ] more perfect test case coverage
 - [ ] more perfect benchmark case
 
@@ -44,12 +47,13 @@ Please read [Contributor Guide](.github/CONTRIBUTING_DOC/CONTRIBUTING.md) for mo
 
 ## before use
 
-- sed doc at [feishu Custom bot guide](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN?lang=en-US), to new group robot
+- sed doc at [feishu Custom bot guide](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN?lang=en-US), to
+  new group robot
 - Configure webhook like `https://open.feishu.cn/open-apis/bot/v2/hook/{web_hook}` end `{web_hook}`
-  - `{web_hook}` must settings at `settings.feishu-webhook`or `PLUGIN_FEISHU_WEBHOOK`
+    - `{web_hook}` must settings at `settings.feishu-webhook`or `PLUGIN_FEISHU_WEBHOOK`
 - Feishu security settings
-  - if set `Custom keywords` you can change `settings.feishu-msg-title` or `PLUGIN_FEISHU_MSG_TITLE`
-  - fi set `Signature validation` by `settings.feishu-secret` or `PLUGIN_FEISHU_SECRET`
+    - if set `Custom keywords` you can change `settings.feishu-msg-title` or `PLUGIN_FEISHU_MSG_TITLE`
+    - fi set `Signature validation` by `settings.feishu-secret` or `PLUGIN_FEISHU_SECRET`
 - just add `.woodpecker_kit.steps.transfer` at git ignore
 
 ## dev

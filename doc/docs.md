@@ -18,7 +18,10 @@ woodpecker-feishu-group-robot
   failure.
 - [x] internationalization support: en-US, zh-CN more support see --help (v1.4.+)
 - [x] docker platform support
-    - linux/amd64 linux/386 linux/arm64/v8 linux/arm/v7 linux/ppc64le linux/s390x (v1.4.+)
+  - linux/amd64 linux/386 linux/arm64/v8 linux/arm/v7 linux/ppc64le linux/s390x (v1.4.+)
+- [x] `force-status` to change status for show card (v1.8+)
+- [x] Deprecated ci environment variable CI_COMMIT_URL for support woodpecker 3.0(v1.9.+)
+  - BREAKING-CHANGE: remove env `CI_STEP_STATUS` `CI_PIPELINE_STATUS` `CI_STEP_FINISHED` `CI_COMMIT_URL`
 
 ## before use
 
